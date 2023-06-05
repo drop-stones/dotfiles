@@ -1,0 +1,44 @@
+{{ if eq .chezmoi.os "windows" }}
+["AppData/Local/nvim"]
+{{ else }}
+[".config/nvim"]
+{{ end }}
+  type = "git-repo"
+  url = "https://github.com/AstroNvim/AstroNvim"
+  refreshPeriod = "168h"
+
+{{ if eq .chezmoi.os "windows" }}
+["AppData/Local/nvim/lua/user"]
+{{ else }}
+[".config/nvim/lua/user"]
+{{ end }}
+  type = "git-repo"
+  url = "https://github.com/drop-stones/astronvim_config.git"
+  refreshPeriod = "168h"
+
+{{ if ne .chezmoi.os "windows" }}
+[".oh-my-zsh"]
+  type = "archive"
+  url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
+  exact = true
+  stripComponents = 1
+  refreshPeriod = "168h"
+[".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
+  type = "archive"
+  url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/master.tar.gz"
+  exact = true
+  stripComponents = 1
+  refreshPeriod = "168h"
+[".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
+  type = "archive"
+  url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
+  exact = true
+  stripComponents = 1
+  refreshPeriod = "168h"
+[".oh-my-zsh/custom/plugins/zsh-autocomplete"]
+  type = "archive"
+  url = "https://github.com/marlonrichert/zsh-autocomplete/archive/master.tar.gz"
+  exact = true
+  stripComponents = 1
+  refreshPeriod = "168h"
+{{ end }}

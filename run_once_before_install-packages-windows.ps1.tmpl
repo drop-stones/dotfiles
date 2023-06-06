@@ -1,9 +1,4 @@
 {{ if eq .chezmoi.os "windows" }}
-# Install scoop
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-irm get.scoop.sh | iex
-scoop bucket add extras
-
 # Install git
 scoop install git
 
@@ -19,4 +14,9 @@ scoop install neovim
 
 # Shell Prompt
 scoop install starship
+
+# Languages
+scoop install python
+scoop install nodejs
+scoop install mingw
 {{ end }}

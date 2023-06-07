@@ -1,11 +1,24 @@
-{{ if eq .chezmoi.os "linux" }}
-{{    if eq .chezmoi.osRelease.id "manjaro" }}
+{{- if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
-sudo pacman -Syu pamac
+sudo pacman -Syu
+sudo pacman -S pamac-cli
 
+# Editor
 pamac install neovim
+
+# Command Prompt
 pamac install starship
+
+# Laungages
+pamac install python
 pamac install npm
-{{    end }}
-{{ end}}
+pamac install clang
+
+# Commands
+pamac install man-db
+pamac install exa
+
+# Add 'eval "$(starship init zsh)"' if not exist
+grep -qxF 'eval "$(starship init zsh)"' ~/.zshrc || echo 'eval "$(starship init zsh)"' >> ~/.zshrc
+{{- end -}}

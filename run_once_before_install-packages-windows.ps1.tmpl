@@ -19,4 +19,14 @@ scoop install starship
 scoop install python
 scoop install nodejs
 scoop install mingw
+
+# Windows apps
+scoop install powertoys
+scoop install autohotkey
+
+# Add 'Invoke-Expression (&starship init powershell)' if not exists
+If (!(Test-Path $PROFILE)) { New-Item -Path $PROFILE -Force }
+If (!(Get-Content $PROFILE | Select-String -Quiet "starship")) {
+  Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
+}
 {{ end }}

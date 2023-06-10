@@ -21,4 +21,17 @@ pamac install exa
 
 # Add 'eval "$(starship init zsh)"' if not exist
 grep -qxF 'eval "$(starship init zsh)"' ~/.zshrc || echo 'eval "$(starship init zsh)"' >> ~/.zshrc
+
+# tmux
+pamac install tmux
+
+# oh-my-tmux
+EnvPath="$HOME/EnvironmentSettings"
+OhMyTmuxPath="$EnvPath/.tmux"
+TmuxConfPath="$HOME/.config/tmux"
+mkdir -p $EnvPath
+git clone https://github.com/gpakosz/.tmux.git $OhMyTmuxPath
+mkdir -p $TmuxConfPath
+ln -s $OhMyTmuxPath/.tmux.conf $TmuxConfPath/tmux.conf
+cp $OhMyTmuxPath/.tmux.conf.local $TmuxConfPath/tmux.conf.local
 {{- end -}}

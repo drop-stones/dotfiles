@@ -29,4 +29,19 @@ If (!(Test-Path $PROFILE)) { New-Item -Path $PROFILE -Force }
 If (!(Get-Content $PROFILE | Select-String -Quiet "starship")) {
   Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
 }
+
+# zsh in msys2
+scoop install msys2
+$Msys2HomePath = "$HOME\scoop\apps\msys2\current\home\$env:username"
+If (Test-Path -Path $Msys2HomePath) {
+  $Msys2HomeDir = Get-Item "$Msys2HomePath"
+  If (!([bool]($Msys2HomeDir.Attributes -band [IO.FileAttributes]::ReparsePoint))) {
+    echo "Remove $Msys2HomePath"
+    Remove-Item -LiteralPath "$Msys2HomePath" -Force -Recurse
+  }
+}
+If (!(Test-Path -Path $Msys2HomePath)) {
+    echo "Create Symlink"
+    New-Item -ItemType SymbolicLink -Path "$Msys2HomePath" -Target "$HOME" # symbolic link ~ -> $HOME
+}
 {{ end }}

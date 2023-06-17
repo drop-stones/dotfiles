@@ -16,7 +16,6 @@
   url = "https://github.com/drop-stones/astronvim_config.git"
   refreshPeriod = "168h"
 
-{{ if ne .chezmoi.os "windows" }}
 [".oh-my-zsh"]
   type = "archive"
   url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
@@ -35,6 +34,14 @@
   exact = true
   stripComponents = 1
   refreshPeriod = "168h"
+{{ if eq .chezmoi.os "windows" }}
+[".oh-my-zsh/custom/plugins/zsh-completions"]
+  type = "archive"
+  url = "https://github.com/zsh-users/zsh-completions/archive/master.tar.gz"
+  exact = true
+  stripComponents = 1
+  refreshPeriod = "168h"
+{{ else }}
 [".oh-my-zsh/custom/plugins/zsh-autocomplete"]
   type = "archive"
   url = "https://github.com/marlonrichert/zsh-autocomplete/archive/master.tar.gz"

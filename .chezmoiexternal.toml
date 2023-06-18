@@ -49,3 +49,9 @@
   stripComponents = 1
   refreshPeriod = "168h"
 {{ end }}
+[".oh-my-zsh/custom/plugins/zsh-proxy"]
+  type = "archive"
+  url = "https://github.com/SukkaW/zsh-proxy/archive/master.tar.gz"
+  exact = true
+  stripComponents = 1
+  refreshPeriod = "168h"

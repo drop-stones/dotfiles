@@ -6,3 +6,14 @@
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias lg="lazygit"
+
+manFn() {
+  $1 --help | less;
+}
+
+# if `man` not found, alias to manFn
+man 2>/dev/null
+if [ $? -eq 127 ]; then
+  alias man=manFn
+fi

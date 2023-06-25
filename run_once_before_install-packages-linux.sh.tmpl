@@ -11,6 +11,7 @@ pamac install neovim
 pamac install starship
 
 # Astronvim requirements
+pamac install unzip
 pamac install ripgrep
 pamac install lazygit
 pamac install gdu
@@ -21,14 +22,23 @@ pamac install tree-sitter
 pamac install python
 pamac install npm
 pamac install clang
+pamac install lua
 pamac install luarocks
 pamac install lua-language-server
+pamac install go
+pamac install rust
 pamac install dotnet-sdk
 npm install -g neovim
 
 # Commands
 pamac install man-db
 pamac install exa
+pamac install fzf
+pamac install bat
+pamac install fd
+pamac install hexyl
+pamac install procs
+pamac install tldr
 
 # Add 'eval "$(starship init zsh)"' if not exist
 grep -qxF 'eval "$(starship init zsh)"' ~/.zshrc || echo 'eval "$(starship init zsh)"' >> ~/.zshrc

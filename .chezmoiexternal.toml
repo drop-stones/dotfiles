@@ -4,7 +4,7 @@
 [".config/nvim"]
 {{ end }}
   type = "git-repo"
-  url = "https://github.com/AstroNvim/AstroNvim"
+  url = "https://github.com/AstroNvim/AstroNvim.git"
   refreshPeriod = "168h"
 
 {{ if eq .chezmoi.os "windows" }}
@@ -17,41 +17,29 @@
   refreshPeriod = "168h"
 
 [".oh-my-zsh"]
-  type = "archive"
-  url = "https://github.com/ohmyzsh/ohmyzsh/archive/master.tar.gz"
-  exact = true
-  stripComponents = 1
+  type = "git-repo"
+  url = "https://github.com/ohmyzsh/ohmyzsh.git"
   refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
-  type = "archive"
-  url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/master.tar.gz"
-  exact = true
-  stripComponents = 1
+  type = "git-repo"
+  url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
   refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
-  type = "archive"
-  url = "https://github.com/zsh-users/zsh-autosuggestions/archive/master.tar.gz"
-  exact = true
-  stripComponents = 1
+  type = "git-repo"
+  url = "https://github.com/zsh-users/zsh-autosuggestions.git"
   refreshPeriod = "168h"
 {{ if eq .chezmoi.os "windows" }}
 [".oh-my-zsh/custom/plugins/zsh-completions"]
-  type = "archive"
-  url = "https://github.com/zsh-users/zsh-completions/archive/master.tar.gz"
-  exact = true
-  stripComponents = 1
+  type = "git-repo"
+  url = "https://github.com/zsh-users/zsh-completions.git"
   refreshPeriod = "168h"
 {{ else }}
 [".oh-my-zsh/custom/plugins/zsh-autocomplete"]
-  type = "archive"
-  url = "https://github.com/marlonrichert/zsh-autocomplete/archive/master.tar.gz"
-  exact = true
-  stripComponents = 1
+  type = "git-repo"
+  url = "https://github.com/marlonrichert/zsh-autocomplete.git"
   refreshPeriod = "168h"
 {{ end }}
 [".oh-my-zsh/custom/plugins/zsh-proxy"]
-  type = "archive"
-  url = "https://github.com/SukkaW/zsh-proxy/archive/master.tar.gz"
-  exact = true
-  stripComponents = 1
-  refreshPeriod = "168h"
+  type = "git-repo"
+  url = "https://github.com/SukkaW/zsh-proxy.git"
+  REFRESHPERIOD = "168h"

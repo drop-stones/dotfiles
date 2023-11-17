@@ -4,7 +4,7 @@ scoop install git
 
 # Fonts
 scoop bucket add nerd-fonts
-scoop install Hack-NF
+scoop install Hack-NF-Mono
 
 # Terminal Emulator
 scoop install windows-terminal
@@ -27,12 +27,13 @@ scoop install pwsh
 # Languages
 scoop install python
 scoop install nodejs
-scoop install mingw
 scoop install lua
 scoop install luarocks
 scoop install lua-language-server
 scoop install go
 scoop install rust
+
+scoop install mingw
 winget install Microsoft.DotNet.SDK.7
 npm install -g neovim
 
@@ -47,6 +48,11 @@ scoop install tldr
 # Windows apps
 scoop install powertoys
 scoop install autohotkey
+
+# Cygwin only
+if (Get-Command "pacman" -ErrorAction SilentlyContinue) {
+  pacman -S tmux
+}
 
 # Add 'Invoke-Expression (&starship init powershell)' if not exists
 If (!(Test-Path $PROFILE)) { New-Item -Path $PROFILE -Force }

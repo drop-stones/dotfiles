@@ -44,6 +44,7 @@ scoop install fd
 scoop install hexyl
 scoop install procs
 scoop install tldr
+scoop install zoxide
 
 # Windows apps
 scoop install powertoys
@@ -54,8 +55,12 @@ if (Get-Command "pacman" -ErrorAction SilentlyContinue) {
   pacman -S tmux
 }
 
-# Add 'Invoke-Expression (&starship init powershell)' if not exists
 If (!(Test-Path $PROFILE)) { New-Item -Path $PROFILE -Force }
+# Add 'Invoke-Expression (& { (zoxide init powershell | Out-String) })' if not exists
+If (!(Get-Content $PROFILE | Select-String -Quiet "zoxide")) {
+  Add-Content -Path $PROFILE -Value "Invoke-Expression (& { (zoxide init powershell | Out-String) })"
+}
+# Add 'Invoke-Expression (&starship init powershell)' if not exists
 If (!(Get-Content $PROFILE | Select-String -Quiet "starship")) {
   Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
 }

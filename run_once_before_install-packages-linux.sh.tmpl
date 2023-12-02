@@ -39,6 +39,10 @@ pamac install fd
 pamac install hexyl
 pamac install procs
 pamac install tldr
+pamac install zoxide
+
+# Add 'eval "$(zoxide init zsh)"' if not exist
+grep -qxF 'eval "$(zoxide init zsh)"' ~/.zshrc || echo 'eval "$(zoxide init zsh)"' >> ~/.zshrc
 
 # Add 'eval "$(starship init zsh)"' if not exist
 grep -qxF 'eval "$(starship init zsh)"' ~/.zshrc || echo 'eval "$(starship init zsh)"' >> ~/.zshrc

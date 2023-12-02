@@ -28,17 +28,10 @@
   type = "git-repo"
   url = "https://github.com/zsh-users/zsh-autosuggestions.git"
   refreshPeriod = "168h"
-{{ if eq .chezmoi.os "windows" }}
-[".oh-my-zsh/custom/plugins/zsh-completions"]
-  type = "git-repo"
-  url = "https://github.com/zsh-users/zsh-completions.git"
-  refreshPeriod = "168h"
-{{ else }}
 [".oh-my-zsh/custom/plugins/zsh-autocomplete"]
   type = "git-repo"
   url = "https://github.com/marlonrichert/zsh-autocomplete.git"
   refreshPeriod = "168h"
-{{ end }}
 [".oh-my-zsh/custom/plugins/zsh-proxy"]
   type = "git-repo"
   url = "https://github.com/SukkaW/zsh-proxy.git"

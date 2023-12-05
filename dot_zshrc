@@ -1,12 +1,16 @@
+setopt extended_glob
+
 ZSH_DIR="${HOME}/.zsh"
 
 if [ -d $ZSH_DIR ] && [ -r $ZSH_DIR ] && [ -x $ZSH_DIR ];
 then
-  for file in ${ZSH_DIR}/**/*.zsh;
+  for file in ${ZSH_DIR}/**/^alias.zsh;
   do
     [ -r $file ] && source $file
   done
 fi
+
+[ -r ${ZSH_DIR}/alias.zsh ] && source ${ZSH_DIR}/alias.zsh
 
 # Zoxide + Star Ship
 eval "$(zoxide init zsh)"

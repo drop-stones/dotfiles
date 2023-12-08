@@ -1,52 +1,56 @@
 {{- if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
+Install() {
+  pamac install --no-confirm --upgrade $1
+}
+
 sudo pacman -Syu
-sudo pacman -S pamac-cli
+sudo pacman -S --noconfirm pamac-cli
 
 # Editor
-pamac install neovim
+Install neovim
 
 # Command Prompt
-pamac install starship
+Install starship
 
 # Astronvim requirements
-pamac install bottom
-pamac install gdu
-pamac install lazygit
-pamac install ripgrep
-pamac install tree-sitter
-pamac install unzip
+Install bottom
+Install gdu
+Install lazygit
+Install ripgrep
+Install tree-sitter
+Install unzip
 
 # Laungages
-pamac install clang
-pamac install dotnet-sdk
-pamac install go
-pamac install lua
-pamac install lua-language-server
-pamac install luarocks
-pamac install npm
-pamac install python
-pamac install rust
+Install clang
+Install dotnet-sdk
+Install go
+Install lua
+Install lua-language-server
+Install luarocks
+Install npm
+Install python
+Install rust
 npm install -g neovim
 
 # Commands
-pamac install bat
-pamac install bottom
-pamac install dust
-pamac install eza
-pamac install fd
-pamac install fzf
-pamac install git-delta
-pamac install hexyl
-pamac install hyperfine
-pamac install man-db
-pamac install procs
-pamac install ripgrep
-pamac install sd
-pamac install tldr
-pamac install tokei
-pamac install zoxide
+Install bat
+Install bottom
+Install dust
+Install eza
+Install fd
+Install fzf
+Install git-delta
+Install hexyl
+Install hyperfine
+Install man-db
+Install procs
+Install ripgrep
+Install sd
+Install tldr
+Install tokei
+Install zoxide
 
 {{- if .enable.onepassword -}}
 # Password Manager
@@ -60,7 +64,7 @@ grep -qxF 'eval "$(zoxide init zsh)"' ~/.zshrc || echo 'eval "$(zoxide init zsh)
 grep -qxF 'eval "$(starship init zsh)"' ~/.zshrc || echo 'eval "$(starship init zsh)"' >> ~/.zshrc
 
 # tmux
-pamac install tmux
+Install tmux
 
 # oh-my-tmux
 EnvPath="$HOME/EnvironmentSettings"

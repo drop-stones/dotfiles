@@ -1,66 +1,75 @@
 {{ if eq .chezmoi.os "windows" }}
+function Install([string] $package)
+{
+  If ((scoop info $package | Select-String -Quiet "zoxide")) {
+    scoop install $package
+  } Else {
+    scoop update $package
+  }
+}
+
 # Install git
-scoop install git
+Install git
 
 # Fonts
 scoop bucket add nerd-fonts
-scoop install Hack-NF-Mono
+Install Hack-NF-Mono
 
 # Terminal Emulator
-scoop install windows-terminal
+Install windows-terminal
 
 # Editor
-scoop install neovim
+Install neovim
 
 # Shell Prompt
-scoop install starship
+Install starship
 
 # Astronvim requirements
-scoop install bottom
-scoop install gdu
-scoop install lazygit
-scoop install pwsh
-scoop install ripgrep
-scoop install tree-sitter
-scoop install unzip
+Install bottom
+Install gdu
+Install lazygit
+Install pwsh
+Install ripgrep
+Install tree-sitter
+Install unzip
 
 # Languages
-scoop install go
-scoop install lua
-scoop install lua-language-server
-scoop install luarocks
-scoop install nodejs
-scoop install python
-scoop install rust
+Install go
+Install lua
+Install lua-language-server
+Install luarocks
+Install nodejs
+Install python
+Install rust
 
-scoop install mingw
-winget install Microsoft.DotNet.SDK.7
+Install mingw
+winget install Microsoft.DotNet.SDK.8
 npm install -g neovim
 
 # Commands
-scoop install bat
-scoop install bottom
-scoop install delta
-scoop install dust
-scoop install eza
-scoop install fd
-scoop install fzf
-scoop install hexyl
-scoop install hyperfine
-scoop install procs
-scoop install ripgrep
-scoop install sd
-scoop install tldr
-scoop install tokei
-scoop install zoxide
+Install bat
+Install bottom
+Install delta
+Install dust
+Install eza
+Install fd
+Install fzf
+Install hexyl
+Install hyperfine
+Install procs
+Install ripgrep
+Install sd
+Install tldr
+Install tokei
+Install zoxide
 
 # Windows apps
-scoop install autohotkey
-scoop install powertoys
+Install autohotkey
+Install powertoys
 
 {{ if .enable.onepassword }}
 # Password Manager
-scoop install 1password-cli
+# Install 1password-cli
 {{ end }}
 
 # Cygwin only
@@ -79,7 +88,7 @@ If (!(Get-Content $PROFILE | Select-String -Quiet "starship")) {
 }
 
 # zsh in msys2
-scoop install msys2
+Install msys2
 $Msys2HomePath = "$HOME\scoop\apps\msys2\current\home\$env:username"
 If (Test-Path -Path $Msys2HomePath) {
   $Msys2HomeDir = Get-Item "$Msys2HomePath"

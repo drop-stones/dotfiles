@@ -48,6 +48,11 @@ pamac install tldr
 pamac install tokei
 pamac install zoxide
 
+{{- if .enable.onepassword -}}
+# Password Manager
+pamac build 1password-cli
+{{- end -}}
+
 # Add 'eval "$(zoxide init zsh)"' if not exist
 grep -qxF 'eval "$(zoxide init zsh)"' ~/.zshrc || echo 'eval "$(zoxide init zsh)"' >> ~/.zshrc
 

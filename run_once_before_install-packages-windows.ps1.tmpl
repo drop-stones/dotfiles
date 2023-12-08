@@ -58,6 +58,11 @@ scoop install zoxide
 scoop install autohotkey
 scoop install powertoys
 
+{{ if .enable.onepassword }}
+# Password Manager
+scoop install 1password-cli
+{{ end }}
+
 # Cygwin only
 if (Get-Command "pacman" -ErrorAction SilentlyContinue) {
   pacman -S tmux

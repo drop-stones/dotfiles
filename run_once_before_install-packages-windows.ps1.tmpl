@@ -1,10 +1,10 @@
 {{ if eq .chezmoi.os "windows" }}
 function Install([string] $package)
 {
-  If ((scoop info $package | Select-String -Quiet "zoxide")) {
-    scoop install $package
-  } Else {
+  If ((scoop info $package | Select-String -Quiet "Installed")) {
     scoop update $package
+  } Else {
+    scoop install $package
   }
 }
 
@@ -71,11 +71,6 @@ Install powertoys
 # Password Manager
 # Install 1password-cli
 {{ end }}
-
-# Cygwin only
-if (Get-Command "pacman" -ErrorAction SilentlyContinue) {
-  pacman -S tmux
-}
 
 If (!(Test-Path $PROFILE)) { New-Item -Path $PROFILE -Force }
 # Add 'Invoke-Expression (& { (zoxide init powershell | Out-String) })' if not exists

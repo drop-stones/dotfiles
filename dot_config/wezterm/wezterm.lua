@@ -17,6 +17,12 @@ appearance.apply_to_config(config)
 local launch = require("launch")
 launch.apply_to_config(config)
 
+local multiplexing = require("multiplexing")
+multiplexing.apply_to_config(config)
+
+local keybinding = require("keybinding")
+keybinding.apply_to_config(config)
+
 local private = require("private")
 private.apply_to_config(config)
 

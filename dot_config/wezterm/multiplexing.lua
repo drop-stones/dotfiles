@@ -2,6 +2,18 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local module = {}
 
+-- Prompt an input line and run callback
+function PromptInputLineAndCallback(text, callback)
+	return act.PromptInputLine({
+		description = wezterm.format({
+			{ Attribute = { Intensity = "Bold" } },
+			{ Foreground = { AnsiColor = "Fuchsia" } },
+			{ Text = text },
+		}),
+		action = wezterm.action_callback(callback),
+	})
+end
+
 -- Show which key table is active in the status area
 wezterm.on("update-right-status", function(window, _)
 	local name = window:active_key_table()
@@ -34,9 +46,9 @@ function module.apply_to_config(config)
 			}),
 		},
 
-		-- CTRL + o: workspace mode
+		-- CTRL + w: workspace mode
 		{
-			key = "o",
+			key = "w",
 			mods = "CTRL",
 			action = act.ActivateKeyTable({
 				name = "workspace",
@@ -111,26 +123,19 @@ function module.apply_to_config(config)
 				key = "n",
 				action = act.Multiple({
 					"PopKeyTable",
-					act.PromptInputLine({
-						description = wezterm.format({
-							{ Attribute = { Intensity = "Bold" } },
-							{ Foreground = { AnsiColor = "Fuchsia" } },
-							{ Text = "Enter name for new workspace" },
-						}),
-						action = wezterm.action_callback(function(window, pane, line)
-							-- line will be `nil` if they hit escape without entering anything
-							-- An empty string if they just hit enter
-							-- Or the actual line of text they wrote
-							if line then
-								window:perform_action(
-									act.SwitchToWorkspace({
-										name = line,
-									}),
-									pane
-								)
-							end
-						end),
-					}),
+					PromptInputLineAndCallback("Enter name for new workspace", function(window, pane, line)
+						-- line will be `nil` if they hit escape without entering anything
+						-- An empty string if they just hit enter
+						-- Or the actual line of text they wrote
+						if line then
+							window:perform_action(
+								act.SwitchToWorkspace({
+									name = line,
+								}),
+								pane
+							)
+						end
+					end),
 				}),
 			},
 
@@ -138,6 +143,22 @@ function module.apply_to_config(config)
 			{
 				key = "d",
 				action = act.Multiple({ "PopKeyTable", act.SwitchToWorkspace({ name = "default" }) }),
+			},
+
+			-- Rename the current workspace
+			{
+				key = "r",
+				action = act.Multiple({
+					"PopKeyTable",
+					PromptInputLineAndCallback("Enter name for the current workspace", function(window, pane, line)
+						if line then
+							window:perform_action(
+								wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line),
+								pane
+							)
+						end
+					end),
+				}),
 			},
 
 			-- Focus workspace

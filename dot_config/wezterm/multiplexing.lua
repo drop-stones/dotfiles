@@ -134,6 +134,9 @@ function module.apply_to_config(config)
 				action = act.Multiple({
 					"PopKeyTable",
 					PromptInputLineAndCallback("Enter name for new tab", function(window, pane, line)
+						-- line will be `nil` if they hit escape without entering anything
+						-- An empty string if they just hit enter
+						-- Or the actual line of text they wrote
 						if line then
 							window:perform_action(
 								act.SpawnCommandInNewTab({
@@ -155,11 +158,20 @@ function module.apply_to_config(config)
 				key = "r",
 				action = act.Multiple({
 					"PopKeyTable",
-					PromptInputLineAndCallback("Enter name for the current tab", function(window, pane, line)
-						if line then
-							local tab = window:active_tab()
-							tab:set_title(line)
-						end
+					wezterm.action_callback(function(window, pane)
+						local tab = window:active_tab()
+						local tab_name = tab:get_title()
+						window:perform_action(
+							PromptInputLineAndCallback(
+								"Enter name for the current tab (" .. tab_name .. ")",
+								function(window, pane, line)
+									if line then
+										tab:set_title(line)
+									end
+								end
+							),
+							pane
+						)
 					end),
 				}),
 			},
@@ -191,9 +203,6 @@ function module.apply_to_config(config)
 				action = act.Multiple({
 					"PopKeyTable",
 					PromptInputLineAndCallback("Enter name for new workspace", function(window, pane, line)
-						-- line will be `nil` if they hit escape without entering anything
-						-- An empty string if they just hit enter
-						-- Or the actual line of text they wrote
 						if line then
 							window:perform_action(
 								act.SwitchToWorkspace({
@@ -217,13 +226,22 @@ function module.apply_to_config(config)
 				key = "r",
 				action = act.Multiple({
 					"PopKeyTable",
-					PromptInputLineAndCallback("Enter name for the current workspace", function(window, pane, line)
-						if line then
-							window:perform_action(
-								wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line),
-								pane
-							)
-						end
+					wezterm.action_callback(function(window, pane)
+						local workspace_name = window:active_workspace()
+						window:perform_action(
+							PromptInputLineAndCallback(
+								"Enter name for the current workspace (" .. workspace_name .. ")",
+								function(window, pane, line)
+									if line then
+										window:perform_action(
+											wezterm.mux.rename_workspace(wezterm.mux.get_active_workspace(), line),
+											pane
+										)
+									end
+								end
+							),
+							pane
+						)
 					end),
 				}),
 			},

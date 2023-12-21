@@ -8,11 +8,7 @@
 
 [core]
     pager = delta
-{{ if eq .chezmoi.os "windows"}}
-    autocrlf = true
-{{ else }}
-    autocrlf = input
-{{ end }}
+    autocrlf = false
 
 [interactive]
     diffFilter = delta --color-only

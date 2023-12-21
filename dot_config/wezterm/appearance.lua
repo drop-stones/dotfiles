@@ -28,13 +28,26 @@ function module.apply_to_config(config)
 	end)
 
 	-- tab
-	config.hide_tab_bar_if_only_one_tab = true
-	wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-		local nvim_formatted_title = FormatNvimTitle(tab.active_pane.title)
-		local title = BaseName(nvim_formatted_title)
-		return {
-			{ Text = title },
-		}
+	config.window_frame = {
+		font_size = 1.2,
+		active_titlebar_bg = "#111111",
+		inactive_titlebar_bg = "#111111",
+	}
+	config.enable_tab_bar = true
+	config.tab_bar_at_bottom = true
+	config.integrated_title_buttons = {}
+	config.show_tabs_in_tab_bar = false
+	config.show_new_tab_button_in_tab_bar = false
+
+	-- scrollbar
+	wezterm.on("update-status", function(window, pane) -- if in nvim then hide the scrollbar
+		local overrides = window:get_config_overrides() or {}
+		if pane:is_alt_screen_active() then
+			overrides.enable_scroll_bar = false
+		else
+			overrides.enable_scroll_bar = true
+		end
+		window:set_config_overrides(overrides)
 	end)
 
 	-- process name in tab title

@@ -14,13 +14,35 @@ function PromptInputLineAndCallback(text, callback)
 	})
 end
 
--- Show which key table is active in the status area
+-- Show which key table is active in the status area by color
 wezterm.on("update-right-status", function(window, _)
 	local name = window:active_key_table()
-	if name then
-		name = "TABLE: " .. name
+	local default_color = "#111111"
+	local color
+	if name == "tab" then
+		color = "#355e3b" -- Hunter green
+	elseif name == "pane" then
+		color = "#000080" -- Navy blue
+	elseif name == "workspace" then
+		color = "#8b0000" -- Dark red
+	else
+		color = default_color
 	end
-	window:set_right_status(name or "")
+
+	local dimension = window:get_dimensions()
+	local width = dimension.pixel_width
+	local line_text = string.rep(" ", width)
+
+	window:set_right_status(wezterm.format({
+		{ Foreground = { Color = color } },
+		{ Background = { Color = color } },
+		{ Text = line_text },
+	}))
+	window:set_left_status(wezterm.format({
+		{ Foreground = { Color = color } },
+		{ Background = { Color = color } },
+		{ Text = line_text },
+	}))
 end)
 
 function module.apply_to_config(config)
@@ -33,6 +55,8 @@ function module.apply_to_config(config)
 			action = act.ActivateKeyTable({
 				name = "pane",
 				one_shot = false,
+				replace_current = true,
+				until_unknown = true,
 			}),
 		},
 
@@ -43,6 +67,8 @@ function module.apply_to_config(config)
 			action = act.ActivateKeyTable({
 				name = "tab",
 				one_shot = false,
+				replace_current = true,
+				until_unknown = true,
 			}),
 		},
 
@@ -53,6 +79,8 @@ function module.apply_to_config(config)
 			action = act.ActivateKeyTable({
 				name = "workspace",
 				one_shot = false,
+				replace_current = true,
+				until_unknown = true,
 			}),
 		},
 	}
@@ -112,6 +140,15 @@ function module.apply_to_config(config)
 			{ key = "RightArrow", action = act.ActivateTabRelative(1) },
 			{ key = "l", action = act.ActivateTabRelative(1) },
 
+			-- Open tab navigator
+			{
+				key = "m",
+				action = act.Multiple({
+					"PopKeyTable",
+					act.ShowTabNavigator,
+				}),
+			},
+
 			-- Cancel tab mode
 			{ key = "Enter", action = "PopKeyTable" },
 			{ key = "Escape", action = "PopKeyTable" },
@@ -169,10 +206,10 @@ function module.apply_to_config(config)
 
 			-- Open workspace manager
 			{
-				key = "w",
+				key = "m",
 				action = act.Multiple({
 					"PopKeyTable",
-					act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }),
+					act.ShowLauncherArgs({ flags = "WORKSPACES" }),
 				}),
 			},
 

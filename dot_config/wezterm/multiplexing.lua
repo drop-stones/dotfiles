@@ -47,44 +47,6 @@ end)
 
 function module.apply_to_config(config)
 	-- Zellij-style keybindings
-	config.keys = {
-		-- CTRL + p: pane mode
-		{
-			key = "p",
-			mods = "CTRL",
-			action = act.ActivateKeyTable({
-				name = "pane",
-				one_shot = false,
-				replace_current = true,
-				until_unknown = true,
-			}),
-		},
-
-		-- CTRL + t: tab mode
-		{
-			key = "t",
-			mods = "CTRL",
-			action = act.ActivateKeyTable({
-				name = "tab",
-				one_shot = false,
-				replace_current = true,
-				until_unknown = true,
-			}),
-		},
-
-		-- CTRL + w: workspace mode
-		{
-			key = "w",
-			mods = "CTRL",
-			action = act.ActivateKeyTable({
-				name = "workspace",
-				one_shot = false,
-				replace_current = true,
-				until_unknown = true,
-			}),
-		},
-	}
-
 	config.key_tables = {
 		pane = {
 			-- Create a new pane

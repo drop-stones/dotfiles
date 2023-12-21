@@ -129,10 +129,40 @@ function module.apply_to_config(config)
 
 		tab = {
 			-- Create a new pane
-			{ key = "n", action = act.SpawnTab("CurrentPaneDomain") },
+			{
+				key = "n",
+				action = act.Multiple({
+					"PopKeyTable",
+					PromptInputLineAndCallback("Enter name for new tab", function(window, pane, line)
+						if line then
+							window:perform_action(
+								act.SpawnCommandInNewTab({
+									label = line,
+									domain = "CurrentPaneDomain",
+								}),
+								pane
+							)
+						end
+					end),
+				}),
+			},
 
 			-- Close the current tab
 			{ key = "x", action = act.CloseCurrentTab({ confirm = false }) },
+
+			-- Rename the current tab
+			{
+				key = "r",
+				action = act.Multiple({
+					"PopKeyTable",
+					PromptInputLineAndCallback("Enter name for the current tab", function(window, pane, line)
+						if line then
+							local tab = window:active_tab()
+							tab:set_title(line)
+						end
+					end),
+				}),
+			},
 
 			-- Focus tabs
 			{ key = "LeftArrow", action = act.ActivateTabRelative(-1) },

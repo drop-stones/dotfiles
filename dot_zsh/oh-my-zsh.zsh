@@ -24,6 +24,10 @@ plugins=(
   zsh-syntax-highlighting
   zsh-autocomplete
   zsh-proxy
+  zsh-vi-mode
 )
+
+# zsh-vi-mode options
+export ZVM_VI_ESCAPE_BINDKEY="jk"
 
 source $ZSH/oh-my-zsh.sh

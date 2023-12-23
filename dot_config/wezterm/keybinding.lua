@@ -54,7 +54,17 @@ function module.apply_to_config(config)
 		{ key = "n", mods = "CTRL", action = act.ActivateCopyMode },
 
 		-- Paste
-		{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
+		{
+			key = "v",
+			mods = "CTRL",
+			action = wezterm.action_callback(function(window, pane)
+				if pane:is_alt_screen_active() then
+					window:perform_action(act.SendKey({ key = "v", mods = "CTRL" }), pane)
+				else
+					window:perform_action(act.PasteFrom("Clipboard"), pane)
+				end
+			end),
+		},
 
 		-- Zellij-style keybindings
 		-- CTRL + p: pane mode

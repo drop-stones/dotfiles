@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local module = {}
 
-function ActivateKeyTableAndChangeWindowFrameColor(window, pane, mode)
+function ActionAndChangeWindowFrameColor(window, pane, mode, action)
 	local overrides = window:get_config_overrides() or {}
 	local color
 	if mode == "tab" then
@@ -11,6 +11,8 @@ function ActivateKeyTableAndChangeWindowFrameColor(window, pane, mode)
 		color = "#000080" -- Navy blue
 	elseif mode == "workspace" then
 		color = "#8b0000" -- Dark red
+	elseif mode == "copy_mode" then
+		color = "#666666" -- Gray
 	end
 
 	if mode ~= nil then
@@ -32,14 +34,20 @@ function ActivateKeyTableAndChangeWindowFrameColor(window, pane, mode)
 	end
 	window:set_config_overrides(overrides)
 
-	window:perform_action(
+	window:perform_action(action, pane)
+end
+
+function ActivateKeyTableAndChangeWindowFrameColor(window, pane, mode)
+	ActionAndChangeWindowFrameColor(
+		window,
+		pane,
+		mode,
 		act.ActivateKeyTable({
 			name = mode,
 			one_shot = false,
 			replace_current = true,
 			until_unknown = true,
-		}),
-		pane
+		})
 	)
 end
 
@@ -51,7 +59,14 @@ function module.apply_to_config(config)
 		{ key = "m", mods = "CTRL", action = act.QuickSelect },
 
 		-- Copy Mode
-		{ key = "n", mods = "CTRL", action = act.ActivateCopyMode },
+		{
+			key = "n",
+			mods = "CTRL",
+			-- action = act.ActivateCopyMode
+			action = wezterm.action_callback(function(window, pane)
+				ActionAndChangeWindowFrameColor(window, pane, "copy_mode", act.ActivateCopyMode)
+			end),
+		},
 
 		-- Paste
 		{

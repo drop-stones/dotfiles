@@ -14,35 +14,14 @@ function PromptInputLineAndCallback(text, callback)
 	})
 end
 
--- Show which key table is active in the status area by color
-wezterm.on("update-right-status", function(window, _)
+-- Reset window frame if any key tables are not activated
+wezterm.on("update-status", function(window, pane)
+	local overrides = window:get_config_overrides() or {}
 	local name = window:active_key_table()
-	local default_color = "#111111"
-	local color
-	if name == "tab" then
-		color = "#355e3b" -- Hunter green
-	elseif name == "pane" then
-		color = "#000080" -- Navy blue
-	elseif name == "workspace" then
-		color = "#8b0000" -- Dark red
-	else
-		color = default_color
+	if overrides.window_frame ~= nil and name == nil then
+		overrides.window_frame = nil
+		window:set_config_overrides(overrides)
 	end
-
-	local dimension = window:get_dimensions()
-	local width = dimension.pixel_width
-	local line_text = string.rep(" ", width)
-
-	window:set_right_status(wezterm.format({
-		{ Foreground = { Color = color } },
-		{ Background = { Color = color } },
-		{ Text = line_text },
-	}))
-	window:set_left_status(wezterm.format({
-		{ Foreground = { Color = color } },
-		{ Background = { Color = color } },
-		{ Text = line_text },
-	}))
 end)
 
 function module.apply_to_config(config)
@@ -151,6 +130,21 @@ function module.apply_to_config(config)
 					"PopKeyTable",
 					act.ShowTabNavigator,
 				}),
+			},
+
+			-- Toggle tab bar
+			{
+				key = "b",
+				action = wezterm.action_callback(function(window, pane)
+					local overrides = window:get_config_overrides() or {}
+					if not overrides.enable_tab_bar then
+						local enable_tab_bar = window:effective_config().enable_tab_bar
+						overrides.enable_tab_bar = not enable_tab_bar
+					else
+						overrides.enable_tab_bar = nil
+					end
+					window:set_config_overrides(overrides)
+				end),
 			},
 
 			-- Cancel tab mode

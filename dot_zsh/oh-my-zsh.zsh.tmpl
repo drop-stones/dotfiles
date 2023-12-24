@@ -22,7 +22,9 @@ plugins=(
   web-search
   zsh-autosuggestions
   zsh-syntax-highlighting
-  zsh-autocomplete
+{{ if ne .chezmoi.os "windows" }}
+  zsh-autocomplete # Too slow in windows
+{{ end }}
   zsh-proxy
   zsh-vi-mode
 )

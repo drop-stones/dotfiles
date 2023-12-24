@@ -1,0 +1,6 @@
+[include]
+    path = ".config/gitconfig/user"
+    path = ".config/gitconfig/core"
+    path = ".config/gitconfig/diff"
+    path = ".config/gitconfig/onepassword"
+    path = ".config/gitconfig/private"

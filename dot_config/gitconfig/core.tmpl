@@ -1,0 +1,8 @@
+{{ if hasKey . "core" }}
+[core]
+{{ if hasKey .core "autocrlf" }}
+{{ if ne .core.autocrlf "" }}
+  autocrlf = {{ .core.autocrlf }}
+{{ end }}
+{{ end }}
+{{ end }}

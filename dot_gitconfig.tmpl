@@ -8,7 +8,9 @@
 
 [core]
     pager = delta
-    autocrlf = false
+{{ if .core.autocrlf }}
+    autocrlf = {{ .core.autocrlf }}
+{{ end }}
 
 [interactive]
     diffFilter = delta --color-only

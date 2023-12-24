@@ -67,11 +67,6 @@ Install zoxide
 Install autohotkey
 Install powertoys
 
-{{ if .enable.onepassword }}
-# Password Manager
-# Install 1password-cli
-{{ end }}
-
 If (!(Test-Path $PROFILE)) { New-Item -Path $PROFILE -Force }
 # Add 'Invoke-Expression (& { (zoxide init powershell | Out-String) })' if not exists
 If (!(Get-Content $PROFILE | Select-String -Quiet "zoxide")) {

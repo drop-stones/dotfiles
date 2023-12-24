@@ -1,0 +1,13 @@
+{{ if hasKey . "user" }}
+[user]
+{{ if hasKey .user "name" }}
+{{ if ne .user.name "" }}
+    name = {{ .user.name | quote }}
+{{ end }}
+{{ end }}
+{{ if hasKey .user "email" }}
+{{ if ne .user.email "" }}
+    email = {{ .user.email | quote }}
+{{ end }}
+{{ end }}
+{{ end }}

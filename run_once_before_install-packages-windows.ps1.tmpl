@@ -64,17 +64,16 @@ Install tokei
 Install zoxide
 
 # Windows apps
-Install autohotkey
 Install powertoys
 
-If (!(Test-Path $PROFILE)) { New-Item -Path $PROFILE -Force }
-# Add 'Invoke-Expression (& { (zoxide init powershell | Out-String) })' if not exists
-If (!(Get-Content $PROFILE | Select-String -Quiet "zoxide")) {
-  Add-Content -Path $PROFILE -Value "Invoke-Expression (& { (zoxide init powershell | Out-String) })"
+# Create a powershell profile
+$PSHomeDir = "$HOME\Documents\PowerShell"
+$Profile = "Profile.ps1"
+If (!(Test-Path "$PSHomeDir")) {
+  New-Item -Path "$HOME\Documents" -Name "PowerShell" -ItemType "directory"
 }
-# Add 'Invoke-Expression (&starship init powershell)' if not exists
-If (!(Get-Content $PROFILE | Select-String -Quiet "starship")) {
-  Add-Content -Path $PROFILE -Value "Invoke-Expression (&starship init powershell)"
+If (!(Test-Path "$PSHomeDir\$Profile")) {
+  New-Item -Path "$PSHomeDir" -Name "$Profile" -ItemType SymbolicLink -Target "$HOME\.config\powershell\profile.ps1" -Force
 }
 
 # zsh in msys2

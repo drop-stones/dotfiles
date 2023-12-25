@@ -24,6 +24,26 @@ wezterm.on("update-status", function(window, pane)
 	end
 end)
 
+local copy_mode = nil
+if wezterm.gui then
+	copy_mode = wezterm.gui.default_key_tables().copy_mode
+	table.insert(copy_mode, {
+		key = "/",
+		mods = "NONE",
+		action = act.Search({ CaseSensitiveString = "" }),
+	})
+end
+
+local search_mode = nil
+if wezterm.gui then
+	search_mode = wezterm.gui.default_key_tables().search_mode
+	table.insert(search_mode, {
+		key = "Escape",
+		mods = "NONE",
+		action = act.ActivateCopyMode,
+	})
+end
+
 function module.apply_to_config(config)
 	-- Zellij-style keybindings
 	config.key_tables = {
@@ -221,6 +241,12 @@ function module.apply_to_config(config)
 			{ key = "Enter", action = "PopKeyTable" },
 			{ key = "Escape", action = "PopKeyTable" },
 		},
+
+		-- Copy mode
+		copy_mode = copy_mode,
+
+		-- Search mode
+		search_mode = search_mode,
 	}
 end
 

@@ -62,7 +62,6 @@ function module.apply_to_config(config)
 		{
 			key = "n",
 			mods = "ALT",
-			-- action = act.ActivateCopyMode
 			action = wezterm.action_callback(function(window, pane)
 				ActionAndChangeWindowFrameColor(window, pane, "copy_mode", act.ActivateCopyMode)
 			end),
@@ -104,6 +103,9 @@ function module.apply_to_config(config)
 				ActivateKeyTableAndChangeWindowFrameColor(window, pane, "workspace")
 			end),
 		},
+
+		-- ALT + f: Command Palette
+		{ key = "f", mods = "ALT", action = act.ActivateCommandPalette },
 	}
 end
 

@@ -56,12 +56,12 @@ function module.apply_to_config(config)
 
 	config.keys = {
 		-- Quick Select Mode
-		{ key = "m", mods = "CTRL", action = act.QuickSelect },
+		{ key = "m", mods = "ALT", action = act.QuickSelect },
 
 		-- Copy Mode
 		{
 			key = "n",
-			mods = "CTRL",
+			mods = "ALT",
 			-- action = act.ActivateCopyMode
 			action = wezterm.action_callback(function(window, pane)
 				ActionAndChangeWindowFrameColor(window, pane, "copy_mode", act.ActivateCopyMode)
@@ -71,39 +71,35 @@ function module.apply_to_config(config)
 		-- Paste
 		{
 			key = "v",
-			mods = "CTRL",
+			mods = "ALT",
 			action = wezterm.action_callback(function(window, pane)
-				if pane:is_alt_screen_active() then
-					window:perform_action(act.SendKey({ key = "v", mods = "CTRL" }), pane)
-				else
-					window:perform_action(act.PasteFrom("Clipboard"), pane)
-				end
+				window:perform_action(act.SendKey({ key = "v", mods = "ALT" }), pane)
 			end),
 		},
 
 		-- Zellij-style keybindings
-		-- CTRL + p: pane mode
+		-- ALT + p: pane mode
 		{
 			key = "p",
-			mods = "CTRL",
+			mods = "ALT",
 			action = wezterm.action_callback(function(window, pane)
 				ActivateKeyTableAndChangeWindowFrameColor(window, pane, "pane")
 			end),
 		},
 
-		-- CTRL + t: tab mode
+		-- ALT + t: tab mode
 		{
 			key = "t",
-			mods = "CTRL",
+			mods = "ALT",
 			action = wezterm.action_callback(function(window, pane)
 				ActivateKeyTableAndChangeWindowFrameColor(window, pane, "tab")
 			end),
 		},
 
-		-- CTRL + w: workspace mode
+		-- ALT + w: workspace mode
 		{
 			key = "w",
-			mods = "CTRL",
+			mods = "ALT",
 			action = wezterm.action_callback(function(window, pane)
 				ActivateKeyTableAndChangeWindowFrameColor(window, pane, "workspace")
 			end),

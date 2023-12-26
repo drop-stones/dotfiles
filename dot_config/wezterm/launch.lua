@@ -34,6 +34,23 @@ wezterm.on("augment-command-palette", function(window, pane)
 				},
 			}),
 		},
+		{
+			brief = "ToggleTerm Tab",
+			icon = "custom_vim",
+			action = act.SpawnCommandInNewTab({
+				args = {
+					"msys2.cmd",
+					"-clang64",
+					"-defterm",
+					"-no-start",
+					"-use-full-path",
+					"-shell",
+					"zsh",
+					"-c",
+					"nvim -c 'ToggleTerm direction=tab'",
+				},
+			}),
+		},
 	}
 end)
 

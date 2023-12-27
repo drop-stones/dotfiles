@@ -68,13 +68,7 @@ function module.apply_to_config(config)
 		},
 
 		-- Paste
-		{
-			key = "v",
-			mods = "ALT",
-			action = wezterm.action_callback(function(window, pane)
-				window:perform_action(act.SendKey({ key = "v", mods = "ALT" }), pane)
-			end),
-		},
+		{ key = "v", mods = "ALT", action = act.PasteFrom("Clipboard") },
 
 		-- Zellij-style keybindings
 		-- ALT + p: pane mode
@@ -106,6 +100,18 @@ function module.apply_to_config(config)
 
 		-- ALT + f: Command Palette
 		{ key = "f", mods = "ALT", action = act.ActivateCommandPalette },
+
+		-- CTRL + h: Move to left pane
+		{ key = "h", mods = "CTRL", action = act.ActivatePaneDirection("Left") },
+
+		-- CTRL + l: Move to right pane
+		{ key = "l", mods = "CTRL", action = act.ActivatePaneDirection("Right") },
+
+		-- CTRL + j: Move to down pane
+		{ key = "j", mods = "CTRL", action = act.ActivatePaneDirection("Down") },
+
+		-- CTRL + k: Move to up pane
+		{ key = "k", mods = "CTRL", action = act.ActivatePaneDirection("Up") },
 	}
 end
 

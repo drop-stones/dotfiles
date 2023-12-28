@@ -1,8 +1,8 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
-local pane = require("keytables.pane")
-local tab = require("keytables.tab")
-local workspace = require("keytables.workspace")
+local pane_mode = require("keytables.pane_mode")
+local tab_mode = require("keytables.tab_mode")
+local workspace_mode = require("keytables.workspace_mode")
 local copy_mode = require("keytables.copy_mode")
 local search_mode = require("keytables.search_mode")
 
@@ -21,13 +21,13 @@ end)
 function module.apply_to_config(config)
 	config.key_tables = {
 		-- Pane mode
-		pane = pane,
+		pane_mode = pane_mode,
 
 		-- Tab mode
-		tab = tab,
+		tab_mode = tab_mode,
 
 		-- Workspace mode
-		workspace = workspace,
+		workspace_mode = workspace_mode,
 
 		-- Copy mode
 		copy_mode = copy_mode,

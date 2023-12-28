@@ -4,11 +4,11 @@ local act = wezterm.action
 function ActionAndChangeWindowFrameColor(window, pane, mode, action)
 	local overrides = window:get_config_overrides() or {}
 	local color
-	if mode == "tab" then
-		color = "#355e3b" -- Hunter green
-	elseif mode == "pane" then
+	if mode == "pane_mode" then
 		color = "#000080" -- Navy blue
-	elseif mode == "workspace" then
+	elseif mode == "tab_mode" then
+		color = "#355e3b" -- Hunter green
+	elseif mode == "workspace_mode" then
 		color = "#8b0000" -- Dark red
 	elseif mode == "copy_mode" then
 		color = "#666666" -- Gray
@@ -69,7 +69,7 @@ return {
 		key = "p",
 		mods = "ALT",
 		action = wezterm.action_callback(function(window, pane)
-			ActivateKeyTableAndChangeWindowFrameColor(window, pane, "pane")
+			ActivateKeyTableAndChangeWindowFrameColor(window, pane, "pane_mode")
 		end),
 	},
 
@@ -78,7 +78,7 @@ return {
 		key = "t",
 		mods = "ALT",
 		action = wezterm.action_callback(function(window, pane)
-			ActivateKeyTableAndChangeWindowFrameColor(window, pane, "tab")
+			ActivateKeyTableAndChangeWindowFrameColor(window, pane, "tab_mode")
 		end),
 	},
 
@@ -87,7 +87,7 @@ return {
 		key = "w",
 		mods = "ALT",
 		action = wezterm.action_callback(function(window, pane)
-			ActivateKeyTableAndChangeWindowFrameColor(window, pane, "workspace")
+			ActivateKeyTableAndChangeWindowFrameColor(window, pane, "workspace_mode")
 		end),
 	},
 }

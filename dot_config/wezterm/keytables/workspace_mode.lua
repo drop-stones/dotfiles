@@ -35,7 +35,7 @@ return {
 			wezterm.action_callback(function(window, pane)
 				local workspace_name = window:active_workspace()
 				window:perform_action(
-					PromptInputLineAndCallback(
+					utils.PromptInputLineAndCallback(
 						"Enter name for the current workspace (" .. workspace_name .. ")",
 						function(window, pane, line)
 							if line then

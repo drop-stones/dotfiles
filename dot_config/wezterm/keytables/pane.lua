@@ -16,10 +16,10 @@ return {
 	{ key = "k", action = act.ActivatePaneDirection("Up") },
 
 	-- Resize pane
-	{ key = "LeftArrow", action = act.AdjustPaneSize({ "Left", 1 }) },
-	{ key = "RightArrow", action = act.AdjustPaneSize({ "Right", 1 }) },
-	{ key = "UpArrow", action = act.AdjustPaneSize({ "Up", 1 }) },
-	{ key = "DownArrow", action = act.AdjustPaneSize({ "Down", 1 }) },
+	{ key = "LeftArrow", action = act.AdjustPaneSize({ "Left", 2 }) },
+	{ key = "RightArrow", action = act.AdjustPaneSize({ "Right", 2 }) },
+	{ key = "UpArrow", action = act.AdjustPaneSize({ "Up", 2 }) },
+	{ key = "DownArrow", action = act.AdjustPaneSize({ "Down", 2 }) },
 
 	-- Move pane to full screen
 	{ key = "f", action = act.Multiple({ "PopKeyTable", act.TogglePaneZoomState }) },

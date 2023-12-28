@@ -10,7 +10,7 @@ zstyle ':omz:update' mode auto      # update automatically without asking
 zstyle ':omz:update' frequency 13
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+# export ZSH_CUSTOM="$HOME/.oh-my-zsh-custom"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -29,7 +29,10 @@ plugins=(
   zsh-vi-mode
 )
 
-# zsh-vi-mode options
+# zsh-vi-mode
 export ZVM_VI_ESCAPE_BINDKEY="jk"
+
+# zsh-autosuggestions
+bindkey '\t' forward-word
 
 source $ZSH/oh-my-zsh.sh

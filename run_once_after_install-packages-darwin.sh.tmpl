@@ -1,0 +1,25 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+
+Install() {
+  if ! brew ls --versions $1 > /dev/null; then
+    brew install $1
+  fi
+}
+
+brew upgrade
+brew update
+
+while read line; do
+  case "$line" in
+  "")
+    continue;;
+  \#*)
+    continue;;
+  *)
+    Install $line
+  esac
+done < "$HOME/.config/chezmoi/install_packages_list.txt"
+
+sudo npm install -g neovim
+{{- end -}}

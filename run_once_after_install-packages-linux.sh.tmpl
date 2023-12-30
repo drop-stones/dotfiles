@@ -1,0 +1,23 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+
+Install() {
+  sudo pamac install --no-confirm --upgrade $1
+}
+
+sudo pacman -Syu --noconfirm
+sudo pacman -S --noconfirm pamac-cli
+
+while read line; do
+  case "$line" in
+  "")
+    continue;;
+  \#*)
+    continue;;
+  *)
+    Install $line
+  esac
+done < "$HOME/.config/chezmoi/install_packages_list.txt"
+
+sudo npm install -g neovim
+{{- end -}}

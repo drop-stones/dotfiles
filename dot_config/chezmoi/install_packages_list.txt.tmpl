@@ -1,0 +1,63 @@
+# Mandatory Packages
+git
+unzip
+
+# Editor
+neovim
+
+# Terminal Emulator
+wezterm
+
+# Shell
+starship
+
+# Command-Line Tools
+bat
+bottom
+{{ if eq .chezmoi.os "windows" }}
+delta
+{{ else }}
+git-delta
+{{ end }}
+dust
+eza
+fd
+fzf
+gdu
+hexyl
+hyperfine
+procs
+ripgrep
+sd
+tldr
+tokei
+zoxide
+
+# Programming Launguages
+go
+lua
+lua-language-server
+luarocks
+{{ if eq .chezmoi.os "windows" }}
+nodejs
+{{ else }}
+npm
+{{ end }}
+python
+rust
+
+# Others
+tree-sitter
+lazygit
+
+{{ if eq .chezmoi.os "windows" }}
+# Windows specific
+pwsh
+mingw
+powertoys
+{{ else }}
+# Linux/Mac specific
+man-db
+clang
+dotnet-sdk
+{{ end }}

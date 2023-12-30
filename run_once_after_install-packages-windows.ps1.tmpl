@@ -8,63 +8,14 @@ function Install([string] $package)
   }
 }
 
-# Install git
-Install git
+foreach($line in (Get-Content "$HOME/.config/chezmoi/install_packages_list.txt" | Where {$_ -notmatch '^#.*'})) {
+  if (-not ([string]::IsNullOrEmpty($line))) {
+    Install $line
+  }
+}
 
-# Fonts
-scoop bucket add nerd-fonts
-Install Hack-NF-Mono
-
-# Terminal Emulator
-Install wezterm
-
-# Editor
-Install neovim
-
-# Shell Prompt
-Install starship
-
-# Astronvim requirements
-Install bottom
-Install gdu
-Install lazygit
-Install pwsh
-Install ripgrep
-Install tree-sitter
-Install unzip
-
-# Languages
-Install go
-Install lua
-Install lua-language-server
-Install luarocks
-Install nodejs
-Install python
-Install rust
-
-Install mingw
 winget install Microsoft.DotNet.SDK.8
 npm install -g neovim
-
-# Commands
-Install bat
-Install bottom
-Install delta
-Install dust
-Install eza
-Install fd
-Install fzf
-Install hexyl
-Install hyperfine
-Install procs
-Install ripgrep
-Install sd
-Install tldr
-Install tokei
-Install zoxide
-
-# Windows apps
-Install powertoys
 
 # Create a powershell profile
 $PSHomeDir = "$HOME\Documents\PowerShell"

@@ -10,7 +10,9 @@ wezterm.on("augment-command-palette", function(window, pane)
 end)
 
 function module.apply_to_config(config)
+{{ if eq .chezmoi.os "windows" }}
 	config.default_prog = utils.Msys2Commands()
+{{ end }}
 end
 
 return module

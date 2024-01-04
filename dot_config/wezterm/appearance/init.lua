@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local colorscheme = require("appearance.colorscheme")
 local background = require("appearance.background")
 
 local module = {}
@@ -27,7 +28,8 @@ end)
 
 function module.apply_to_config(config)
 	-- color scheme
-	config.color_scheme = "Builtin Dark"
+	config.color_schemes = colorscheme.color_schemes
+	config.color_scheme = colorscheme.color_scheme
 
 	-- font
 	config.font_size = 12.5

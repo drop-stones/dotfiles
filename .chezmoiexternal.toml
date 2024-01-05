@@ -4,30 +4,30 @@
 [".config/nvim"]
 {{ end }}
   type = "git-repo"
-  url = "https://github.com/drop-stones/LazyVimConfig.git"
+  url = "git@github.com:drop-stones/LazyVimConfig.git"
   refreshPeriod = "168h"
 
 [".oh-my-zsh"]
   type = "git-repo"
-  url = "https://github.com/ohmyzsh/ohmyzsh.git"
+  url = "git@github.com:ohmyzsh/ohmyzsh.git"
   refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
   type = "git-repo"
-  url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+  url = "git@github.com:zsh-users/zsh-syntax-highlighting.git"
   refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
   type = "git-repo"
-  url = "https://github.com/zsh-users/zsh-autosuggestions.git"
+  url = "git@github.com:zsh-users/zsh-autosuggestions.git"
   refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-autocomplete"]
   type = "git-repo"
-  url = "https://github.com/marlonrichert/zsh-autocomplete.git"
+  url = "git@github.com:marlonrichert/zsh-autocomplete.git"
   refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-proxy"]
   type = "git-repo"
-  url = "https://github.com/SukkaW/zsh-proxy.git"
+  url = "git@github.com:SukkaW/zsh-proxy.git"
   REFRESHPERIOD = "168h"
 [".oh-my-zsh/custom/plugins/zsh-vi-mode"]
   type = "git-repo"
-  url = "https://github.com/jeffreytse/zsh-vi-mode.git"
+  url = "git@github.com:jeffreytse/zsh-vi-mode.git"
   REFRESHPERIOD = "168h"

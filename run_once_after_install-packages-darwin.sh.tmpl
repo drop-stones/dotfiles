@@ -1,25 +1,59 @@
 {{- if eq .chezmoi.os "darwin" -}}
 #!/bin/sh
 
-Install() {
-  if ! brew ls --versions $1 > /dev/null; then
-    brew install $1
-  fi
+AssertCommandInstalled() {
+	installed_command=$1
+	if ! command -v $installed_command &>/dev/null; then
+		echo "$installed_command could not be found"
+		exit 1
+	fi
+}
+
+BrewInstall() {
+	package=$1
+	AssertCommandInstalled "brew"
+	if ! brew ls --versions $package >/dev/null; then
+		brew install $package
+	fi
+}
+
+CargoInstall() {
+	package=$1
+	AssertCommandInstalled "cargo"
+	cargo install --locked $package
+}
+
+CargoBInstall() {
+	package=$1
+	AssertCommandInstalled "cargo help binstall"
+	cargo binstall --secure $package
+}
+
+ExecuteCallbackOnList() {
+	callback=$1
+	list=$2
+	while read line; do
+		case "$line" in
+		"")
+			continue
+			;;
+		\#*)
+			continue
+			;;
+		*)
+			$callback $line
+			;;
+		esac
+	done <$list
 }
 
 brew upgrade
 brew update
 
-while read line; do
-  case "$line" in
-  "")
-    continue;;
-  \#*)
-    continue;;
-  *)
-    Install $line
-  esac
-done < "$HOME/.config/chezmoi/install_packages_list.txt"
+# Install packages using brew
+ExecuteCallbackOnList BrewInstall "$HOME/.config/chezmoi/install_packages_list.txt"
 
-sudo npm install -g neovim
+# Install packages using cargo
+ExecuteCallbackOnList CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
+
 {{- end -}}

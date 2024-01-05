@@ -4,16 +4,7 @@
 [".config/nvim"]
 {{ end }}
   type = "git-repo"
-  url = "https://github.com/AstroNvim/AstroNvim.git"
-  refreshPeriod = "168h"
-
-{{ if eq .chezmoi.os "windows" }}
-["AppData/Local/nvim/lua/user"]
-{{ else }}
-[".config/nvim/lua/user"]
-{{ end }}
-  type = "git-repo"
-  url = "https://github.com/drop-stones/astronvim_config.git"
+  url = "https://github.com/drop-stones/LazyVimConfig.git"
   refreshPeriod = "168h"
 
 [".oh-my-zsh"]

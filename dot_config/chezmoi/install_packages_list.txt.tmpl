@@ -55,8 +55,13 @@ lazygit
 pwsh
 mingw
 powertoys
+{{ else if eq .chezmoi.os "darwin" }}
+# Mac specific
+man-db
+llvm
+dotnet-sdk
 {{ else }}
-# Linux/Mac specific
+# Linux specific
 man-db
 clang
 dotnet-sdk

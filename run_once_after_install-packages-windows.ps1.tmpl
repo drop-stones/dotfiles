@@ -1,44 +1,79 @@
-{{ if eq .chezmoi.os "windows" }}
-function Install([string] $package)
+{{- if eq .chezmoi.os "windows" -}}
+
+function AssertCommandExists([string] $command)
 {
-  If ((scoop info $package | Select-String -Quiet "Installed")) {
+  if (!(Get-Command "$command"))
+  {
+    Write-Error "$command not found"
+    Exit 1
+  }
+}
+
+function ScoopInstall([string] $package)
+{
+  AssertCommandExists "scoop"
+  If ((scoop info $package | Select-String -Quiet "Installed"))
+  {
     scoop update $package
-  } Else {
+  } Else
+  {
     scoop install $package
   }
 }
 
-foreach($line in (Get-Content "$HOME/.config/chezmoi/install_packages_list.txt" | Where {$_ -notmatch '^#.*'})) {
-  if (-not ([string]::IsNullOrEmpty($line))) {
-    Install $line
+function CargoInstall([string] $package)
+{
+  AssertCommandExists "cargo"
+  cargo install --locked $package
+}
+
+function ExecuteCallbackOnList([scriptblock] $callback, [string] $list)
+{
+  foreach($line in (Get-Content  | Where-Object {$_ -notmatch '^#.*'}))
+  {
+    if (-not ([string]::IsNullOrEmpty($line)))
+    {
+      $callback.Invoke($line)
+    }
   }
 }
 
+# Install packages using scoop
+ExecuteCallbackOnList $function:ScoopInstall "$HOME/.config/chezmoi/install_packages_list.txt"
+
+# Install packages using cargo
+ExecuteCallbackOnList $function:CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
+
 winget install Microsoft.DotNet.SDK.8
-npm install -g neovim
 
 # Create a powershell profile
 $PSHomeDir = "$HOME\Documents\PowerShell"
-$Profile = "Profile.ps1"
-If (!(Test-Path "$PSHomeDir")) {
+$ProfileName = "Profile.ps1"
+If (!(Test-Path "$PSHomeDir"))
+{
   New-Item -Path "$HOME\Documents" -Name "PowerShell" -ItemType "directory"
 }
-If (!(Test-Path "$PSHomeDir\$Profile")) {
-  New-Item -Path "$PSHomeDir" -Name "$Profile" -ItemType SymbolicLink -Target "$HOME\.config\powershell\profile.ps1" -Force
+If (!(Test-Path "$PSHomeDir\$ProfileName"))
+{
+  New-Item -Path "$PSHomeDir" -Name "$ProfileName" -ItemType SymbolicLink -Target "$HOME\.config\powershell\profile.ps1" -Force
 }
 
 # zsh in msys2
 Install msys2
 $Msys2HomePath = "$HOME\scoop\apps\msys2\current\home\$env:username"
-If (Test-Path -Path $Msys2HomePath) {
+If (Test-Path -Path $Msys2HomePath)
+{
   $Msys2HomeDir = Get-Item "$Msys2HomePath"
-  If (!([bool]($Msys2HomeDir.Attributes -band [IO.FileAttributes]::ReparsePoint))) {
-    echo "Remove $Msys2HomePath"
+  If (!([bool]($Msys2HomeDir.Attributes -band [IO.FileAttributes]::ReparsePoint)))
+  {
+    Write-Output "Remove $Msys2HomePath"
     Remove-Item -LiteralPath "$Msys2HomePath" -Force -Recurse
   }
 }
-If (!(Test-Path -Path $Msys2HomePath)) {
-    echo "Create Symlink"
-    New-Item -ItemType SymbolicLink -Path "$Msys2HomePath" -Target "$HOME" # symbolic link ~ -> $HOME
+If (!(Test-Path -Path $Msys2HomePath))
+{
+  Write-Output "Create Symlink"
+  New-Item -ItemType SymbolicLink -Path "$Msys2HomePath" -Target "$HOME" # symbolic link ~ -> $HOME
 }
-{{ end }}
+
+{{- end -}}

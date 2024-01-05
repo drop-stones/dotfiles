@@ -1,23 +1,57 @@
 {{- if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 
-Install() {
-  sudo pamac install --no-confirm --upgrade $1
+AssertCommandInstalled() {
+	installed_command=$1
+	if ! command -v $installed_command &>/dev/null; then
+		echo "$installed_command could not be found"
+		exit 1
+	fi
+}
+
+PamacInstall() {
+	package=$1
+	AssertCommandInstalled "pamac"
+	sudo pamac install --no-confirm --upgrade $1
+}
+
+CargoInstall() {
+	package=$1
+	AssertCommandInstalled "cargo"
+	cargo install --locked $package
+}
+
+CargoBInstall() {
+	package=$1
+	AssertCommandInstalled "cargo help binstall"
+	cargo binstall --secure $package
+}
+
+ExecuteCallbackOnList() {
+	callback=$1
+	list=$2
+	while read line; do
+		case "$line" in
+		"")
+			continue
+			;;
+		\#*)
+			continue
+			;;
+		*)
+			$callback $line
+			;;
+		esac
+	done <$list
 }
 
 sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm pamac-cli
 
-while read line; do
-  case "$line" in
-  "")
-    continue;;
-  \#*)
-    continue;;
-  *)
-    Install $line
-  esac
-done < "$HOME/.config/chezmoi/install_packages_list.txt"
+# Install packages using brew
+ExecuteCallbackOnList PamacInstall "$HOME/.config/chezmoi/install_packages_list.txt"
 
-sudo npm install -g neovim
+# Install packages using cargo
+ExecuteCallbackOnList CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
+
 {{- end -}}

@@ -29,7 +29,7 @@ function CargoInstall([string] $package)
 
 function ExecuteCallbackOnList([scriptblock] $callback, [string] $list)
 {
-  foreach($line in (Get-Content  | Where-Object {$_ -notmatch '^#.*'}))
+  foreach($line in (Get-Content $list | Where-Object {$_ -notmatch '^#.*'}))
   {
     if (-not ([string]::IsNullOrEmpty($line)))
     {
@@ -77,3 +77,4 @@ If (!(Test-Path -Path $Msys2HomePath))
 }
 
 {{- end -}}
+

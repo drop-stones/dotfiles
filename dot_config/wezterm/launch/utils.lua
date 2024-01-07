@@ -9,7 +9,7 @@ function module.PowerShellCommands(...)
 end
 
 function module.Msys2Commands(...)
-	local args = { "msys2.cmd", "-clang64", "-defterm", "-no-start", "-use-full-path", "-shell", "zsh" }
+	local args = { "msys2.cmd", "-mingw64", "-defterm", "-no-start", "-use-full-path", "-shell", "zsh" }
 	for _, arg in ipairs({ ... }) do
 		table.insert(args, arg)
 	end

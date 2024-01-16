@@ -59,7 +59,6 @@ If (!(Test-Path "$PSHomeDir\$ProfileName"))
 }
 
 # zsh in msys2
-Install msys2
 $Msys2HomePath = "$HOME\scoop\apps\msys2\current\home\$env:username"
 If (Test-Path -Path $Msys2HomePath)
 {
@@ -77,4 +76,3 @@ If (!(Test-Path -Path $Msys2HomePath))
 }
 
 {{- end -}}
-

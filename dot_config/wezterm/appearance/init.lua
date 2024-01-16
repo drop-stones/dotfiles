@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 local colorscheme = require("appearance.colorscheme")
 local background = require("appearance.background")
+local private = require("appearance.private")
 
 local module = {}
 
@@ -32,7 +33,7 @@ function module.apply_to_config(config)
 	config.color_scheme = colorscheme.color_scheme
 
 	-- font
-	config.font_size = 12.5
+	config.font_size = 10.5
 
 	-- background
 	config.window_background_opacity = 0.7
@@ -66,6 +67,8 @@ function module.apply_to_config(config)
 			attachment = background.attachment,
 		},
 	}
+
+	private.apply_to_config(config)
 end
 
 return module

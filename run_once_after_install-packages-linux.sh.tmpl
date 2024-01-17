@@ -27,6 +27,12 @@ CargoBInstall() {
 	cargo binstall --secure $package
 }
 
+RustupAddComponent() {
+	component=$1
+	AssertCommandInstalled "rustup"
+	rustup component add $component
+}
+
 ExecuteCallbackOnList() {
 	callback=$1
 	list=$2
@@ -53,5 +59,8 @@ ExecuteCallbackOnList PamacInstall "$HOME/.config/chezmoi/install_packages_list.
 
 # Install packages using cargo
 ExecuteCallbackOnList CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
+
+# Add rustup components
+ExecuteCallbackOnList RustupAddComponent "$HOME/.config/chezmoi/rustup_component_list.txt"
 
 {{- end -}}

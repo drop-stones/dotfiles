@@ -27,6 +27,12 @@ function CargoInstall([string] $package)
   cargo install --locked $package
 }
 
+function RustupAddComponent([string] $component)
+{
+  AssertCommandExists "rustup"
+  rustup component add $component
+}
+
 function ExecuteCallbackOnList([scriptblock] $callback, [string] $list)
 {
   foreach($line in (Get-Content $list | Where-Object {$_ -notmatch '^#.*'}))
@@ -43,6 +49,9 @@ ExecuteCallbackOnList $function:ScoopInstall "$HOME/.config/chezmoi/install_pack
 
 # Install packages using cargo
 ExecuteCallbackOnList $function:CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
+
+# Add rustup components
+ExecuteCallbackOnList $function:RustupAddComponent "$HOME/.config/chezmoi/rustup_component_list.txt"
 
 winget install Microsoft.DotNet.SDK.8
 
@@ -76,3 +85,6 @@ If (!(Test-Path -Path $Msys2HomePath))
 }
 
 {{- end -}}
+
+
+

@@ -1,17 +1,16 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
-local command_palette = require("launch.command_palette")
-local utils = require("spawn.utils")
+local spawn = require("spawn")
 
 local module = {}
 
 wezterm.on("augment-command-palette", function(window, pane)
-	return command_palette
+  return spawn.get_spawn_commands()
 end)
 
 function module.apply_to_config(config)
 {{ if eq .chezmoi.os "windows" }}
-	config.default_prog = utils.Msys2Commands()
+	config.default_prog = spawn.Msys2Commands()
 {{ end }}
 end
 

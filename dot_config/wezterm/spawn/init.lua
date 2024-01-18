@@ -1,10 +1,10 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
-local private = require("launch.command_palette.private")
-local utils = require("launch.utils")
+local utils = require("spawn.utils")
+local private = require("spawn.private")
 
-local commands = {
-	{
+local spawns = {
+	powershell = {
 		brief = "Powershell Workspace",
 		icon = "cod_terminal_powershell",
 		action = act.SwitchToWorkspace({
@@ -14,7 +14,7 @@ local commands = {
 			},
 		}),
 	},
-	{
+	msys2 = {
 		brief = "Msys2 Workspace",
 		icon = "cod_terminal_cmd",
 		action = act.SwitchToWorkspace({
@@ -24,7 +24,7 @@ local commands = {
 			},
 		}),
 	},
-	{
+	manjaro = {
 		brief = "Manjaro Workspace",
 		icon = "linux_manjaro",
 		action = act.SwitchToWorkspace({
@@ -34,7 +34,7 @@ local commands = {
 			},
 		}),
 	},
-	{
+	toggleterm = {
 		brief = "ToggleTerm Tab",
 		icon = "custom_vim",
 		action = act.SpawnCommandInNewTab({
@@ -43,8 +43,9 @@ local commands = {
 	},
 }
 
-for _, command in ipairs(private) do
-	table.insert(commands, command)
+for key, spawn in pairs(private) do
+	table.insert(spawns, key)
+	spawns[key] = spawn
 end
 
-return commands
+return spawns

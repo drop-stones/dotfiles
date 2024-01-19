@@ -1,10 +1,31 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
+local utils = require("keytables.utils")
 
 return {
 	-- Create a new pane
-	{ key = "n", action = act.SplitHorizontal },
-	{ key = "v", action = act.SplitVertical },
+	{
+		key = "v",
+		action = wezterm.action_callback(function(window, pane)
+			local args = {
+				direction = "Right",
+				command = utils.GetSpawnCommandBasedOnWorkspace(window),
+				size = { Percent = 50 },
+			}
+			window:perform_action(act.SplitPane(args), pane)
+		end),
+	},
+	{
+		key = "n",
+		action = wezterm.action_callback(function(window, pane)
+			local args = {
+				direction = "Down",
+				command = utils.GetSpawnCommandBasedOnWorkspace(window),
+				size = { Percent = 30 },
+			}
+			window:perform_action(act.SplitPane(args), pane)
+		end),
+	},
 
 	-- Close the current pane
 	{ key = "x", action = act.CloseCurrentPane({ confirm = false }) },

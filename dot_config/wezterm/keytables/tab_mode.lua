@@ -13,13 +13,12 @@ return {
 				-- An empty string if they just hit enter
 				-- Or the actual line of text they wrote
 				if line then
-					window:perform_action(
-						act.SpawnCommandInNewTab({
-							label = line,
-							domain = "CurrentPaneDomain",
-						}),
-						pane
-					)
+					local spawn_command = utils.GetSpawnCommandBasedOnWorkspace(window)
+					local args = utils.OverrideSpawnComand(spawn_command, {
+						label = line,
+						domain = "CurrentPaneDomain",
+					})
+					window:perform_action(act.SpawnCommandInNewTab(args), pane)
 				end
 			end),
 		}),

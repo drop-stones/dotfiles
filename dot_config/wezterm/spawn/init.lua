@@ -28,65 +28,71 @@ function module.Wsl2Commands(...)
 	return args
 end
 
-local spawn_dictionary = {
+local spawn_commands = {
 	powershell = {
+		args = module.PowerShellCommands(),
+	},
+	msys2 = {
+		args = module.Msys2Commands(),
+	},
+	manjaro = {
+		args = module.Wsl2Commands(),
+	},
+	toggleterm = {
+		args = module.Msys2Commands("-c", "nvim -c 'ToggleTerm direction=tab'"),
+	},
+}
+
+local spawn_commands_for_palette = {
+	{
 		brief = "Powershell Workspace",
 		icon = "cod_terminal_powershell",
 		action = act.SwitchToWorkspace({
 			name = "powershell",
-			spawn = {
-				args = module.PowerShellCommands(),
-			},
+			spawn = spawn_commands["powershell"],
 		}),
 	},
-	msys2 = {
+	{
 		brief = "Msys2 Workspace",
 		icon = "cod_terminal_cmd",
 		action = act.SwitchToWorkspace({
 			name = "msys2",
-			spawn = {
-				args = module.Msys2Commands(),
-			},
+			spawn = spawn_commands["msys2"],
 		}),
 	},
-	manjaro = {
+	{
 		brief = "Manjaro Workspace",
 		icon = "linux_manjaro",
 		action = act.SwitchToWorkspace({
 			name = "manjaro",
-			spawn = {
-				args = module.Wsl2Commands(),
-			},
+			spawn = spawn_commands["manjaro"],
 		}),
 	},
-	toggleterm = {
+	{
 		brief = "ToggleTerm Tab",
 		icon = "custom_vim",
-		action = act.SpawnCommandInNewTab({
-			args = module.Msys2Commands("-c", "nvim -c 'ToggleTerm direction=tab'"),
-		}),
+		action = act.SpawnCommandInNewTab(spawn_commands["toggleterm"]),
 	},
 }
 
-for key, spawn in pairs(private) do
-	table.insert(spawn_dictionary, key)
-	spawn_dictionary[key] = spawn
+for key, spawn in pairs(private.spawn_commands) do
+	spawn_commands[key] = spawn
 end
 
-function module.get_spawn_commands()
-	local spawn_commands = {}
-	for _, spawn in pairs(spawn_dictionary) do
-		table.insert(spawn_commands, spawn)
-	end
-	return spawn_commands
+for _, spawn in ipairs(private.spawn_commands_for_pallette) do
+	table.insert(spawn_commands_for_palette, spawn)
+end
+
+function module.get_spawn_commands_for_palette()
+	return spawn_commands_for_palette
 end
 
 function module.contains_spawn_command(key)
-	return spawn_dictionary[key] ~= nil
+	return spawn_commands[key] ~= nil
 end
 
 function module.get_spawn_command(key)
-	return spawn_dictionary[key]
+	return spawn_commands[key]
 end
 
 return module

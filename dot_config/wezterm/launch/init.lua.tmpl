@@ -5,7 +5,7 @@ local spawn = require("spawn")
 local module = {}
 
 wezterm.on("augment-command-palette", function(window, pane)
-  return spawn.get_spawn_commands()
+  return spawn.get_spawn_commands_for_palette()
 end)
 
 function module.apply_to_config(config)

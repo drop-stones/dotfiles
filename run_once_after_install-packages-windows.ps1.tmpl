@@ -44,6 +44,10 @@ function ExecuteCallbackOnList([scriptblock] $callback, [string] $list)
   }
 }
 
+# Add extras bucket
+AssertCommandExists "scoop"
+scoop bucket add extras
+
 # Install packages using scoop
 ExecuteCallbackOnList $function:ScoopInstall "$HOME/.config/chezmoi/install_packages_list.txt"
 

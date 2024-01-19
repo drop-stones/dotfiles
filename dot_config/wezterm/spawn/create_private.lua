@@ -1,6 +1,11 @@
 local wezterm = require("wezterm")
 
 return {
-	-- Private spawn commands
-	-- ["spawn"] = {}
+	spawn_commands = {
+		-- key = { value }
+	},
+
+	spawn_commands_for_pallette = {
+		-- commands for pallette
+	},
 }

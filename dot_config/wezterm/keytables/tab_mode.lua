@@ -36,7 +36,7 @@ return {
 				local tab = window:active_tab()
 				local tab_name = tab:get_title()
 				window:perform_action(
-					PromptInputLineAndCallback(
+					utils.PromptInputLineAndCallback(
 						"Enter name for the current tab (" .. tab_name .. ")",
 						function(window, pane, line)
 							if line then

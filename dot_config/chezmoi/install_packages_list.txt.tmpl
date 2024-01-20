@@ -44,9 +44,8 @@ nodejs
 npm
 {{ end }}
 python
-rust
 rustup
-{{ if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") }}
+{{ if eq .chezmoi.os "darwin" }}
 rust-analyzer
 {{ end }}
 

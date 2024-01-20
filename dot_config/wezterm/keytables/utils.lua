@@ -16,16 +16,6 @@ function module.PromptInputLineAndCallback(text, callback)
 	})
 end
 
--- Get spawn comand according to the current workspace
-function module.GetSpawnCommandBasedOnWorkspace(window)
-	local workspace_name = window:active_workspace()
-	if spawn.contains_spawn_command(workspace_name) == true then
-		return spawn.get_spawn_command(workspace_name)
-	else
-		return nil
-	end
-end
-
 -- Override `base` spawn command with `override`
 function module.OverrideSpawnComand(base, override)
 	local spawn_command = base or {}

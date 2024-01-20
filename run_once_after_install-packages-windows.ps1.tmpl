@@ -51,6 +51,8 @@ scoop bucket add extras
 # Install packages using scoop
 ExecuteCallbackOnList $function:ScoopInstall "$HOME/.config/chezmoi/install_packages_list.txt"
 
+rustup default stable
+
 # Install packages using cargo
 ExecuteCallbackOnList $function:CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
 

@@ -54,8 +54,10 @@ ExecuteCallbackOnList() {
 sudo pacman -Syu --noconfirm
 sudo pacman -S --noconfirm pamac-cli
 
-# Install packages using brew
+# Install packages using pamac
 ExecuteCallbackOnList PamacInstall "$HOME/.config/chezmoi/install_packages_list.txt"
+
+rustup default stable
 
 # Install packages using cargo
 ExecuteCallbackOnList CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"

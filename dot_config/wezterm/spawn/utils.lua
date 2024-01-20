@@ -1,3 +1,4 @@
+local wezterm = require("wezterm")
 local module = {}
 
 function module.deepcopy(orig)
@@ -46,6 +47,21 @@ end
 
 function module.Wsl2Commands(...)
 	return module.AppendCommandArgs("wsl", ...)
+end
+
+function module.IsWindows()
+	local os_type = os.getenv("OSTYPE") or ""
+	return os_type == "" or string.match(os_type, "msys") or string.match(os_type, "cygwin")
+end
+
+function module.IsDarwin()
+	local os_type = os.getenv("OSTYPE") or ""
+	return string.match(os_type, "darwin")
+end
+
+function module.IsLinux()
+	local os_type = os.getenv("OSTYPE") or ""
+	return string.match(os_type, "linux-gnu")
 end
 
 return module

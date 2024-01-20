@@ -1,15 +1,20 @@
+local utils = require("spawn.utils")
 local private = require("spawn.command_palette.private")
 
 local command_palette = {}
 
-local windows = require("spawn.command_palette.windows")
-for _, spawn in ipairs(windows) do
-	table.insert(command_palette, spawn)
+if utils.IsWindows() == true then
+	local windows = require("spawn.command_palette.windows")
+	for _, spawn in ipairs(windows) do
+		table.insert(command_palette, spawn)
+	end
 end
 
-local unix = require("spawn.command_palette.unix")
-for _, spawn in ipairs(unix) do
-	table.insert(command_palette, spawn)
+if utils.IsDarwin() == true or utils.IsLinux() == true then
+	local unix = require("spawn.command_palette.unix")
+	for _, spawn in ipairs(unix) do
+		table.insert(command_palette, spawn)
+	end
 end
 
 local toggleterm = require("spawn.command_palette.toggleterm")

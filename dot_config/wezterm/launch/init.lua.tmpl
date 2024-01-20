@@ -12,6 +12,7 @@ end)
 function module.apply_to_config(config)
 {{ if eq .chezmoi.os "windows" }}
 	config.default_prog = spawn_utils.Msys2Commands()
+  config.wsl_domains = wezterm.default_wsl_domains()
 {{ end }}
 end
 

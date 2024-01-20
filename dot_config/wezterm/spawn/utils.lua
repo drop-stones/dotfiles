@@ -30,7 +30,7 @@ function module.Msys2Commands(...)
 end
 
 function module.Wsl2Commands(...)
-	return module.AppendCommandArgs("wsl", "--distribution", "Manjaro", ...)
+	return module.AppendCommandArgs("wsl", ...)
 end
 
 return module

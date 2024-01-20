@@ -1,8 +1,22 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
-local utils = require("spawn.utils")
 local spawn_commands = require("spawn.spawn_commands")
 local private = require("spawn.command_palette.private")
+
+local function deepcopy(orig)
+	local orig_type = type(orig)
+	local copy
+	if orig_type == "table" then
+		copy = {}
+		for orig_key, orig_value in next, orig, nil do
+			copy[deepcopy(orig_key)] = deepcopy(orig_value)
+		end
+		setmetatable(copy, deepcopy(getmetatable(orig)))
+	else -- number, string, boolean, etc
+		copy = orig
+	end
+	return copy
+end
 
 local function AppendSpawnCommand(spawn_command, ...)
 	local command = spawn_command or {}
@@ -52,13 +66,15 @@ local command_palette = {
 		icon = "custom_vim",
 		action = wezterm.action_callback(function(window, pane)
 			local workspace_name = window:active_workspace()
-			local spawn_command = spawn_commands[workspace_name] or spawn_commands["zsh"]
-			if spawn_command.args[1] == "zsh" or spawn_command.args[1] == "msys2.cmd" then
+			local spawn_command = deepcopy(spawn_commands[workspace_name] or spawn_commands["zsh"])
+			if string.find(pane:get_domain_name(), "WSL:") then
 				spawn_command = AppendSpawnCommand(spawn_command, "-c", "nvim -c 'ToggleTerm direction=tab'")
-			elseif spawn_command.args[1] == "wsl" then
-				spawn_command = AppendSpawnCommand(spawn_command, "--exec", "nvim -c 'ToggleTerm direction=tab'")
-				-- elseif spawn_command.args[1] == "pwsh" then
-				-- 	spawn_command = AppendSpawnCommand(spawn_command, "-Command", "\"nvim -c 'ToggleTerm direction=tab'\"")
+			else
+				if spawn_command.args[1] == "zsh" or spawn_command.args[1] == "msys2.cmd" then
+					spawn_command = AppendSpawnCommand(spawn_command, "-c", "nvim -c 'ToggleTerm direction=tab'")
+					-- elseif spawn_command.args[1] == "pwsh" then
+					-- 	spawn_command = AppendSpawnCommand(spawn_command, "-Command", "\"nvim -c 'ToggleTerm direction=tab'\"")
+				end
 			end
 			window:perform_action(act.SpawnCommandInNewTab(spawn_command), pane)
 		end),

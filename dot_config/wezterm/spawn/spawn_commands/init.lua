@@ -12,7 +12,10 @@ local spawn_commands = {
 		args = utils.Msys2Commands(),
 	},
 	manjaro = {
-		args = utils.Wsl2Commands(),
+		args = utils.ZshCommands(),
+		domain = {
+			DomainName = "WSL:Manjaro",
+		},
 	},
 }
 

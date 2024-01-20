@@ -23,6 +23,7 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   history-substring-search # after zsh-syntax-highlighting
+  zsh-completions
 {{ if ne .chezmoi.os "windows" }}
   zsh-autocomplete # Too slow in windows
 {{ end }}

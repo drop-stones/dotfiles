@@ -3,31 +3,37 @@
 {{ else }}
 [".config/nvim"]
 {{ end }}
-  type = "git-repo"
-  url = "https://github.com/drop-stones/LazyVimConfig.git"
-  refreshPeriod = "168h"
+type = "git-repo"
+url = "https://github.com/drop-stones/LazyVimConfig.git"
+refreshPeriod = "168h"
 
 [".oh-my-zsh"]
-  type = "git-repo"
-  url = "https://github.com/ohmyzsh/ohmyzsh.git"
-  refreshPeriod = "168h"
+type = "git-repo"
+url = "https://github.com/ohmyzsh/ohmyzsh.git"
+refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
-  type = "git-repo"
-  url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
-  refreshPeriod = "168h"
+type = "git-repo"
+url = "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-autosuggestions"]
-  type = "git-repo"
-  url = "https://github.com/zsh-users/zsh-autosuggestions.git"
-  refreshPeriod = "168h"
-[".oh-my-zsh/custom/plugins/zsh-autocomplete"]
-  type = "git-repo"
-  url = "https://github.com/marlonrichert/zsh-autocomplete.git"
-  refreshPeriod = "168h"
+type = "git-repo"
+url = "https://github.com/zsh-users/zsh-autosuggestions.git"
+refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-proxy"]
-  type = "git-repo"
-  url = "https://github.com/SukkaW/zsh-proxy.git"
-  REFRESHPERIOD = "168h"
+type = "git-repo"
+url = "https://github.com/SukkaW/zsh-proxy.git"
+refreshPeriod = "168h"
 [".oh-my-zsh/custom/plugins/zsh-vi-mode"]
-  type = "git-repo"
-  url = "https://github.com/jeffreytse/zsh-vi-mode.git"
-  REFRESHPERIOD = "168h"
+type = "git-repo"
+url = "https://github.com/jeffreytse/zsh-vi-mode.git"
+refreshPeriod = "168h"
+[".oh-my-zsh/custom/plugins/zsh-completions"]
+type = "git-repo"
+url = "https://github.com/zsh-users/zsh-completions.git"
+refreshPeriod = "168h"
+{{ if ne .chezmoi.os "windows" }}
+[".oh-my-zsh/custom/plugins/zsh-autocomplete"]
+type = "git-repo"
+url = "https://github.com/marlonrichert/zsh-autocomplete.git"
+refreshPeriod = "168h"
+{{ end }}

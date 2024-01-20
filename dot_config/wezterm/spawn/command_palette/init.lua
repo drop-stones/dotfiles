@@ -19,12 +19,18 @@ local function deepcopy(orig)
 end
 
 local function AppendSpawnCommand(spawn_command, ...)
-	local command = spawn_command or {}
+	local command = deepcopy(spawn_command) or {}
 	local args = command.args or {}
 	for _, arg in ipairs({ ... }) do
 		table.insert(args, arg)
 	end
 	command.args = args
+	return command
+end
+
+local function AppendCwdToSpawnCommand(spawn_command, cwd)
+	local command = deepcopy(spawn_command) or {}
+	command.cwd = cwd
 	return command
 end
 
@@ -58,7 +64,7 @@ local command_palette = {
 		icon = "linux_manjaro",
 		action = act.SwitchToWorkspace({
 			name = "manjaro",
-			spawn = spawn_commands["manjaro"],
+			spawn = AppendCwdToSpawnCommand(spawn_commands["manjaro"], "~"),
 		}),
 	},
 	{

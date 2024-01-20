@@ -46,6 +46,9 @@ npm
 python
 rust
 rustup
+{{ if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") }}
+rust-analyzer
+{{ end }}
 
 # Parser Generator Tool
 tree-sitter

@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 local spawn = require("spawn")
+local spawn_utils = require("spawn.utils")
 
 local module = {}
 
@@ -10,7 +11,7 @@ end)
 
 function module.apply_to_config(config)
 {{ if eq .chezmoi.os "windows" }}
-	config.default_prog = spawn.Msys2Commands()
+	config.default_prog = spawn_utils.Msys2Commands()
 {{ end }}
 end
 

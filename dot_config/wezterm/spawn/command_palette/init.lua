@@ -3,14 +3,14 @@ local private = require("spawn.command_palette.private")
 
 local command_palette = {}
 
-if utils.IsWindows() == true then
+if utils.IsWindows() then
 	local windows = require("spawn.command_palette.windows")
 	for _, spawn in ipairs(windows) do
 		table.insert(command_palette, spawn)
 	end
 end
 
-if utils.IsDarwin() == true or utils.IsLinux() == true then
+if utils.IsDarwin() or utils.IsLinux() then
 	local unix = require("spawn.command_palette.unix")
 	for _, spawn in ipairs(unix) do
 		table.insert(command_palette, spawn)

@@ -50,18 +50,15 @@ function module.Wsl2Commands(...)
 end
 
 function module.IsWindows()
-	local os_type = os.getenv("OSTYPE") or ""
-	return os_type == "" or string.match(os_type, "msys") or string.match(os_type, "cygwin")
+	return string.find(wezterm.target_triple, "windows") ~= nil
 end
 
 function module.IsDarwin()
-	local os_type = os.getenv("OSTYPE") or ""
-	return string.match(os_type, "darwin")
+	return string.find(wezterm.target_triple, "darwin") ~= nil
 end
 
 function module.IsLinux()
-	local os_type = os.getenv("OSTYPE") or ""
-	return string.match(os_type, "linux-gnu")
+	return string.match(wezterm.target_triple, "linux") ~= nil
 end
 
 return module

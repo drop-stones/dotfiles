@@ -22,6 +22,7 @@ plugins=(
   web-search
   zsh-autosuggestions
   zsh-syntax-highlighting
+  history-substring-search # after zsh-syntax-highlighting
 {{ if ne .chezmoi.os "windows" }}
   zsh-autocomplete # Too slow in windows
 {{ end }}
@@ -36,5 +37,11 @@ export ZVM_VI_ESCAPE_BINDKEY="jk"
 
 # zsh-autosuggestions
 bindkey '\t' forward-word
+
+# zsh-history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
 source $ZSH/oh-my-zsh.sh

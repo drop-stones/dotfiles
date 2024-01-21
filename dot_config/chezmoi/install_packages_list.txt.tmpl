@@ -8,8 +8,10 @@ neovim
 # Terminal Emulator
 wezterm
 
-# Shell
+# Shell Prompt
+{{ if eq .chezmoi.os "windows" }}
 starship
+{{ end }}
 
 # Command-Line Tools
 bat

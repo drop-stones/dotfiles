@@ -1,0 +1,14 @@
+{{ if eq .chezmoi.os "windows" }}
+["AppData/Local/nvim"]
+{{ else }}
+[".config/nvim"]
+{{ end }}
+  type = "git-repo"
+  url = "https://github.com/drop-stones/LazyVimConfig.git"
+  refreshPeriod = "168h"
+
+[".config/zsh/.antidote"]
+  type = "git-repo"
+  clone.args = ["--depth", "1"]
+  url = "https://github.com/mattmc3/antidote.git"
+  refreshPeriod = "168h"

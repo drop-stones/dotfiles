@@ -1,0 +1,7 @@
+##################################################
+# Disable override of source()
+##################################################
+
+{{ if ne .chezmoi.os "windows" }}
+unfunction source
+{{ end }}

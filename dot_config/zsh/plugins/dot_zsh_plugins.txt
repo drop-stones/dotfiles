@@ -1,5 +1,8 @@
 # .zsh_plugins.txt
 
+# prompts
+romkatv/powerlevel10k kind:fpath
+
 # add fish-like features
 zdharma-continuum/fast-syntax-highlighting kind:defer
 zsh-users/zsh-autosuggestions kind:defer

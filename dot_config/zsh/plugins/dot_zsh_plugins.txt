@@ -10,3 +10,6 @@ zsh-users/zsh-history-substring-search kind:defer
 
 # additional completion definitions
 zsh-users/zsh-completions
+
+# auto-expanding abbreviations
+olets/zsh-abbr

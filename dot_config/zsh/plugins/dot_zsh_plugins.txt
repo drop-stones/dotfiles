@@ -1,0 +1,9 @@
+# .zsh_plugins.txt
+
+# add fish-like features
+zdharma-continuum/fast-syntax-highlighting kind:defer
+zsh-users/zsh-autosuggestions kind:defer
+zsh-users/zsh-history-substring-search kind:defer
+
+# additional completion definitions
+zsh-users/zsh-completions

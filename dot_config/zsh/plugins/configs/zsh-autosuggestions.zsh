@@ -1,0 +1,1 @@
+# bindkey '\t' forward-word

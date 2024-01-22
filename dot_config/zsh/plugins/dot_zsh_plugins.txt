@@ -6,6 +6,9 @@ romkatv/powerlevel10k kind:fpath
 # auto-expanding abbreviations
 olets/zsh-abbr
 
+# history search
+zdharma-continuum/history-search-multi-word
+
 # additional completion definitions
 zsh-users/zsh-completions
 

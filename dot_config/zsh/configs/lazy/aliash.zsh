@@ -9,17 +9,11 @@ alias cat="bat"
 # eza
 alias ls="eza --git --icons --color=always --group-directories-first"
 
-# fd
-alias find="fd"
-
 # dust
 alias du="dust"
 
 # procs
 alias ps="procs"
-
-# bottom
-alias top="btm"
 
 # zoxide
 alias cd="z"

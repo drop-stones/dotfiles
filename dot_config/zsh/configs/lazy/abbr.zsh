@@ -17,9 +17,13 @@ abbr -S gua="git pull && git submodule update --init --recursive"
 abbr -S lg="lazygit"
 
 # eza
-abbr -S l="eza --git --icons --color=always --group-directories-first"
-abbr -S ll="eza --git --icons --color=always --group-directories-first -l"
-abbr -S la="eza --git --icons --color=always --group-directories-first -la"
+eza_command="eza --git --icons --color=always --group-directories-first"
+abbr -S l="$eza_command"
+abbr -S ll="$eza_command -l"
+abbr -S la="$eza_command -la"
+
+# bottom
+abbr -S top="btm"
 
 # highlight single-word abbreviations for fast-syntax-highlighting
 # https://zsh-abbr.olets.dev/advanced.html#fast-syntax-highlighting

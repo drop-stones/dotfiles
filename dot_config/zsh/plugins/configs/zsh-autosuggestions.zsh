@@ -1,1 +1,1 @@
-bindkey '\t' forward-word
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)

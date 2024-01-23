@@ -4,7 +4,7 @@
 # initialize
 ##################################################
 
-source=${ZDOTDIR:-~}/.initialize.zsh
+source ${ZDOTDIR:-~}/.initialize.zsh
 
 ##################################################
 # plugins
@@ -32,15 +32,32 @@ source $zsh_plugins
 # Load configs
 ##################################################
 
-LoadConfigs() {
-  configs_dir=$1
+# Execute the command for files in the directory
+ExecuteCommandForFiles() {
+  dir=$1
+  command=$2
   setopt extended_glob
   if [ -d $configs_dir ] && [ -r $configs_dir ] && [ -x $configs_dir ]; then
     for file in ${configs_dir}/**; do
-      [ -r $file ] && source $file
+      [ -r $file ] && eval $command $file
     done
   fi
 }
 
-LoadConfigs ${ZDOTDIR:-~}/plugins/configs
-LoadConfigs ${ZDOTDIR:-~}/configs
+# Load configs at startup time
+LoadConfigs() {
+  configs_dir=$1
+  ExecuteCommandForFiles configs_dir "source"
+}
+
+# Lazy load configs
+LazyLoadConfigs() {
+  configs_dir=$1
+  ExecuteCommandForFiles configs_dir "zsh-defer source"
+}
+
+LoadConfigs ${ZDOTDIR:-~}/plugins/configs/startup
+LoadConfigs ${ZDOTDIR:-~}/configs/startup
+
+LazyLoadConfigs ${ZDOTDIR:-~}/plugins/configs/lazy
+LazyLoadConfigs ${ZDOTDIR:-~}/configs/lazy

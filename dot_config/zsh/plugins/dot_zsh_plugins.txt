@@ -3,6 +3,9 @@
 # prompts
 romkatv/powerlevel10k kind:fpath
 
+# cache the output of a binary initialization command
+mroth/evalcache
+
 # auto-expanding abbreviations
 olets/zsh-abbr
 

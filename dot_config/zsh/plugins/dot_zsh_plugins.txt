@@ -9,6 +9,9 @@ mroth/evalcache
 # auto-expanding abbreviations
 olets/zsh-abbr
 
+# a better vi mode
+jeffreytse/zsh-vi-mode
+
 # history search
 zdharma-continuum/history-search-multi-word
 

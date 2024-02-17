@@ -23,5 +23,8 @@ keybinding.apply_to_config(config)
 local keytables = require("keytables")
 keytables.apply_to_config(config)
 
+local plugins = require("plugins")
+plugins.apply_to_config(config)
+
 -- and finally, return the configuration to wezterm
 return config

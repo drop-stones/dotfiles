@@ -1,5 +1,6 @@
 local commands = require("keybinding.commands")
 local modes = require("keybinding.modes")
+local mouse = require("keybinding.mouse")
 local private_keybindings = require("keybinding.private")
 
 local module = {}
@@ -25,6 +26,9 @@ function module.apply_to_config(config)
 	end
 
 	config.keys = keys
+
+	-- mouse.lua
+	mouse.apply_to_config(config)
 end
 
 return module

@@ -1,6 +1,5 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
-local spawn = require("spawn")
 
 local module = {}
 
@@ -23,6 +22,14 @@ function module.OverrideSpawnComand(base, override)
 		spawn_command[key] = value
 	end
 	return spawn_command
+end
+
+-- Insert entries to list
+function module.InsertEntries(tab, ...)
+	for _, entry in ipairs({ ... }) do
+		table.insert(tab, entry)
+	end
+	return tab
 end
 
 return module

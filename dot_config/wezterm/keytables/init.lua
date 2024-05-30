@@ -1,5 +1,4 @@
 local wezterm = require("wezterm")
-local act = wezterm.action
 local pane_mode = require("keytables.pane_mode")
 local tab_mode = require("keytables.tab_mode")
 local workspace_mode = require("keytables.workspace_mode")
@@ -9,7 +8,7 @@ local search_mode = require("keytables.search_mode")
 local module = {}
 
 -- Reset window frame if any key tables are not activated
-wezterm.on("update-status", function(window, pane)
+wezterm.on("update-status", function(window, _)
 	local overrides = window:get_config_overrides() or {}
 	local name = window:active_key_table()
 	if overrides.window_frame ~= nil and name == nil then

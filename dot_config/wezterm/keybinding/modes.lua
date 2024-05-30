@@ -60,6 +60,10 @@ return {
 		mods = "ALT",
 		action = wezterm.action_callback(function(window, pane)
 			ActionAndChangeWindowFrameColor(window, pane, "copy_mode", act.ActivateCopyMode)
+
+			-- Clear previous state
+			window:perform_action(act.CopyMode("ClearPattern"), pane)
+			window:perform_action(act.CopyMode("ClearSelectionMode"), pane)
 		end),
 	},
 

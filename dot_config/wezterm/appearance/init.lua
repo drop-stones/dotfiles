@@ -33,7 +33,7 @@ function module.apply_to_config(config)
 	config.color_scheme = colorscheme.color_scheme
 
 	-- font
-	config.font_size = 10.5
+	config.font_size = 9.0
 
 	-- background
 	config.window_background_opacity = 0.7

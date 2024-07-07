@@ -27,3 +27,8 @@ man 2>/dev/null
 if [ $? -eq 127 ]; then
   alias man=manFn
 fi
+
+chezmoi_update_all() {
+  chezmoi state delete-bucket --bucket=scriptState
+  chezmoi update
+}

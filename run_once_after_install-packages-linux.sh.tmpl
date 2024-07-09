@@ -9,10 +9,10 @@ AssertCommandInstalled() {
 	fi
 }
 
-PamacInstall() {
+PacmanInstall() {
 	package=$1
-	AssertCommandInstalled "pamac"
-	sudo pamac install --no-confirm --upgrade $1
+	AssertCommandInstalled "pacman"
+	sudo pacman -S --noconfirm $1
 }
 
 CargoInstall() {
@@ -52,10 +52,9 @@ ExecuteCallbackOnList() {
 }
 
 sudo pacman -Syu --noconfirm
-sudo pacman -S --noconfirm pamac-cli
 
-# Install packages using pamac
-ExecuteCallbackOnList PamacInstall "$HOME/.config/chezmoi/install_packages_list.txt"
+# Install packages using pacman
+ExecuteCallbackOnList PacmanInstall "$HOME/.config/chezmoi/install_packages_list.txt"
 
 # Install/Update rust toolchain
 rustup toolchain install --no-self-update stable

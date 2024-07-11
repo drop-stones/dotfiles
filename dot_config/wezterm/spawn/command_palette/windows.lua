@@ -27,11 +27,11 @@ return {
 		}),
 	},
 	{
-		brief = "Manjaro Workspace",
-		icon = "linux_manjaro",
+		brief = "Arch Workspace",
+		icon = "linux_archlinux",
 		action = act.SwitchToWorkspace({
-			name = "manjaro",
-			spawn = AppendCwdToSpawnCommand(spawn_commands["manjaro"], "~"),
+			name = "arch",
+			spawn = AppendCwdToSpawnCommand(spawn_commands["arch"], "~"),
 		}),
 	},
 }

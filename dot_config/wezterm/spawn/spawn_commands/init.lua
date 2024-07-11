@@ -11,10 +11,10 @@ local spawn_commands = {
 	msys2 = {
 		args = utils.Msys2Commands(),
 	},
-	manjaro = {
+	arch = {
 		args = utils.ZshCommands(),
 		domain = {
-			DomainName = "WSL:Manjaro",
+			DomainName = "WSL:Arch",
 		},
 	},
 }

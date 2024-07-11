@@ -5,8 +5,16 @@ unzip
 # Editor
 neovim
 
-# Terminal Emulator
+# GUI Tools (Do not install in WSL2)
+{{ if eq .chezmoi.os "linux" }}
+{{   if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+## Terminal Emulator
 wezterm
+## Note taking
+obsidian
+{{   end }}
+{{ end }}
+
 
 # Shell Prompt
 {{ if eq .chezmoi.os "windows" }}
@@ -59,9 +67,6 @@ lazygit
 just
 make
 
-# Note taking
-obsidian
-
 {{ if eq .chezmoi.os "windows" }}
 # Windows specific
 winget
@@ -69,6 +74,8 @@ pwsh
 mingw
 msys2
 powertoys
+win32yank # for WSL2
+archwsl
 {{ else if eq .chezmoi.os "darwin" }}
 # Mac specific
 man-db

@@ -1,8 +1,6 @@
-{{ if hasKey . "core" }}
 [core]
-{{ if hasKey .core "autocrlf" }}
-{{ if ne .core.autocrlf "" }}
-  autocrlf = {{ .core.autocrlf }}
-{{ end }}
-{{ end }}
+{{ if eq .autocrlf true }}
+  autocrlf = true
+{{ else }}
+  autocrlf = false
 {{ end }}

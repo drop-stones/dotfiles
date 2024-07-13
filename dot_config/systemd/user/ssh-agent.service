@@ -1,0 +1,11 @@
+[Unit]
+Description=SSH key agent
+
+[Service]
+Type=simple
+Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+ExecStart=/usr/bin/ssh-agent -D -a $SSH_AUTH_SOCK
+ExecStartPost=/bin/sh -c 'grep -slR "PRIVATE" ~/.ssh/ | xargs ssh-add'
+
+[Install]
+WantedBy=default.target

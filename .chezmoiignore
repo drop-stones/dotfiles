@@ -1,1 +1,20 @@
 README.md
+
+{{ if ne .chezmoi.os "windows" }}
+# Windows only
+.config/powershell/
+.config/starship.toml/
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+# Linux only
+.config/environment.d/
+.config/systemd/
+{{ end }}
+
+{{ if eq .chezmoi.os "linux" }}
+{{   if .chezmoi.kernel.osrelease | lower | contains "microsoft" }}
+# No use in WSL2
+.config/wezterm/
+{{   end }}
+{{ end }}

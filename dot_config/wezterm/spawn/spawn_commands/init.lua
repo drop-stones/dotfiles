@@ -12,7 +12,7 @@ local spawn_commands = {
 		args = utils.Msys2Commands(),
 	},
 	arch = {
-		args = utils.ZshCommands(),
+		args = utils.ZshCommands("--login"), -- login shell to load /etc/profile
 		domain = {
 			DomainName = "WSL:Arch",
 		},

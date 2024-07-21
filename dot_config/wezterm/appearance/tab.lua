@@ -40,11 +40,15 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 
 	local title = tab_title(tab)
 
-	return {
+	if title == nil then
+		return
+	end
+
+	return wezterm.format({
 		{ Background = { Color = background } },
 		{ Foreground = { Color = foreground } },
 		{ Text = title },
-	}
+	})
 end)
 
 function module.update_tab_bar(window, pane)

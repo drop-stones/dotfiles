@@ -18,22 +18,9 @@ function module.apply_to_config(config)
 	-- background
 	config.window_background_opacity = 0.7
 
-	-- background
-	config.background = {
-		{
-			source = {
-				File = background.background_path,
-			},
-			repeat_x = background.repeat_x,
-
-			hsb = { brightness = background.background_brightness },
-
-			attachment = background.attachment,
-		},
-	}
-
 	tab.apply_to_config(config)
 	window.apply_to_config(config)
+	background.apply_to_config(config)
 	private.apply_to_config(config)
 end
 

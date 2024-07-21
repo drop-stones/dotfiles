@@ -1,7 +1,8 @@
 local wezterm = require("wezterm")
+local color = require("utils.color")
 
-local scheme = wezterm.get_builtin_color_schemes()["tokyonight_night"]
-scheme.background = "black"
+local scheme = wezterm.color.get_builtin_schemes()["tokyonight_night"]
+scheme.background = color.black
 
 return {
 	color_schemes = {

@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
+local tab = require("utils.tab")
 
 local function ActiveUnlessAltScreen(window, pane, key, mods, callback)
 	if pane:is_alt_screen_active() then
@@ -88,6 +89,15 @@ return {
 		mods = "CTRL",
 		action = wezterm.action_callback(function(window, pane)
 			ActiveUnlessAltScreen(window, pane, "UpArrow", "CTRL", act.AdjustPaneSize({ "Up", 2 }))
+		end),
+	},
+
+	-- ALT + a: toggle tab bar
+	{
+		key = "a",
+		mods = "ALT",
+		action = wezterm.action_callback(function(window, pane)
+			tab.toggle_tab_bar(window)
 		end),
 	},
 }

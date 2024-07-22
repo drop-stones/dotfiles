@@ -27,6 +27,15 @@ if wezterm.gui then
 			key = "N",
 			mods = "SHIFT",
 			action = act.CopyMode("PriorMatch"),
+		},
+
+		-- End search
+		{
+			key = "Enter",
+			action = act.Multiple({
+				act.CopyMode("ClearPattern"),
+				act.CopyMode("ClearSelectionMode"),
+			}),
 		}
 	)
 end

@@ -27,7 +27,7 @@ end
 
 return {
 	-- Quick Select Mode
-	{ key = "m", mods = "ALT", action = act.QuickSelect },
+	{ key = "s", mods = "ALT", action = act.QuickSelect },
 
 	-- Copy Mode
 	{

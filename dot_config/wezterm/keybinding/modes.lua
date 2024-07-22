@@ -34,7 +34,7 @@ return {
 		key = "n",
 		mods = "ALT",
 		action = wezterm.action_callback(function(window, pane)
-			ActionAndChangeWindowFrameColor(window, pane, "copy_mode", act.ActivateCopyMode)
+			window:perform_action(act.ActivateCopyMode, pane)
 
 			-- Clear previous state
 			window:perform_action(act.CopyMode("ClearPattern"), pane)

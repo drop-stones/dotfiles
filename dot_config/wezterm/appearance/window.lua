@@ -1,4 +1,3 @@
-local wezterm = require("wezterm")
 local color = require("utils.color")
 
 local module = {}
@@ -14,9 +13,11 @@ function module.apply_to_config(config)
 	config.window_frame = {
 		inactive_titlebar_bg = color.black,
 		active_titlebar_bg = color.black,
-
 		font_size = 9.0,
 	}
+
+	-- background
+	config.window_background_opacity = 0.7
 end
 
 return module

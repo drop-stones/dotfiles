@@ -1,4 +1,3 @@
-local wezterm = require("wezterm")
 local pane_mode = require("keytables.pane_mode")
 local tab_mode = require("keytables.tab_mode")
 local workspace_mode = require("keytables.workspace_mode")

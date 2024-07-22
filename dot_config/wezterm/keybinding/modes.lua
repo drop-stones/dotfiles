@@ -1,27 +1,20 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
-local modes = require("utils.modes")
 local tab = require("appearance.tab")
 local util_tab = require("utils.tab")
 
-function ActionAndChangeWindowFrameColor(window, pane, mode, action)
+function ActivateKeyTableAndShowTabBar(window, pane, mode)
 	tab.update_tab_bar(window, pane)
 	util_tab.enable_tab_bar(window)
 
-	window:perform_action(action, pane)
-end
-
-function ActivateKeyTableAndChangeWindowFrameColor(window, pane, mode)
-	ActionAndChangeWindowFrameColor(
-		window,
-		pane,
-		mode,
+	window:perform_action(
 		act.ActivateKeyTable({
 			name = mode,
 			one_shot = false,
 			replace_current = true,
 			until_unknown = true,
-		})
+		}),
+		pane
 	)
 end
 
@@ -48,7 +41,7 @@ return {
 		key = "p",
 		mods = "ALT",
 		action = wezterm.action_callback(function(window, pane)
-			ActivateKeyTableAndChangeWindowFrameColor(window, pane, "pane_mode")
+			ActivateKeyTableAndShowTabBar(window, pane, "pane_mode")
 		end),
 	},
 
@@ -57,7 +50,7 @@ return {
 		key = "t",
 		mods = "ALT",
 		action = wezterm.action_callback(function(window, pane)
-			ActivateKeyTableAndChangeWindowFrameColor(window, pane, "tab_mode")
+			ActivateKeyTableAndShowTabBar(window, pane, "tab_mode")
 		end),
 	},
 
@@ -66,7 +59,7 @@ return {
 		key = "w",
 		mods = "ALT",
 		action = wezterm.action_callback(function(window, pane)
-			ActivateKeyTableAndChangeWindowFrameColor(window, pane, "workspace_mode")
+			ActivateKeyTableAndShowTabBar(window, pane, "workspace_mode")
 		end),
 	},
 }

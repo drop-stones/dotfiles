@@ -1,0 +1,2 @@
+---@type CommandPalette
+return {}

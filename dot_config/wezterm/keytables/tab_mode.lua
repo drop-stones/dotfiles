@@ -1,7 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 local utils = require("keytables.utils")
-local spawn = require("spawn")
 
 return {
 	-- Create a new pane
@@ -14,7 +13,7 @@ return {
 				-- An empty string if they just hit enter
 				-- Or the actual line of text they wrote
 				if line then
-					local spawn_command = spawn.get_spawn_command_according_to_workspace(window)
+					local spawn_command = utils.get_spawn_command(window)
 					local args = utils.OverrideSpawnComand(spawn_command, {
 						label = line,
 						domain = "CurrentPaneDomain",

@@ -1,6 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
-local spawn = require("spawn")
+local utils = require("keytables.utils")
 
 return {
 	-- Create a new pane
@@ -9,7 +9,7 @@ return {
 		action = wezterm.action_callback(function(window, pane)
 			local args = {
 				direction = "Right",
-				command = spawn.get_spawn_command_according_to_workspace(window),
+				command = utils.get_spawn_command(window),
 				size = { Percent = 50 },
 			}
 			window:perform_action(act.SplitPane(args), pane)
@@ -20,7 +20,7 @@ return {
 		action = wezterm.action_callback(function(window, pane)
 			local args = {
 				direction = "Down",
-				command = spawn.get_spawn_command_according_to_workspace(window),
+				command = utils.get_spawn_command(window),
 				size = { Percent = 30 },
 			}
 			window:perform_action(act.SplitPane(args), pane)

@@ -24,6 +24,9 @@ starship
 # Secure Shell
 openssh
 
+# database
+sqlite
+
 # Command-Line Tools
 bat
 bottom
@@ -73,11 +76,13 @@ make
 
 {{ if eq .chezmoi.os "windows" }}
 # Windows specific
+7zip
 winget
 pwsh
 mingw
 msys2
 powertoys
+sqlite3dll
 
 # WSL2
 win32yank

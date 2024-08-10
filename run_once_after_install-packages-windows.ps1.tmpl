@@ -47,6 +47,7 @@ function ExecuteCallbackOnList([scriptblock] $callback, [string] $list)
 # Add extras bucket
 AssertCommandExists "scoop"
 scoop bucket add extras
+scoop bucket add drop-stones-bucket https://github.com/drop-stones/scoop-bucket
 
 # Install packages using scoop
 ExecuteCallbackOnList $function:ScoopInstall "$HOME/.config/chezmoi/install_packages_list.txt"

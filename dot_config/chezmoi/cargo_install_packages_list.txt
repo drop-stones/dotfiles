@@ -3,3 +3,6 @@ cargo-binstall
 
 # Test
 cargo-nextest
+
+# Image Previewer
+viu

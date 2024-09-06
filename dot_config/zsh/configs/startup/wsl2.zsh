@@ -27,8 +27,6 @@ cmds=(
   "fzf"
   # Command Runner
   "just"
-  # Dotfiles Manager
-  "chezmoi"
 )
 
 for cmd in $cmds; do

@@ -1,12 +1,11 @@
-# lazygit
-export ABBR_QUIET=1
+ABBR_QUIET=1
 
 # git
 abbr -S g="git"
 abbr -S ga="git add"
 abbr -S gst="git status"
 abbr -S gb="git branch"
-abbr -S gc="git commit --verbose"
+abbr -S --quieter -f gc="git commit --verbose"
 abbr -S gco="git checkout"
 abbr -S gd="git diff"
 abbr -S glg="git log --stat"
@@ -21,9 +20,19 @@ eza_command="eza --git --icons --color=always --group-directories-first"
 abbr -S l="$eza_command"
 abbr -S ll="$eza_command -l"
 abbr -S la="$eza_command -la"
+abbr -S lt="$eza_command --tree"
 
 # bottom
-abbr -S top="btm"
+abbr -S --quieter -f top="btm"
+
+# bat
+abbr -S --quieter -f cat="bat"
+
+# dust
+abbr -S --quieter -f du="dust"
+
+# procs
+abbr -S --quieter -f ps="procs"
 
 # highlight single-word abbreviations for fast-syntax-highlighting
 # https://zsh-abbr.olets.dev/advanced.html#fast-syntax-highlighting

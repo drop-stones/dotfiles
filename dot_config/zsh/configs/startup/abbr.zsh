@@ -53,7 +53,7 @@ chroma_single_word() {
 
 register_single_word_chroma() {
   local word=$1
-  if [[ -x $(command -v $word) ]] || [[ -n $FAST_HIGHLIGHT["chroma-$word"] ]]; then
+  if [[ -n $FAST_HIGHLIGHT["chroma-$word"] ]]; then
     return 1
   fi
 

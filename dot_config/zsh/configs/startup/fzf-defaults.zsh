@@ -1,2 +1,3 @@
-# Remove bg highlight
-FZF_DEFAULT_OPTS=$(echo $FZF_DEFAULT_OPTS | sed -e 's/--color=bg:#[^[:space:]]\+//')
+# Read config file
+# TODO: Add comment when ver 0.55.0 is released
+export FZF_DEFAULT_OPTS_FILE=~/.config/fzf/config

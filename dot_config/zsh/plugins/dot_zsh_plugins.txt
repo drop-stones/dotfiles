@@ -22,3 +22,6 @@ zsh-users/zsh-completions
 zdharma-continuum/fast-syntax-highlighting
 zsh-users/zsh-autosuggestions kind:defer
 zsh-users/zsh-history-substring-search kind:defer
+
+# colorscheme
+folke/tokyonight.nvim path:extras/fzf/tokyonight_night.sh

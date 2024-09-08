@@ -9,7 +9,7 @@ function module.AppendCommandArgs(...)
 end
 
 function module.ZshCommands(...)
-	return module.AppendCommandArgs("zsh", ...)
+	return module.AppendCommandArgs("zsh", "--login", ...)
 end
 
 return module

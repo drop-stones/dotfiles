@@ -18,15 +18,6 @@ function module.PromptInputLineAndCallback(text, callback)
 	})
 end
 
--- Override `base` spawn command with `override`
-function module.OverrideSpawnComand(base, override)
-	local spawn_command = base or {}
-	for key, value in pairs(override) do
-		spawn_command[key] = value
-	end
-	return spawn_command
-end
-
 -- Insert entries to list
 function module.InsertEntries(tab, ...)
 	for _, entry in ipairs({ ... }) do

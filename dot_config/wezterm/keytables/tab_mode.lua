@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 local utils = require("keytables.utils")
+local table_util = require("utils.table")
 
 return {
 	-- Create a new pane
@@ -14,7 +15,7 @@ return {
 				-- Or the actual line of text they wrote
 				if line then
 					local spawn_command = utils.get_spawn_command(window)
-					local args = utils.OverrideSpawnComand(spawn_command, {
+					local args = table_util.extend(spawn_command, {
 						label = line,
 						domain = "CurrentPaneDomain",
 					})

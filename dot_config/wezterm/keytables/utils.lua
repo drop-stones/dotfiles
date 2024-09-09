@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
----@type LaunchCommand[]
+---@type table<string, LaunchCommand>
 local launch_commands = require("launch.launch_commands")
 
 local module = {}

@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local private = require("launch.command_palette.private")
 
----@type LaunchCommand[]
+---@type table<string, LaunchCommand>
 local launch_commands = require("launch.launch_commands")
 
 ---@class CommandPaletteElement
@@ -23,7 +23,7 @@ for name, launch_command in pairs(launch_commands) do
 
 	---@type CommandPaletteElement
 	local command = {
-		brief = launch_command.brief,
+		brief = launch_command.brief or name,
 		icon = launch_command.icon,
 		action = act.SwitchToWorkspace({
 			name = name,

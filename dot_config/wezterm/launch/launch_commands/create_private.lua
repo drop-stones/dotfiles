@@ -1,2 +1,2 @@
----@type LaunchCommand[]
+---@type table<string, LaunchCommand>
 return {}

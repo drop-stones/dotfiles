@@ -8,7 +8,7 @@ local private = require("launch.launch_commands.private")
 ---@field spawn table SpawnCommand
 ---@field startup_cwd string? Working directory at startup of workspace
 
----@type LaunchCommand[]
+---@type table<string, LaunchCommand>
 local launch_commands = {}
 
 if utils_os.IsWindows() then

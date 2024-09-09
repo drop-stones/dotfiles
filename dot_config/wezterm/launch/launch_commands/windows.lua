@@ -1,36 +1,13 @@
-local command = require("utils.command")
 local windows = require("utils.command.windows")
 
 return {
-	["PowerShell"] = {
+	["PowerShell"] = windows.PowerShellLaunchCommand({
 		brief = "PowerShell Workspace",
-		icon = "cod_terminal_powershell",
-		spawn = {
-			args = windows.PowerShellCommands(),
-			domain = {
-				DomainName = "local",
-			},
-		},
-	},
-	["Msys2"] = {
+	}),
+	["Msys2"] = windows.Msys2LaunchCommand({
 		brief = "Msys2 Workspace",
-		icon = "cod_terminal_cmd",
-		spawn = {
-			args = windows.Msys2Commands(),
-			domain = {
-				DomainName = "local",
-			},
-		},
-	},
-	["Arch Linux"] = {
+	}),
+	["Arch Linux"] = windows.ArchLaunchCommand({
 		brief = "Arch Workspace",
-		icon = "linux_archlinux",
-		spawn = {
-			args = command.ZshCommands(), -- login shell to load /etc/profile
-			domain = {
-				DomainName = "WSL:Arch",
-			},
-		},
-		startup_cwd = "~",
-	},
+	}),
 }

@@ -18,6 +18,9 @@ zdharma-continuum/history-search-multi-word
 # additional completion definitions
 zsh-users/zsh-completions
 
+# completion menu
+Aloxaf/fzf-tab
+
 # add fish-like features
 zdharma-continuum/fast-syntax-highlighting
 zsh-users/zsh-autosuggestions kind:defer

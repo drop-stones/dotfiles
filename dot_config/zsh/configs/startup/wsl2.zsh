@@ -6,6 +6,7 @@ fi
 
 typeset -A exclude_set=(
   ["chezmoi"]="/usr/bin/chezmoi"
+  ["fzf"]="/usr/bin/fzf" # for fzf-tab
   ["vivid"]="/usr/bin/vivid"
 )
 

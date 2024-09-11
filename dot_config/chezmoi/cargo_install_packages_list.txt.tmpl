@@ -1,0 +1,13 @@
+# Installer
+cargo-binstall
+
+# Test
+cargo-nextest
+
+# Image Previewer
+viu
+
+{{ if eq .chezmoi.os "windows" }}
+# LS_COLORS generator
+vivid
+{{ end }}

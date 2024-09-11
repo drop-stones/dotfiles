@@ -6,6 +6,7 @@ fi
 
 typeset -A exclude_set=(
   ["chezmoi"]="/usr/bin/chezmoi"
+  ["vivid"]="/usr/bin/vivid"
 )
 
 # Call windows exe if in windows filesystem

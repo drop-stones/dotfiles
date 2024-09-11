@@ -27,6 +27,9 @@ abbr -S --quieter -f top="btm"
 
 # bat
 abbr -S --quieter -f cat="bat"
+if [[ "$OSTYPE" != "msys" ]]; then
+  abbr -S --quieter -f man="batman"
+fi
 
 # dust
 abbr -S --quieter -f du="dust"

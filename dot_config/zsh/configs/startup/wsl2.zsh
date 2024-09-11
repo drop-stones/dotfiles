@@ -4,6 +4,8 @@ if [[ $kernel_release != *"WSL2"* ]]; then
   return
 fi
 
+export WSLENV=LS_COLORS:$WSLENV
+
 typeset -A exclude_set=(
   ["chezmoi"]="/usr/bin/chezmoi"
   ["fzf"]="/usr/bin/fzf" # for fzf-tab

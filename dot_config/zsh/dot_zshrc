@@ -55,7 +55,7 @@ LazyLoadConfigs() {
   ExecuteCommandForFiles "$1" "zsh-defer source"
 }
 
-LoadConfigs "${ZDOTDIR:-~}/plugins/configs/startup"
 LoadConfigs "${ZDOTDIR:-~}/configs/startup"
+LoadConfigs "${ZDOTDIR:-~}/plugins/configs/startup"
 
 LazyLoadConfigs "${ZDOTDIR:-~}/plugins/configs/lazy"

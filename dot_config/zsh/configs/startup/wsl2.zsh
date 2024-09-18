@@ -17,7 +17,7 @@ for cmd cmd_path in "${(@kv)commands}"; do
   # Check the command exist in both windows and WSL2
   if [[ $cmd_path != "/mnt/"* ]] && (( $+commands[$cmd.exe] )) && (( !$+exclude_set[$cmd] )); then
     function $cmd() {
-      if [[ $PWD == "/mnt/"* ]]; then
+      if [[ $(realpath $PWD) == "/mnt/"* ]]; then
           $0.exe $@
       else
         /usr/bin/$0 $@

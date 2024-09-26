@@ -20,6 +20,7 @@ zsh-users/zsh-completions
 
 # completion menu
 Aloxaf/fzf-tab
+junegunn/fzf-git.sh
 
 # add fish-like features
 zdharma-continuum/fast-syntax-highlighting

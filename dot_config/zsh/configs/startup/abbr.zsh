@@ -11,6 +11,9 @@ abbr -S gd="git diff"
 abbr -S glg="git log --stat"
 abbr -S gl="git pull"
 abbr -S gua="git pull && git submodule update --init --recursive"
+abbr -S gsw="git-switch"
+abbr -S gswd="git-switch-detach"
+abbr -S gwt="git-worktree"
 
 # lazygit
 abbr -S lg="lazygit"

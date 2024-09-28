@@ -4,6 +4,10 @@ README.md
 # Windows only
 .config/powershell/
 .config/starship.toml/
+AppData
+{{ else }}
+# Hide on windows
+.config/bat/
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}

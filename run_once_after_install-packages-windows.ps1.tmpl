@@ -92,4 +92,7 @@ If (!(Test-Path -Path $Msys2HomePath))
   New-Item -ItemType SymbolicLink -Path "$Msys2HomePath" -Target "$HOME" # symbolic link ~ -> $HOME
 }
 
+# Bat settings
+bat cache --build
+
 {{- end -}}

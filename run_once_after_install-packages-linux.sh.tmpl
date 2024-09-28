@@ -2,53 +2,53 @@
 #!/bin/sh
 
 AssertCommandInstalled() {
-	installed_command=$1
-	if ! command -v $installed_command &>/dev/null; then
-		echo "$installed_command could not be found"
-		exit 1
-	fi
+  installed_command=$1
+  if ! command -v $installed_command &>/dev/null; then
+    echo "$installed_command could not be found"
+    exit 1
+  fi
 }
 
 PacmanInstall() {
-	package=$1
-	AssertCommandInstalled "pacman"
-	sudo pacman -S --noconfirm $1
+  package=$1
+  AssertCommandInstalled "pacman"
+  sudo pacman -S --noconfirm $1
 }
 
 CargoInstall() {
-	package=$1
-	AssertCommandInstalled "cargo"
-	cargo install --locked $package
+  package=$1
+  AssertCommandInstalled "cargo"
+  cargo install --locked $package
 }
 
 CargoBInstall() {
-	package=$1
-	AssertCommandInstalled "cargo help binstall"
-	cargo binstall --secure $package
+  package=$1
+  AssertCommandInstalled "cargo help binstall"
+  cargo binstall --secure $package
 }
 
 RustupAddComponent() {
-	component=$1
-	AssertCommandInstalled "rustup"
-	rustup component add $component
+  component=$1
+  AssertCommandInstalled "rustup"
+  rustup component add $component
 }
 
 ExecuteCallbackOnList() {
-	callback=$1
-	list=$2
-	while read line; do
-		case "$line" in
-		"")
-			continue
-			;;
-		\#*)
-			continue
-			;;
-		*)
-			$callback $line
-			;;
-		esac
-	done <$list
+  callback=$1
+  list=$2
+  while read line; do
+    case "$line" in
+    "")
+      continue
+      ;;
+    \#*)
+      continue
+      ;;
+    *)
+      $callback $line
+      ;;
+    esac
+  done <$list
 }
 
 sudo pacman -Syu --noconfirm
@@ -64,5 +64,8 @@ ExecuteCallbackOnList CargoInstall "$HOME/.config/chezmoi/cargo_install_packages
 
 # Add rustup components
 ExecuteCallbackOnList RustupAddComponent "$HOME/.config/chezmoi/rustup_component_list.txt"
+
+# Bat settings
+bat cache --build
 
 {{- end -}}

@@ -7,9 +7,9 @@ fi
 export WSLENV=LS_COLORS:$WSLENV
 
 typeset -A exclude_set=(
-  ["chezmoi"]="/usr/bin/chezmoi"
-  ["fzf"]="/usr/bin/fzf" # for fzf-tab
-  ["vivid"]="/usr/bin/vivid"
+  ["chezmoi"]=
+  ["fzf"]= # for fzf-tab
+  ["vivid"]=
 )
 
 # Call windows exe if in windows filesystem
@@ -18,9 +18,9 @@ for cmd cmd_path in "${(@kv)commands}"; do
   if [[ $cmd_path != "/mnt/"* ]] && (( $+commands[$cmd.exe] )) && (( !$+exclude_set[$cmd] )); then
     function $cmd() {
       if [[ $(realpath $PWD) == "/mnt/"* ]]; then
-          $0.exe $@
+        command $0.exe $@
       else
-        /usr/bin/$0 $@
+        command $0 $@
       fi
     }
   fi

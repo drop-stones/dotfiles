@@ -11,15 +11,15 @@ if [[ $kernel_release != *"WSL2"* ]]; then
 else
   zstyle ':fzf-tab:complete:cd:*' fzf-preview \
     'if [[ $(realpath $PWD) == "/mnt/"* ]]; then
-        eza.exe -1 --color=always $realpath
+        command eza.exe -1 --color=always $realpath
     else
-        /usr/bin/eza -1 --color=always $realpath
+        command eza -1 --color=always $realpath
     fi'
   zstyle ':fzf-tab:complete:z:*' fzf-preview \
     'if [[ $(realpath $PWD) == "/mnt/"* ]]; then
-        eza.exe -1 --color=always $realpath
+        command eza.exe -1 --color=always $realpath
     else
-        /usr/bin/eza -1 --color=always $realpath
+        command eza -1 --color=always $realpath
     fi'
 fi
 

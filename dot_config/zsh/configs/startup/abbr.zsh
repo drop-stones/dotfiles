@@ -45,6 +45,7 @@ abbr -S fe="fzf-editor"
 abbr -S fef="fzf-edit-file"
 abbr -S fed="fzf-edit-directory"
 abbr -S frg="fzf-ripgrep"
+abbr -S fcd="fzf-cd"
 
 # highlight single-word abbreviations for fast-syntax-highlighting
 # https://zsh-abbr.olets.dev/advanced.html#fast-syntax-highlighting

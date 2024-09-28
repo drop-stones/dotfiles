@@ -40,6 +40,11 @@ abbr -S --quieter -f du="dust"
 # procs
 abbr -S --quieter -f ps="procs"
 
+# fzf
+abbr -S fe="fzf-editor"
+abbr -S fef="fzf-edit-file"
+abbr -S fed="fzf-edit-directory"
+
 # highlight single-word abbreviations for fast-syntax-highlighting
 # https://zsh-abbr.olets.dev/advanced.html#fast-syntax-highlighting
 chroma_single_word() {

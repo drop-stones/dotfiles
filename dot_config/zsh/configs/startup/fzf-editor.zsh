@@ -48,3 +48,24 @@ fzf-edit-directory() {
   fi
   [[ -n "$dirs" ]] && ${EDITOR:-vim} "${dirs[@]}"
 }
+
+# using ripgrep combined with preview
+# find-in-file - usage: fif <searchTerm>
+fzf-ripgrep() {
+  if [ ! "$#" -gt 0 ]; then
+    echo "Need a string to search for!"
+    return 1
+  fi
+  if [[ $(realpath $PWD) == "/mnt/"* ]]; then
+    IFS=$'\n' files=($(
+      command rg.exe --files-with-matches --no-messages "$1" |
+        fzf --preview "highlight -O ansi -l {} 2> /dev/null | command rg.exe --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || command rg.exe --ignore-case --pretty --context 10 '$1' {}"
+    ))
+  else
+    IFS=$'\n' files=($(
+      command rg --files-with-matches --no-messages "$1" |
+        fzf --preview "highlight -O ansi -l {} 2> /dev/null | command rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || command rg --ignore-case --pretty --context 10 '$1' {}"
+    ))
+  fi
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}

@@ -58,14 +58,30 @@ fzf-ripgrep() {
   fi
   if [[ $(realpath $PWD) == "/mnt/"* ]]; then
     IFS=$'\n' files=($(
-      command rg.exe --files-with-matches --no-messages "$1" |
-        fzf --preview "highlight -O ansi -l {} 2> /dev/null | command rg.exe --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || command rg.exe --ignore-case --pretty --context 10 '$1' {}"
+      # NOTE: Pipe `|` does not work with `rg.exe` and `fzf`, so use `rg` instead
+      command rg --column --line-number --no-heading --color=always --smart-case -e "$1" |
+        fzf --delimiter :  --preview "command bat.exe --color=always --style=numbers --line-range \$(( \$(echo {2}) - 10 < 0 ? 0 : \$(echo {2}) - 10 )): -- {1} | command rg.exe --ignore-case --color=always --no-line-number --context 10 '$1'"
     ))
   else
     IFS=$'\n' files=($(
-      command rg --files-with-matches --no-messages "$1" |
-        fzf --preview "highlight -O ansi -l {} 2> /dev/null | command rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || command rg --ignore-case --pretty --context 10 '$1' {}"
+      command rg --column --line-number --no-heading --color=always --smart-case -e "$1" |
+        fzf --delimiter :  --preview "command bat --color=always --style=numbers --line-range \$(( \$(echo {2}) - 10 < 0 ? 0 : \$(echo {2}) - 10 )): -- {1} | command rg --ignore-case --color=always --no-line-number --context 10 '$1'"
     ))
   fi
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+  if [[ -n "$files" ]]; then
+    nvim_cmd="nvim -c \""
+
+    for file_info in "${files[@]}"; do
+      parts=("${(@s/:/)file_info}")
+
+      file_path="${parts[1]}"
+      line_number="${parts[2]}"
+      column_number="${parts[3]}"
+
+      nvim_cmd="$nvim_cmd :e $file_path | :cal cursor($line_number, $column_number) |"
+    done
+    nvim_cmd="${nvim_cmd% |}\""
+
+    eval $nvim_cmd
+  fi
 }

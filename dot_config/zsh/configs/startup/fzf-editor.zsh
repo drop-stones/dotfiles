@@ -56,17 +56,32 @@ fzf-ripgrep() {
     echo "Need a string to search for!"
     return 1
   fi
+  IFS=$'\n'
   if [[ $(realpath $PWD) == "/mnt/"* ]]; then
-    IFS=$'\n' files=($(
+    if git.exe rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+      files=($(
+        command git.exe grep --column --line-number --color=always -e "$1" |
+          fzf --delimiter :  --preview "command bat.exe --color=always --style=numbers --line-range \$(( \$(echo {2}) - 10 < 0 ? 0 : \$(echo {2}) - 10 )): -- {1} | command rg.exe --ignore-case --color=always --no-line-number --context 10 '$1'"
+      ))
+    else
       # NOTE: Pipe `|` does not work with `rg.exe` and `fzf`, so use `rg` instead
-      command rg --column --line-number --no-heading --color=always --smart-case -e "$1" |
-        fzf --delimiter :  --preview "command bat.exe --color=always --style=numbers --line-range \$(( \$(echo {2}) - 10 < 0 ? 0 : \$(echo {2}) - 10 )): -- {1} | command rg.exe --ignore-case --color=always --no-line-number --context 10 '$1'"
-    ))
+      files=($(
+        command rg --column --line-number --no-heading --color=always --smart-case -e "$1" |
+          fzf --delimiter :  --preview "command bat.exe --color=always --style=numbers --line-range \$(( \$(echo {2}) - 10 < 0 ? 0 : \$(echo {2}) - 10 )): -- {1} | command rg.exe --ignore-case --color=always --no-line-number --context 10 '$1'"
+      ))
+    fi
   else
-    IFS=$'\n' files=($(
-      command rg --column --line-number --no-heading --color=always --smart-case -e "$1" |
-        fzf --delimiter :  --preview "command bat --color=always --style=numbers --line-range \$(( \$(echo {2}) - 10 < 0 ? 0 : \$(echo {2}) - 10 )): -- {1} | command rg --ignore-case --color=always --no-line-number --context 10 '$1'"
-    ))
+    if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+      files=($(
+        command git grep --column --line-number --color=always -e "$1" |
+          fzf --delimiter :  --preview "command bat --color=always --style=numbers --line-range \$(( \$(echo {2}) - 10 < 0 ? 0 : \$(echo {2}) - 10 )): -- {1} | command rg --ignore-case --color=always --no-line-number --context 10 '$1'"
+      ))
+    else
+      files=($(
+        command rg --column --line-number --no-heading --color=always --smart-case -e "$1" |
+          fzf --delimiter :  --preview "command bat --color=always --style=numbers --line-range \$(( \$(echo {2}) - 10 < 0 ? 0 : \$(echo {2}) - 10 )): -- {1} | command rg --ignore-case --color=always --no-line-number --context 10 '$1'"
+      ))
+    fi
   fi
   if [[ -n "$files" ]]; then
     nvim_cmd="nvim -c \""

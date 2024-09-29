@@ -19,12 +19,12 @@ fzf-editor() {
 fzf-edit-file() {
   if [[ $(realpath $PWD) == "/mnt/"* ]]; then
     IFS=$'\n' files=($(
-      command fd.exe --color=always --strip-cwd-prefix --type f --hidden --follow --exclude .git --path-separator='/' |
+      command fd.exe --color=always --strip-cwd-prefix --type f --hidden --follow --exclude .git --path-separator=$FZF_PATH_SEPARATOR |
         fzf --query="$1" --multi --select-1 --exit-0 --preview 'command bat.exe --color=always --style=numbers --line-range=:500 {} 2>/dev/null'
     ))
   else
     IFS=$'\n' files=($(
-      command fd --color=always --strip-cwd-prefix --type f --hidden --follow --exclude .git --path-separator='/' |
+      command fd --color=always --strip-cwd-prefix --type f --hidden --follow --exclude .git --path-separator=$FZF_PATH_SEPARATOR |
         fzf --query="$1" --multi --select-1 --exit-0 --preview 'command bat --color=always --style=numbers --line-range=:500 {} 2>/dev/null'
     ))
   fi
@@ -37,12 +37,12 @@ fzf-edit-file() {
 fzf-edit-directory() {
   if [[ $(realpath $PWD) == "/mnt/"* ]]; then
     IFS=$'\n' dirs=($(
-      command fd.exe --color=always --strip-cwd-prefix --type d --hidden --follow --exclude .git --path-separator='/' |
+      command fd.exe --color=always --strip-cwd-prefix --type d --hidden --follow --exclude .git --path-separator=$FZF_PATH_SEPARATOR |
         fzf --query="$1" --multi --select-1 --exit-0 --preview 'command eza.exe -1 --color=always {}'
     ))
   else
     IFS=$'\n' dirs=($(
-      command fd --color=always --strip-cwd-prefix --type d --hidden --follow --exclude .git --path-separator='/' |
+      command fd --color=always --strip-cwd-prefix --type d --hidden --follow --exclude .git --path-separator=$FZF_PATH_SEPARATOR |
         fzf --query="$1" --multi --select-1 --exit-0 --preview 'command eza -1 --color=always {}'
     ))
   fi

@@ -10,6 +10,7 @@ typeset -A exclude_set=(
   ["chezmoi"]=
   ["fzf"]= # for fzf-tab
   ["vivid"]=
+  ["yazi"]=
 )
 
 # Call windows exe if in windows filesystem

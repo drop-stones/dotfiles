@@ -1,0 +1,5 @@
+[opener]
+edit = [
+  { run = '$EDITOR "$@"', desc = "Edit", orphan = true, block = true, for = "unix" },
+  { run = 'zsh -c "$EDITOR $@" "" "%*"', desc = "Edit", orphan = true, block = true, for = "windows" }, # https://github.com/sxyazi/yazi/issues/984
+]

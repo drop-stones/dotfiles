@@ -9,6 +9,7 @@
 - [ ] `batman` does not highlight flags (<https://github.com/eth-p/bat-extras/blob/master/doc/batman.md>)
 - [ ] Config file for `eza` (<https://github.com/eza-community/eza/issues/897>)
 - [ ] `fzf-tab` does not preview on msys2 (<https://github.com/Aloxaf/fzf-tab/issues/444>)
+- [ ] `yazi` does not work correctly on WSL2 (<https://github.com/sxyazi/yazi>)
 
 ## Nvim
 

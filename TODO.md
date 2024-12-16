@@ -1,5 +1,9 @@
 # TODO List
 
+## dotfiles
+
+- [ ] Speedup install scripts (e.g., skip if packages are installed)
+
 ## Terminal Emulator
 
 - [ ] `wezterm` cannot set environment variables on WSL2 from wezterm config (<https://github.com/wez/wezterm/discussions/4395>)

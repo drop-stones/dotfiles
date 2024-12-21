@@ -18,6 +18,6 @@
 ## Nvim
 
 - [ ] Setup `snacks.nvim` (<https://github.com/folke/snacks.nvim>)
-- [ ] Setup `obsidian.nvim` correctly on all platforms (<https://github.com/epwalsh/obsidian.nvim>)
+- [x] Setup `obsidian.nvim` correctly on all platforms (<https://github.com/epwalsh/obsidian.nvim>)
 - [ ] Speed up `im-switch.nvim` in WSL2 (<https://github.com/drop-stones/im-switch.nvim>)
 - [ ] Do not insert a single space by `gsa` (<https://github.com/echasnovski/mini.surround>)

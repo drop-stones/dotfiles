@@ -68,4 +68,12 @@ ExecuteCallbackOnList RustupAddComponent "$HOME/.config/chezmoi/rustup_component
 # Bat settings
 bat cache --build
 
+# Create symlink to obsidian vaults if WSL2
+if command -v wslpath 2>&1 >/dev/null; then
+  if [ ! -e "$HOME/.config/obsidian/vaults" ]; then
+    WIN_USER_PROFILE="$(wslpath "$(pwsh.exe -NoProfile -NonInteractive -Command "\$Env:UserProfile")" | tr -d '\r')"
+    ln -s "$WIN_USER_PROFILE/.config/obsidian/vaults" "$HOME/.config/obsidian/"
+  fi
+fi
+
 {{- end -}}

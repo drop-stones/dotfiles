@@ -23,3 +23,7 @@ AppData
 .config/wezterm/
 {{   end }}
 {{ end }}
+
+{{ if or (ne .email "s2h6i8z1u7k8u7@gmail.com") (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
+.config/obsidian/vaults
+{{ end }}

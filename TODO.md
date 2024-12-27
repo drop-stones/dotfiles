@@ -10,6 +10,7 @@
 
 ## Command Line Utilities
 
+- [x] `direnv` setup (<https://github.com/direnv/direnv>)
 - [ ] `batman` does not highlight flags (<https://github.com/eth-p/bat-extras/blob/master/doc/batman.md>)
 - [ ] Config file for `eza` (<https://github.com/eza-community/eza/issues/897>)
 - [ ] `fzf-tab` does not preview on msys2 (<https://github.com/Aloxaf/fzf-tab/issues/444>)
@@ -20,4 +21,4 @@
 - [ ] Setup `snacks.nvim` (<https://github.com/folke/snacks.nvim>)
 - [x] Setup `obsidian.nvim` correctly on all platforms (<https://github.com/epwalsh/obsidian.nvim>)
 - [ ] Speed up `im-switch.nvim` in WSL2 (<https://github.com/drop-stones/im-switch.nvim>)
-- [ ] Do not insert a single space by `gsa` (<https://github.com/echasnovski/mini.surround>)
+- [x] Do not insert a single space by `gsa` (<https://github.com/echasnovski/mini.surround>)

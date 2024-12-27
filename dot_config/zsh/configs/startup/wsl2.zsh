@@ -11,6 +11,7 @@ typeset -A exclude_set=(
   ["fzf"]= # for fzf-tab
   ["vivid"]=
   ["yazi"]=
+  ["direnv"]=
 )
 
 # Call windows exe if in windows filesystem

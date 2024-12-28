@@ -1,0 +1,16 @@
+path_add_subdirs() {
+  for dir in "$1"/*/ ; do
+    if [ -d "$dir" ]; then
+      absolute_path=$(realpath "$dir")
+      PATH="$absolute_path:$PATH"
+    fi
+  done
+}
+
+path_add_latest_package() {
+  latest_package=$(ls "$1" | grep -F "$2" | sort | tail --lines=1)
+  if [ -n "$latest_package" ]; then
+    package_path=$(realpath "${1}/${latest_package}/${3}")
+    PATH="$package_path:$PATH"
+  fi
+}

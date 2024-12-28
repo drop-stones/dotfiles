@@ -1,0 +1,7 @@
+# $1: path to a directory
+for dir in "$1"/*/ ; do
+  if [ -d "$dir" ]; then
+    absolute_path=$(realpath "$dir")
+    path=("$absolute_path" $path)
+  fi
+done

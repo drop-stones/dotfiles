@@ -118,4 +118,7 @@ man-pages
 clang
 pkg-config
 m4
+{{   if .chezmoi.kernel.osrelease | lower | contains "microsoft" }}
+wslu
+{{   end }}
 {{ end }}

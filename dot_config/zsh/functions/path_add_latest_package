@@ -1,0 +1,8 @@
+# $1: path to a package directory
+# $2: package name
+# $3: subdirectory
+latest_package=$(command ls "$1" | rg --color never --sort path --case-sensitive --fixed-strings "$2" | tail --lines=1)
+if [ -n "$latest_package" ]; then
+  package_path=$(realpath "${1}/${latest_package}/${3}")
+  path=("$package_path" $path)
+fi

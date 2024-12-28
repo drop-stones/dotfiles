@@ -1,5 +1,4 @@
 local utils_os = require("utils.os")
-local windows = require("launch.launch_commands.windows")
 local private = require("launch.launch_commands.private")
 
 ---@class LaunchCommand
@@ -12,6 +11,7 @@ local private = require("launch.launch_commands.private")
 local launch_commands = {}
 
 if utils_os.IsWindows() then
+	local windows = require("launch.launch_commands.windows")
 	for key, command in pairs(windows) do
 		launch_commands[key] = command
 	end

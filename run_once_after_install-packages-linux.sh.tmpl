@@ -86,6 +86,11 @@ if command -v wslpath >/dev/null 2>&1; then
     WIN_USER_PROFILE="$(wslpath "$(pwsh.exe -NoProfile -NonInteractive -Command "\$Env:UserProfile")" | tr -d '\r')"
     ln -s "$WIN_USER_PROFILE/.config/obsidian/vaults" "$HOME/.config/obsidian/"
   fi
+
+  if [ ! -e "/usr/bin/xdg-open" ]; then
+    wslview=$(which wslview)
+    sudo ln -s "$wslview" "/usr/bin/xdg-open"
+  fi
 fi
 
 {{- end -}}

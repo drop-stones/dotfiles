@@ -5,19 +5,12 @@ unzip
 # Editor
 neovim
 
+{{ if not (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 # GUI Tools (Do not install in WSL2)
-{{ if eq .chezmoi.os "linux" }}
-{{   if not (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 ## Terminal Emulator
 wezterm
 ## Note taking
 obsidian
-{{   end }}
-{{ end }}
-
-# Shell Prompt
-{{ if eq .chezmoi.os "windows" }}
-starship
 {{ end }}
 
 # Secure Shell
@@ -26,54 +19,66 @@ openssh
 # database
 sqlite
 
-# Command-Line Tools
+# Command-Line Utilities
+## cat(1) clone
 bat
-bottom
+{{ if ne .chezmoi.os "windows" }}
+bat-extras
+{{ fi }}
+## ls(1) alternative
+eza
+## find(1) alternative
+fd
+## grep(1) alternative
+ripgrep
+## sed(1) alternative
+sd
+## Smater cd(1) command
+zoxide
+## ps(1) alternative
+procs
+## Fuzzy finder
+fzf
+## Git diff pager
 {{ if eq .chezmoi.os "windows" }}
 delta
-dua
 {{ else }}
 git-delta
-bat-extras
-vivid
-dua-cli
-{{ end }}
-git-filter-repo
+{{ fi }}
+## File manager
+yazi
+## Cheatsheets
+navi
+tealdeer
+## Graphical process/system monitor
+bottom
+## Disk usage utility
 dust
 duf
-eza
-fd
-fzf
+{{ if eq .chezmoi.os "windows" }}
+dua
+{{ else }}
+dua-cli
+{{ fi }}
+## Hex viewer
 hexyl
-hyperfine
-procs
-ripgrep
-sd
-tealdeer
-navi
+## Show statistics of codes
 tokei
-zoxide
-yazi
-{{ if ne .chezmoi.os "windows" }}
-thefuck
-direnv
-{{ end }}
-{{ if ne .chezmoi.os "linux" }}
-kalker
-{{ end }}
+## Benchmarking tool
+hyperfine
 
 # Programming Launguages
-go
+rustup
 lua
 lua-language-server
 luarocks
+go
+python
 {{ if eq .chezmoi.os "windows" }}
 nodejs
 {{ else }}
 npm
 {{ end }}
-python
-rustup
 
 # Parser Generator Tool
 tree-sitter
@@ -88,37 +93,66 @@ make
 # Image Previewer
 chafa
 
-# Text file converter
-dos2unix
-
 # Network utilities
 wget
 
 {{ if eq .chezmoi.os "windows" }}
 # Windows specific
+## Shell Prompt
+starship
+## File archiver
 7zip
+## Package manager
 winget
+## Powershell Core
 pwsh
+## GNU for Windows
 mingw
 msys2
+## Windows system utilities
 powertoys
+## Database
 sqlite3dll
-
-# WSL2
+## Windows clipboard tool
 win32yank
+## Arch Linux for WSL2
 archwsl
-{{ else if eq .chezmoi.os "darwin" }}
-# Mac specific
-man-db
-llvm
+## Text file converter
+dos2unix
 {{ else }}
-# Linux specific
+# Except for Windows
+## Unclutter .profile
+direnv
+## LS_COLORS generator
+vivid
+## Corrects errors in previous console commands
+thefuck
+## Manual database
 man-db
+## LLVM Compiler Infrastructure Project
+llvm
+{{ fi }}
+
+{{ if eq .chezmoi.os "linux" }}
+# Linux specific
+## Manual pages
 man-pages
+## C/C++ compiler based on LLVM
 clang
+## Helper tool for compilation (need to build rust packages)
 pkg-config
+## Macro preprocessor (need to build rust packages)
 m4
+
 {{   if .chezmoi.kernel.osrelease | lower | contains "microsoft" }}
+# WSL2 specific
+## Utilities for WSL2
 wslu
+## Text file converter
+dos2unix
 {{   end }}
+{{ else }}
+# Except for Linux
+## Calculator
+kalker
 {{ end }}

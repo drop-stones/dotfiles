@@ -1,0 +1,21 @@
+# Updater
+cargo-update
+topgrade
+
+# Test
+cargo-nextest
+
+# Image Previewer
+viu
+
+{{ if eq .chezmoi.os "windows" }}
+# Windows specific
+## LS_COLORS generator
+vivid
+{{ end }}
+
+{{ if eq .chezmoi.os "linux" }}
+# Linux specific
+## Calculator
+kalker
+{{ end }}

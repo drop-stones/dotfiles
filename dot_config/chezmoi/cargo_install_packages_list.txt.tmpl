@@ -1,22 +1,2 @@
-# Updater
-cargo-update
-topgrade
-
-# Installer
+# Binary installer
 cargo-binstall
-
-# Test
-cargo-nextest
-
-# Image Previewer
-viu
-
-{{ if eq .chezmoi.os "windows" }}
-# LS_COLORS generator
-vivid
-{{ end }}
-
-{{ if eq .chezmoi.os "linux" }}
-# Calculator
-kalker
-{{ end }}

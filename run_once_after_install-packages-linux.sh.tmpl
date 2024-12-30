@@ -24,7 +24,7 @@ CargoInstall() {
 CargoBInstall() {
   package=$1
   AssertCommandInstalled "cargo help binstall"
-  cargo binstall --secure $package
+  cargo binstall --locked --no-confirm $package
 }
 
 RustupAddComponent() {
@@ -71,8 +71,9 @@ ExecuteCallbackOnList PacmanInstall "$HOME/.config/chezmoi/install_packages_list
 # Install/Update rust toolchain
 rustup toolchain install --no-self-update stable
 
-# Install packages using cargo
+# Install packages using cargo install/binstall
 ExecuteCallbackOnList CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
+ExecuteCallbackOnList CargoBInstall "$HOME/.config/chezmoi/cargo_binstall_packages_list.txt"
 
 # Add rustup components
 ExecuteCallbackOnList RustupAddComponent "$HOME/.config/chezmoi/rustup_component_list.txt"

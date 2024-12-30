@@ -24,7 +24,7 @@ sqlite
 bat
 {{ if ne .chezmoi.os "windows" }}
 bat-extras
-{{ fi }}
+{{ end }}
 ## ls(1) alternative
 eza
 ## find(1) alternative
@@ -44,7 +44,7 @@ fzf
 delta
 {{ else }}
 git-delta
-{{ fi }}
+{{ end }}
 ## File manager
 yazi
 ## Cheatsheets
@@ -59,7 +59,7 @@ duf
 dua
 {{ else }}
 dua-cli
-{{ fi }}
+{{ end }}
 ## Hex viewer
 hexyl
 ## Show statistics of codes
@@ -131,7 +131,7 @@ thefuck
 man-db
 ## LLVM Compiler Infrastructure Project
 llvm
-{{ fi }}
+{{ end }}
 
 {{ if eq .chezmoi.os "linux" }}
 # Linux specific

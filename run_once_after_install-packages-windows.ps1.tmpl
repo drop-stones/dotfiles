@@ -27,6 +27,12 @@ function CargoInstall([string] $package)
   cargo install --locked $package
 }
 
+function CargoBInstall([string] $package)
+{
+  AssertCommandExists "cargo"
+  cargo binstall --locked --no-confirm $package
+}
+
 function RustupAddComponent([string] $component)
 {
   AssertCommandExists "rustup"
@@ -55,8 +61,9 @@ ExecuteCallbackOnList $function:ScoopInstall "$HOME/.config/chezmoi/install_pack
 # Install/Update rust toolchain
 rustup toolchain install --no-self-update stable
 
-# Install packages using cargo
+# Install packages using cargo install/binstall
 ExecuteCallbackOnList $function:CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
+ExecuteCallbackOnList $function:CargoBInstall "$HOME/.config/chezmoi/cargo_binstall_packages_list.txt"
 
 # Add rustup components
 ExecuteCallbackOnList $function:RustupAddComponent "$HOME/.config/chezmoi/rustup_component_list.txt"

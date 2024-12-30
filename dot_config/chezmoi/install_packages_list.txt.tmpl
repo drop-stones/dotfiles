@@ -15,7 +15,6 @@ obsidian
 {{   end }}
 {{ end }}
 
-
 # Shell Prompt
 {{ if eq .chezmoi.os "windows" }}
 starship
@@ -32,17 +31,18 @@ bat
 bottom
 {{ if eq .chezmoi.os "windows" }}
 delta
+dua
 {{ else }}
 git-delta
 bat-extras
 vivid
+dua-cli
 {{ end }}
 git-filter-repo
 dust
 eza
 fd
 fzf
-gdu
 hexyl
 hyperfine
 procs
@@ -55,7 +55,6 @@ zoxide
 yazi
 {{ if ne .chezmoi.os "windows" }}
 thefuck
-diskonaut
 direnv
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}

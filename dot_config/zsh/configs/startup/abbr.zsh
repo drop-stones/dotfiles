@@ -34,8 +34,9 @@ if [[ "$OSTYPE" != "msys" ]]; then
   abbr -S --quieter -f man="batman"
 fi
 
-# dust
-abbr -S --quieter -f du="dust"
+# Disk usage
+abbr -S --quieter -f du="dua"
+abbr -S --quieter -f dui="dua interactive"
 
 # procs
 abbr -S --quieter -f ps="procs"

@@ -9,6 +9,7 @@ AppData
 {{ else }}
 # Hide on windows
 .config/bat/
+.config/topgrade/
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}

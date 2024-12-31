@@ -9,34 +9,58 @@ function AssertCommandExists([string] $command)
   }
 }
 
+function ScoopAddBucket([string] $bucket, [string] $url)
+{
+  AssertCommandExists "scoop"
+  If (-not (scoop bucket list | Select-String -Quiet $bucket))
+  {
+    scoop bucket add $bucket $url
+  }
+}
+
 function ScoopInstall([string] $package)
 {
   AssertCommandExists "scoop"
-  If ((scoop info $package | Select-String -Quiet "Installed"))
-  {
-    scoop update $package
-  } Else
+  If (-not (scoop info $package | Select-String -Quiet "Installed"))
   {
     scoop install $package
+  }
+}
+
+function WingetInstall([string] $package)
+{
+  AssertCommandExists "winget"
+  If (-not (winget list | Select-String -Quiet $package))
+  {
+    winget install $package
   }
 }
 
 function CargoInstall([string] $package)
 {
   AssertCommandExists "cargo"
-  cargo install --locked $package
+  If (-not (cargo install --list | Select-String -Quiet "$package"))
+  {
+    cargo install --locked $package
+  }
 }
 
 function CargoBInstall([string] $package)
 {
   AssertCommandExists "cargo"
-  cargo binstall --locked --no-confirm $package
+  If (-not (cargo install --list | Select-String -Quiet "$package"))
+  {
+    cargo binstall --locked --no-confirm $package
+  }
 }
 
 function RustupAddComponent([string] $component)
 {
   AssertCommandExists "rustup"
-  rustup component add $component
+  If (-not (rustup component list --installed | Select-String "$component"))
+  {
+    rustup component add $component
+  }
 }
 
 function ExecuteCallbackOnList([scriptblock] $callback, [string] $list)
@@ -52,14 +76,21 @@ function ExecuteCallbackOnList([scriptblock] $callback, [string] $list)
 
 # Add extras bucket
 AssertCommandExists "scoop"
-scoop bucket add extras
-scoop bucket add drop-stones-bucket https://github.com/drop-stones/scoop-bucket
+ScoopAddBucket extras
+ScoopAddBucket drop-stones-bucket https://github.com/drop-stones/scoop-bucket
 
 # Install packages using scoop
 ExecuteCallbackOnList $function:ScoopInstall "$HOME/.config/chezmoi/install_packages_list.txt"
 
+# Install packages using winget
+WingetInstall Microsoft.DotNet.SDK.9
+
 # Install/Update rust toolchain
-rustup toolchain install --no-self-update stable
+If (!(Get-Command "rustc"))
+{
+  AssertCommandExists "rustup"
+  rustup toolchain install --no-self-update stable
+}
 
 # Install packages using cargo install/binstall
 ExecuteCallbackOnList $function:CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
@@ -67,8 +98,6 @@ ExecuteCallbackOnList $function:CargoBInstall "$HOME/.config/chezmoi/cargo_binst
 
 # Add rustup components
 ExecuteCallbackOnList $function:RustupAddComponent "$HOME/.config/chezmoi/rustup_component_list.txt"
-
-winget install Microsoft.DotNet.SDK.8
 
 # Create a powershell profile
 $PSHomeDir = "$HOME\Documents\PowerShell"

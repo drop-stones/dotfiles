@@ -12,31 +12,39 @@ AssertCommandInstalled() {
 PacmanInstall() {
   package=$1
   AssertCommandInstalled "pacman"
-  sudo pacman -S --noconfirm $1
+  if ! pacman -Qi $package &>/dev/null; then
+    sudo pacman -S --noconfirm $package
+  fi
 }
 
 CargoInstall() {
   package=$1
   AssertCommandInstalled "cargo"
-  cargo install --locked $package
+  if ! cargo install --list | grep --quiet --fixed-strings $package; then
+    cargo install --locked $package
+  fi
 }
 
 CargoBInstall() {
   package=$1
   AssertCommandInstalled "cargo help binstall"
-  cargo binstall --locked --no-confirm $package
+  if ! cargo install --list | grep --quiet --fixed-strings $package; then
+    cargo binstall --locked --no-confirm $package
+  fi
 }
 
 RustupAddComponent() {
   component=$1
   AssertCommandInstalled "rustup"
-  rustup component add $component
+  if ! rustup component list --installed | grep --quiet --fixed-strings $component; then
+    rustup component add $component
+  fi
 }
 
 ExecuteCallbackOnList() {
   callback=$1
   list=$2
-  while read line; do
+  while read line <&3; do
     case "$line" in
     "")
       continue
@@ -48,7 +56,7 @@ ExecuteCallbackOnList() {
       $callback $line
       ;;
     esac
-  done <$list
+  done 3<$list
 }
 
 # Install wslu if WSL2
@@ -69,7 +77,9 @@ sudo pacman -Syu --noconfirm
 ExecuteCallbackOnList PacmanInstall "$HOME/.config/chezmoi/install_packages_list.txt"
 
 # Install/Update rust toolchain
-rustup toolchain install --no-self-update stable
+if ! command -v rustc &>/dev/null; then
+  rustup toolchain install --no-self-update stable
+fi
 
 # Install packages using cargo install/binstall
 ExecuteCallbackOnList CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
@@ -81,13 +91,14 @@ ExecuteCallbackOnList RustupAddComponent "$HOME/.config/chezmoi/rustup_component
 # Bat settings
 bat cache --build
 
-# Create symlink to obsidian vaults if WSL2
 if command -v wslpath >/dev/null 2>&1; then
+  # Create symlink to obsidian vaults
   if [ ! -e "$HOME/.config/obsidian/vaults" ]; then
     WIN_USER_PROFILE="$(wslpath "$(pwsh.exe -NoProfile -NonInteractive -Command "\$Env:UserProfile")" | tr -d '\r')"
     ln -s "$WIN_USER_PROFILE/.config/obsidian/vaults" "$HOME/.config/obsidian/"
   fi
 
+  # Create symlink from xdg-open to wslview
   if [ ! -e "/usr/bin/xdg-open" ]; then
     wslview=$(which wslview)
     sudo ln -s "$wslview" "/usr/bin/xdg-open"

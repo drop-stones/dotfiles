@@ -13,7 +13,9 @@
 {{ if eq $use_1password true }}
   {{ $signingkey = promptStringOnce . "signingkey" "Please input the signingkey for 1password" }}
   {{ $ssh_program = promptStringOnce . "ssh_program" "Please input the path to ssh program for 1password" "C:/Users/s2h6i/AppData/Local/1Password/app/8/op-ssh-sign.exe" }}
+{{   if eq .chezmoi.os "windows" }}
   {{ $ssh_command = promptStringOnce . "ssh_command" "Please input the path to openssh ssh.exe for 1password" "C:/Windows/System32/OpenSSH/ssh.exe" }}
+{{   end }}
 {{ end }}
 
 [data]

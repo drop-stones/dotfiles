@@ -12,7 +12,7 @@ AssertCommandInstalled() {
 BrewInstall() {
   package=$1
   AssertCommandInstalled "brew"
-  if ! brew ls --versions $package >/dev/null; then
+  if ! (brew ls --versions --formula $package &>/dev/null || brew ls --versions --cask $package &>/dev/null); then
     brew install $package
   fi
 }
@@ -20,25 +20,31 @@ BrewInstall() {
 CargoInstall() {
   package=$1
   AssertCommandInstalled "cargo"
-  cargo install --locked $package
+  if ! cargo install --list | grep --quiet --fixed-strings $package; then
+    cargo install --locked $package
+  fi
 }
 
 CargoBInstall() {
   package=$1
   AssertCommandInstalled "cargo help binstall"
-  cargo binstall --locked --no-confirm $package
+  if ! cargo install --list | grep --quiet --fixed-strings $package; then
+    cargo binstall --locked --no-confirm $package
+  fi
 }
 
 RustupAddComponent() {
   component=$1
   AssertCommandInstalled "rustup"
-  rustup component add $component
+  if ! rustup component list --installed | grep --quiet --fixed-strings $component; then
+    rustup component add $component
+  fi
 }
 
 ExecuteCallbackOnList() {
   callback=$1
   list=$2
-  while read line; do
+  while read line <&3; do
     case "$line" in
     "")
       continue
@@ -50,7 +56,7 @@ ExecuteCallbackOnList() {
       $callback $line
       ;;
     esac
-  done <$list
+  done 3<$list
 }
 
 brew upgrade
@@ -59,7 +65,11 @@ brew update
 # Install packages using brew
 ExecuteCallbackOnList BrewInstall "$HOME/.config/chezmoi/install_packages_list.txt"
 
-rustup-init -y
+# Install rust toolchains
+if ! command -v rustc &>/dev/null; then
+  rustup-init -y
+  . "$HOME/.cargo/env"
+fi
 
 # Install packages using cargo install/binstall
 ExecuteCallbackOnList CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"

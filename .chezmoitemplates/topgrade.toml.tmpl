@@ -15,7 +15,11 @@
 # sudo_command = "sudo"
 
 # Disable specific steps - same options as the command line flag
-# disable = ["system", "emacs"]
+{{ if eq .chezmoi.os "windows" }}
+disable = ["microsoft_store"]
+{{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+disable = ["containers"]
+{{ end }}
 
 # Ignore failures for these steps
 # ignore_failures = ["powershell"]
@@ -42,7 +46,7 @@
 # assume_yes = true
 
 # Do not ask to retry failed steps (default: false)
-# no_retry = true
+no_retry = true
 
 # Run inside tmux (default: false)
 # run_in_tmux = true

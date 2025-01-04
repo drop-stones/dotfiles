@@ -27,7 +27,9 @@
 {{ if eq $use_1password true }}
   signingkey = {{ $signingkey | quote }}
   gpg_ssh_program = {{ $ssh_program | quote }}
+{{   if eq .chezmoi.os "windows" }}
   sshCommand = {{ $ssh_command | quote }}
+{{   end }}
 {{ end }}
 
 {{ if eq .chezmoi.os "windows" }}

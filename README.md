@@ -52,3 +52,11 @@ or automatic start-up by the following command:
 ```console
 sudo loginctl enable-linger $UID
 ```
+
+### navi
+
+Add cheatsheets from <https://github.com/drop-stones/cheats/tree/main>.
+
+```console
+navi repo add https://github.com/drop-stones/cheats.git
+```

@@ -4,7 +4,7 @@ if [[ $kernel_release != *"WSL2"* ]]; then
   return
 fi
 
-export WSLENV=LS_COLORS:$WSLENV
+WSLENV=$WSLENV\:LS_COLORS/w
 
 typeset -A exclude_set=(
   ["chezmoi"]=

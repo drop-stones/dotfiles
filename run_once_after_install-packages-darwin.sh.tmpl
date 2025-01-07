@@ -59,6 +59,16 @@ ExecuteCallbackOnList() {
   done 3<$list
 }
 
+NaviInstallRepo() {
+  local url="$1"
+  local name="$2"
+
+  local cheatpath="$(navi info cheats-path)"
+  local dir="$cheatpath/$name"
+
+  git -C "$dir" pull || git clone "$url" "$dir"
+}
+
 brew upgrade
 brew update
 
@@ -81,6 +91,6 @@ ExecuteCallbackOnList RustupAddComponent "$HOME/.config/chezmoi/rustup_component
 # Bat settings
 bat cache --build
 
-navi repo add https://github.com/drop-stones/cheats.git
+NaviInstallRepo "https://github.com/drop-stones/cheats.git" "drop-stones__cheats"
 
 {{- end -}}

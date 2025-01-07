@@ -25,21 +25,11 @@ abbr -S ll="$eza_command -l"
 abbr -S la="$eza_command -la"
 abbr -S lt="$eza_command --tree"
 
-# bottom
-abbr -S --quieter -f top="btm"
-
 # bat
 abbr -S --quieter -f cat="bat"
 if [[ "$OSTYPE" != "msys" ]]; then
   abbr -S --quieter -f man="batman"
 fi
-
-# Disk usage
-abbr -S --quieter -f du="dua"
-abbr -S --quieter -f dui="dua interactive"
-
-# procs
-abbr -S --quieter -f ps="procs"
 
 # fzf
 abbr -S fe="fzf-editor"

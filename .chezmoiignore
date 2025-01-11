@@ -22,6 +22,7 @@ AppData
 {{ if eq .chezmoi.os "linux" }}
 {{   if .chezmoi.kernel.osrelease | lower | contains "microsoft" }}
 # No use in WSL2
+.config/alacritty/
 .config/wezterm/
 {{   end }}
 {{ end }}

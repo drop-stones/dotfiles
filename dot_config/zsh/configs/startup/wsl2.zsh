@@ -10,8 +10,9 @@ typeset -A exclude_set=(
   ["chezmoi"]=
   ["fzf"]= # for fzf-tab
   ["vivid"]=
-  ["yazi"]=
+  ["yazi"]= # ANSI escape sequences by mouse events
   ["direnv"]=
+  ["fd"]= # Change path separator
 )
 
 # Call windows exe if in windows filesystem
@@ -27,3 +28,12 @@ for cmd cmd_path in "${(@kv)commands}"; do
     }
   fi
 done
+
+# fd
+function fd() {
+  if [[ $(realpath $PWD) == "/mnt/"* ]]; then
+    command fd.exe --path-separator '/' $@
+  else
+    command fd $@
+  fi
+}

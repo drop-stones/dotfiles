@@ -8,6 +8,7 @@ TODO.md
 AppData
 {{ else }}
 # Hide on windows
+.config/alacritty/
 .config/bat/
 .config/topgrade/
 {{ end }}

@@ -1,7 +1,7 @@
 {{ if eq .chezmoi.os "windows" }}
 [terminal]
-shell = { program = "wsl.exe", args = ["--cd", "~"] }
+shell = { program = "wsl.exe", args = ["--cd", "~", "--exec", "zellij" ] }
 {{ else }}
 [terminal]
-shell = { program = "/bin/zsh", args = ["--login"] }
+shell = { program = "/bin/zsh", args = ["--login", "-c", "zellij" ] }
 {{ end }}

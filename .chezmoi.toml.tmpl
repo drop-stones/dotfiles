@@ -32,6 +32,11 @@
 {{   end }}
 {{ end }}
 
+{{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+  userprofile = {{ output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | trim | quote }}
+  windowsHome = {{ output "wslpath" "-u" .userprofile | trim | quote }}
+{{ end }}
+
 {{ if eq .chezmoi.os "windows" }}
 [interpreters.ps1]
   command = "powershell"

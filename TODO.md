@@ -28,6 +28,10 @@
 
 ## Keybindings
 
-- [ ] Ctrl + v: nvim vs alacritty
+- [x] Ctrl + v: nvim vs alacritty
+  - zsh: Paste from clipboard
+  - nvim:
+    - Normal: transition to visual mode
+    - Insert/Search: Paste from clipboard
 - [x] Ctrl + h/j/k/l: nvim vs zellij
 - [x] Ctrl + g: zellij vs navi

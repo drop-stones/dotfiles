@@ -33,8 +33,7 @@
 {{ end }}
 
 {{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-  userprofile = {{ output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | trim | quote }}
-  windowsHome = {{ output "wslpath" "-u" .userprofile | trim | quote }}
+  windowsHome = {{ output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | trim | output "wslpath" "-u" | trim | quote }}
 {{ end }}
 
 {{ if eq .chezmoi.os "windows" }}

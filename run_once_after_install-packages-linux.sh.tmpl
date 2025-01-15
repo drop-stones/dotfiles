@@ -110,7 +110,11 @@ if command -v wslpath >/dev/null 2>&1; then
 
   # Create symlink from xdg-open to wslview
   if [ ! -e "/usr/bin/xdg-open" ]; then
-    wslview=$(which wslview)
+    if command -v which >/dev/null 2>&1; then
+      wslview=$(which wslview)
+    else
+      wslview=$(type -p wslview)
+    fi
     sudo ln -s "$wslview" "/usr/bin/xdg-open"
   fi
 fi

@@ -1,0 +1,23 @@
+# Function to retrieve clipboard content
+if command -v win32yank.exe &>/dev/null; then
+  # WSL2: Use win32yank
+  win32yank.exe -o 2>/dev/null
+elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+  # Windows: Use PowerShell Get-Clipboard
+  powershell.exe -Command "Get-Clipboard" 2>/dev/null | tr -d '\r'
+elif command -v pbpaste &>/dev/null; then
+  # macOS: Use pbpaste
+  pbpaste
+elif command -v wl-paste &>/dev/null; then
+  # Linux (Wayland): Use wl-paste
+  wl-paste
+elif command -v xclip &>/dev/null; then
+  # Linux (X11): Use xclip
+  xclip -selection clipboard -o 2>/dev/null
+elif command -v xsel &>/dev/null; then
+  # Linux (X11): Use xsel
+  xsel --clipboard --output 2>/dev/null
+else
+  # If no clipboard command is available, print an error message
+  return 1
+fi

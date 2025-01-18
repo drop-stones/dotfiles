@@ -102,6 +102,11 @@ ExecuteCallbackOnList RustupAddComponent "$HOME/.config/chezmoi/rustup_component
 bat cache --build
 
 if command -v wslpath >/dev/null 2>&1; then
+  # Install msys2
+  if ! cargo install --list | grep --quiet --fixed-strings "msys2"; then
+    cargo install --locked --git https://github.com/drop-stones/msys2.git
+  fi
+
   # Create symlink to obsidian vaults
   if [ ! -e "$HOME/.config/obsidian/vaults" ]; then
     WIN_USER_PROFILE="$(wslpath "$(pwsh.exe -NoProfile -NonInteractive -Command "\$Env:UserProfile")" | tr -d '\r')"

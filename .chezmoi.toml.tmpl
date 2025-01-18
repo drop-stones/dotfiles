@@ -37,6 +37,16 @@
 {{ end }}
 
 {{ if eq .chezmoi.os "windows" }}
+  pasteCommand = "win32yank.exe -o"
+{{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+  pasteCommand = "win32yank.exe -o --lf"
+{{ else if .chezmoi.os "darwin" }}
+  pasteCommand = "pbpaste"
+{{ else if .chezmoi.os "linux" }}
+  pasteCommand = "xclip -slection clipboard -o"
+{{ end }}
+
+{{ if eq .chezmoi.os "windows" }}
 [interpreters.ps1]
   command = "powershell"
   args = ["-NoLogo"]

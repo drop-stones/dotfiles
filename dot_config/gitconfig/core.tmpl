@@ -1,6 +1,4 @@
 [core]
-{{ if eq .autocrlf true }}
+{{ if eq .chezmoi.os "windows" }}
   autocrlf = true
-{{ else }}
-  autocrlf = false
 {{ end }}

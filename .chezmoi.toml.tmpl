@@ -1,48 +1,51 @@
 {{ $email := promptStringOnce . "email" "What is your git email address" }}
 {{ $username := promptStringOnce . "username" "What is your git username" }}
 
-{{ $autocrlf := false }}
-{{ if eq .chezmoi.os "windows" }}
-  {{ $autocrlf = promptBoolOnce . "autocrlf" "Do you enable core.autocrlf of git" true }}
-{{ end }}
-
 {{ $use_1password := promptBoolOnce . "use_1password" "Do you use 1password for ssh" false }}
 {{ $signingkey := "" }}
-{{ $ssh_program := "" }}
-{{ $ssh_command := "" }}
 {{ if eq $use_1password true }}
   {{ $signingkey = promptStringOnce . "signingkey" "Please input the signingkey for 1password" }}
-  {{ $ssh_program = promptStringOnce . "ssh_program" "Please input the path to ssh program for 1password" "C:/Users/s2h6i/AppData/Local/1Password/app/8/op-ssh-sign.exe" }}
-{{   if eq .chezmoi.os "windows" }}
-  {{ $ssh_command = promptStringOnce . "ssh_command" "Please input the path to openssh ssh.exe for 1password" "C:/Windows/System32/OpenSSH/ssh.exe" }}
-{{   end }}
+{{ end }}
+
+{{ $home := "" }}
+{{ if eq .chezmoi.os "windows" }}
+  {{ $home = output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | replace "\\" "/" | trim }}
+{{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+  {{ $home = output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | trim | output "wslpath" "-u" | trim }}
 {{ end }}
 
 [data]
   email = {{ $email | quote }}
   username = {{ $username | quote }}
-  autocrlf = {{ $autocrlf }}
-
-  use_1password = {{ $use_1password }}
-{{ if eq $use_1password true }}
-  signingkey = {{ $signingkey | quote }}
-  gpg_ssh_program = {{ $ssh_program | quote }}
-{{   if eq .chezmoi.os "windows" }}
-  sshCommand = {{ $ssh_command | quote }}
-{{   end }}
-{{ end }}
 
 {{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-  windowsHome = {{ output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | trim | output "wslpath" "-u" | trim | quote }}
+  windowsHome = {{ $home | quote }}
+{{ end }}
+
+  use_1password = {{ $use_1password }}
+
+{{ if eq $use_1password true }}
+  signingkey = {{ $signingkey | quote }}
+{{   if eq .chezmoi.os "windows" }}
+  {{ $gpg_ssh_program := print $home "/AppData/Local/1Password/app/8/op-ssh-sign.exe" }}
+  gpg_ssh_program = {{ $gpg_ssh_program | quote }}
+{{   else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+  {{ $gpg_ssh_program := print $home "/AppData/Local/1Password/app/8/op-ssh-sign-wsl" }}
+  gpg_ssh_program = {{ $gpg_ssh_program | quote }}
+{{   else if eq .chezmoi.os "darwin" }}
+  gpg_ssh_program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+{{   else if eq .chezmoi.os "linux" }}
+  # TODO: gpg_ssh_program
+{{   end }}
 {{ end }}
 
 {{ if eq .chezmoi.os "windows" }}
   pasteCommand = "win32yank.exe -o"
 {{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
   pasteCommand = "win32yank.exe -o --lf"
-{{ else if .chezmoi.os "darwin" }}
+{{ else if eq .chezmoi.os "darwin" }}
   pasteCommand = "pbpaste"
-{{ else if .chezmoi.os "linux" }}
+{{ else if eq .chezmoi.os "linux" }}
   pasteCommand = "xclip -slection clipboard -o"
 {{ end }}
 

@@ -18,8 +18,8 @@ function _add_dirs() {
   # If the current depth matches the target depth, add the directory
   if [[ $current_depth -eq $target_depth ]]; then
     local absolute_path
-    absolute_path=$(realpath "$dir")
-    path=("$absolute_path" $path)
+    absolute_path=$(realpath "$dir" 2>/dev/null || readlink -f "$dir")
+    [[ -n "$absolute_path" ]] && PATH="$absolute_path:$PATH"
     return
   fi
 

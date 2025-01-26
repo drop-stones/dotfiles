@@ -1,10 +1,18 @@
-# GUI
+# Desktop Arch Linux only packages
+
+## GUI
 1password
 vivaldi
 
-# Window manager
+## Window manager
 wayland
 wayland-utils
 xorg-xwayland
 wl-clipboard
 hyprland
+
+## Audio
+pipewire
+pipewire-pulse
+pipewire-alsa
+wireplumber

@@ -10,6 +10,7 @@ AppData
 # Hide on windows
 .config/alacritty/
 .config/bat/
+.config/direnv/
 .config/topgrade/
 {{ end }}
 

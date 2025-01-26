@@ -14,10 +14,11 @@ AppData
 .config/topgrade/
 {{ end }}
 
-{{ if ne .chezmoi.os "linux" }}
+{{ if and (ne .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 # Linux only
 .config/environment.d/
 .config/systemd/
+.config/chezmoi/paru_install_packages.txt
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}

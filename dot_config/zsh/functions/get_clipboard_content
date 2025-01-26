@@ -10,7 +10,7 @@ elif command -v pbpaste &>/dev/null; then
   pbpaste
 elif command -v wl-paste &>/dev/null; then
   # Linux (Wayland): Use wl-paste
-  wl-paste
+  wl-paste -n
 elif command -v xclip &>/dev/null; then
   # Linux (X11): Use xclip
   xclip -selection clipboard -o 2>/dev/null

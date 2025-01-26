@@ -35,7 +35,7 @@
 {{   else if eq .chezmoi.os "darwin" }}
   gpg_ssh_program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 {{   else if eq .chezmoi.os "linux" }}
-  # TODO: gpg_ssh_program
+  gpg_ssh_program = "/opt/1Password/op-ssh-sign"
 {{   end }}
 {{ end }}
 
@@ -46,7 +46,7 @@
 {{ else if eq .chezmoi.os "darwin" }}
   pasteCommand = "pbpaste"
 {{ else if eq .chezmoi.os "linux" }}
-  pasteCommand = "xclip -slection clipboard -o"
+  pasteCommand = "wl-paste -n"
 {{ end }}
 
 {{ if eq .chezmoi.os "windows" }}

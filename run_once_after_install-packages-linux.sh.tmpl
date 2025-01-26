@@ -88,6 +88,7 @@ ExecuteCallbackOnList PacmanInstall "$HOME/.config/chezmoi/install_packages_list
 
 # Install/Update rust toolchain
 if ! command -v rustc &>/dev/null; then
+  rustup default stable
   rustup toolchain install --no-self-update stable
 fi
 
@@ -121,6 +122,13 @@ if command -v wslpath >/dev/null 2>&1; then
       wslview=$(type -p wslview)
     fi
     sudo ln -s "$wslview" "/usr/bin/xdg-open"
+  fi
+else
+  # paru
+  if [ ! -e "$HOME/paru" ]; then
+    git clone https://aur.archlinux.org/paru.git $HOME
+    cd $HOME/paru
+    makepkg -si
   fi
 fi
 

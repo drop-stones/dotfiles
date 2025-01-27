@@ -17,6 +17,7 @@ AppData
 {{ if and (ne .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 # Linux only
 .config/environment.d/
+.config/fcitx5/
 .config/systemd/
 .config/chezmoi/paru_install_packages.txt
 {{ end }}

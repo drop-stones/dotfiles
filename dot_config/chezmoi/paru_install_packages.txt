@@ -16,3 +16,9 @@ pipewire
 pipewire-pulse
 pipewire-alsa
 wireplumber
+
+## Japanese input
+fcitx5
+fcitx5-mozc
+fcitx5-configtool
+noto-fonts-cjk

@@ -21,7 +21,7 @@ ParuInstall() {
   package=$1
   AssertCommandInstalled "paru"
   if ! paru -Qi $package &>/dev/null; then
-    sudo paru -S --noconfirm $package
+    paru -S --noconfirm $package
   fi
 }
 
@@ -142,6 +142,15 @@ else
   fi
 
   ExecuteCallbackOnList ParuInstall "$HOME/.config/chezmoi/paru_install_packages.txt"
+
+  fcitx5_theme_dir="$HOME/.local/share/fcitx5/themes/catppuccin-mocha-mauve"
+  fcitx5_theme_url="https://raw.github.com/catppuccin/fcitx5/main/src/catppuccin-mocha-mauve"
+  if [ ! -e "$fcitx5_theme_dir" ]; then
+    mkdir -p "$fcitx5_theme_dir"
+    wget "$fcitx5_theme_url"/arrow.png -P $fcitx5_theme_dir
+    wget "$fcitx5_theme_url"/radio.png -P $fcitx5_theme_dir
+    wget "$fcitx5_theme_url"/theme.conf -P $fcitx5_theme_dir
+  fi
 fi
 
 NaviInstallRepo "https://github.com/drop-stones/cheats.git" "drop-stones__cheats"

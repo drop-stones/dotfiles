@@ -6,8 +6,6 @@ vivaldi
 
 ## Window manager
 wayland
-wayland-utils
-xorg-xwayland
 wl-clipboard
 hyprland
 
@@ -18,7 +16,6 @@ pipewire-alsa
 wireplumber
 
 ## Japanese input
-fcitx5
-fcitx5-mozc
-fcitx5-configtool
-noto-fonts-cjk
+fcitx5-im
+fcitx5-mozc-ut
+otf-ipaexfont

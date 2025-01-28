@@ -19,6 +19,7 @@ AppData
 .config/environment.d/
 .config/fcitx5/
 .config/systemd/
+.config/vivaldi-stable.conf
 .config/chezmoi/paru_install_packages.txt
 {{ end }}
 

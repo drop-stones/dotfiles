@@ -16,6 +16,7 @@ AppData
 
 {{ if and (ne .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
 # Linux only
+.config/anyrun/
 .config/environment.d/
 .config/fcitx5/
 .config/systemd/

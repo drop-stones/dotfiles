@@ -9,6 +9,9 @@ wayland
 wl-clipboard
 hyprland
 
+## Application launcher
+anyrun-git
+
 ## Audio
 pipewire
 pipewire-pulse

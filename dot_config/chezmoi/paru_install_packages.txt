@@ -9,9 +9,6 @@ wayland
 wl-clipboard
 hyprland
 
-## Application launcher
-anyrun-git
-
 ## Network
 networkmanager
 iwd

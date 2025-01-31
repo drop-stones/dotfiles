@@ -9,10 +9,6 @@ wayland
 wl-clipboard
 hyprland
 
-## Network
-networkmanager
-iwd
-
 ## Japanese input
 fcitx5-im
 fcitx5-mozc-ut

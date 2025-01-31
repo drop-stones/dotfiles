@@ -156,8 +156,6 @@ else
 
   ExecuteCallbackOnList ParuInstall "$HOME/.config/chezmoi/paru_install_packages.txt"
 
-  EnsureServiceEnabled NetworkManager.service
-
   fcitx5_theme_dir="$HOME/.local/share/fcitx5/themes/catppuccin-mocha-mauve"
   fcitx5_theme_url="https://raw.github.com/catppuccin/fcitx5/main/src/catppuccin-mocha-mauve"
   if [ ! -e "$fcitx5_theme_dir" ]; then

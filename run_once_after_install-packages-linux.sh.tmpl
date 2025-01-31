@@ -77,6 +77,19 @@ NaviInstallRepo() {
   git -C "$dir" pull || git clone "$url" "$dir"
 }
 
+EnsureServiceEnabled() {
+  local service="$1"
+
+  if [[ -z "$service" ]]; then
+    echo "Usage: EnsureServiceEnabled <service-name>"
+    return 1
+  fi
+
+  if ! systemctl is-enabled "$service" &>/dev/null; then
+    sudo systemctl enable --now "$service"
+  fi
+}
+
 # Install wslu if WSL2
 if command -v wslpath >/dev/null 2>&1; then
   if ! pacman -Qi wslu >/dev/null 2>&1; then
@@ -142,6 +155,8 @@ else
   fi
 
   ExecuteCallbackOnList ParuInstall "$HOME/.config/chezmoi/paru_install_packages.txt"
+
+  EnsureServiceEnabled NetworkManager.service
 
   fcitx5_theme_dir="$HOME/.local/share/fcitx5/themes/catppuccin-mocha-mauve"
   fcitx5_theme_url="https://raw.github.com/catppuccin/fcitx5/main/src/catppuccin-mocha-mauve"

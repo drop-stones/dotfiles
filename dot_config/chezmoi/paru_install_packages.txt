@@ -12,6 +12,10 @@ hyprland
 ## Application launcher
 anyrun-git
 
+## Network
+networkmanager
+iwd
+
 ## Audio
 pipewire
 pipewire-pulse

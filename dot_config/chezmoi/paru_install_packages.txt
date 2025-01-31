@@ -13,12 +13,6 @@ hyprland
 networkmanager
 iwd
 
-## Audio
-pipewire
-pipewire-pulse
-pipewire-alsa
-wireplumber
-
 ## Japanese input
 fcitx5-im
 fcitx5-mozc-ut

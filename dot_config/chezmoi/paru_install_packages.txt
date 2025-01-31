@@ -4,11 +4,6 @@
 1password
 vivaldi
 
-## Window manager
-wayland
-wl-clipboard
-hyprland
-
 ## Japanese input
 fcitx5-im
 fcitx5-mozc-ut

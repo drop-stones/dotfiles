@@ -20,7 +20,6 @@ AppData
 # Linux only
 .config/environment.d/
 .config/fcitx5/
-.config/hypr/
 .config/systemd/
 .config/vivaldi-stable.conf
 .config/chezmoi/paru_install_packages.txt

@@ -18,6 +18,7 @@ AppData
 
 {{ if and (ne .chezmoi.os "linux") (not (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft"))) }}
 # Linux only
+.config/hypr/
 .config/fcitx5/
 .config/chezmoi/paru_install_packages.txt
 .local/share/applications/

@@ -23,6 +23,7 @@ AppData
 .config/systemd/
 .config/vivaldi-stable.conf
 .config/chezmoi/paru_install_packages.txt
+.local/share/applications/
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}

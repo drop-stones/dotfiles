@@ -18,7 +18,6 @@ AppData
 
 {{ if and (ne .chezmoi.os "linux") (not (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft"))) }}
 # Linux only
-.local/share/applications/
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}

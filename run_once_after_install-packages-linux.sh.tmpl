@@ -17,14 +17,6 @@ PacmanInstall() {
   fi
 }
 
-ParuInstall() {
-  package=$1
-  AssertCommandInstalled "paru"
-  if ! paru -Qi $package &>/dev/null; then
-    paru -S --noconfirm $package
-  fi
-}
-
 CargoInstall() {
   package=$1
   AssertCommandInstalled "cargo"
@@ -147,15 +139,6 @@ if command -v wslpath >/dev/null 2>&1; then
   fi
 else
   # Desktop Arch Linux only
-  ## Install paru
-  if ! command -v paru >/dev/null 2>&1; then
-    git clone https://aur.archlinux.org/paru.git $HOME
-    cd $HOME/paru
-    makepkg -si
-  fi
-
-  ExecuteCallbackOnList ParuInstall "$HOME/.config/chezmoi/paru_install_packages.txt"
-
   if [ ! -e "$HOME/.config/hypr/hyde.conf" ]; then
     cd $HOME/.local/share/HyDE/Scripts/
     ./install.sh

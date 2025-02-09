@@ -139,10 +139,7 @@ if command -v wslpath >/dev/null 2>&1; then
   fi
 else
   # Desktop Arch Linux only
-  if [ ! -e "$HOME/.config/hypr/hyde.conf" ]; then
-    cd $HOME/.local/share/HyDE/Scripts/
-    ./install.sh
-  fi
+  $HOME/.local/share/hyprdots/Scripts/install.zsh
 fi
 
 NaviInstallRepo "https://github.com/drop-stones/cheats.git" "drop-stones__cheats"

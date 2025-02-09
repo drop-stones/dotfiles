@@ -14,9 +14,9 @@
   refreshPeriod = "168h"
 
 {{ if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
-[".local/share/HyDE"]
+[".local/share/hyprdots"]
   type = "git-repo"
   clone.args = ["--depth", "1"]
-  url = "https://github.com/drop-stones/HyDE.git"
+  url = "https://github.com/drop-stones/hyprdots.git"
   refreshPeriod = "168h"
 {{ end }}

@@ -156,15 +156,6 @@ else
 
   ExecuteCallbackOnList ParuInstall "$HOME/.config/chezmoi/paru_install_packages.txt"
 
-  fcitx5_theme_dir="$HOME/.local/share/fcitx5/themes/catppuccin-mocha-mauve"
-  fcitx5_theme_url="https://raw.github.com/catppuccin/fcitx5/main/src/catppuccin-mocha-mauve"
-  if [ ! -e "$fcitx5_theme_dir" ]; then
-    mkdir -p "$fcitx5_theme_dir"
-    wget "$fcitx5_theme_url"/arrow.png -P $fcitx5_theme_dir
-    wget "$fcitx5_theme_url"/radio.png -P $fcitx5_theme_dir
-    wget "$fcitx5_theme_url"/theme.conf -P $fcitx5_theme_dir
-  fi
-
   if [ ! -e "$HOME/.config/hypr/hyde.conf" ]; then
     cd $HOME/.local/share/HyDE/Scripts/
     ./install.sh

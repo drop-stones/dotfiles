@@ -1,5 +1,6 @@
 README.md
 TODO.md
+scripts/
 
 {{ if ne .chezmoi.os "windows" }}
 # Windows only

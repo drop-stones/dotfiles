@@ -1,147 +1,55 @@
 {{- if eq .chezmoi.os "linux" -}}
 #!/usr/bin/env bash
 
-AssertCommandInstalled() {
-  installed_command=$1
-  if ! command -v $installed_command &>/dev/null; then
-    echo "$installed_command could not be found"
-    exit 1
-  fi
-}
+script_dir="$HOME/.local/share/chezmoi/scripts"
+list_dir="$HOME/.config/chezmoi"
+source "$script_dir/utils.sh"
+source "$script_dir/linux_packages.sh"
+source "$script_dir/rust_packages.sh"
+source "$script_dir/configure_cli.sh"
+source "$script_dir/wsl2.sh"
 
-PacmanInstall() {
-  package=$1
-  AssertCommandInstalled "pacman"
-  if ! pacman -Qi $package &>/dev/null; then
-    sudo pacman -S --noconfirm $package
-  fi
-}
-
-CargoInstall() {
-  package=$1
-  AssertCommandInstalled "cargo"
-  if ! cargo install --list | grep --quiet --fixed-strings $package; then
-    cargo install --locked $package
-  fi
-}
-
-CargoBInstall() {
-  package=$1
-  AssertCommandInstalled "cargo help binstall"
-  if ! cargo install --list | grep --quiet --fixed-strings $package; then
-    cargo binstall --locked --no-confirm $package
-  fi
-}
-
-RustupAddComponent() {
-  component=$1
-  AssertCommandInstalled "rustup"
-  if ! rustup component list --installed | grep --quiet --fixed-strings $component; then
-    rustup component add $component
-  fi
-}
-
-ExecuteCallbackOnList() {
-  callback=$1
-  list=$2
-  while read line <&3; do
-    case "$line" in
-    "")
-      continue
-      ;;
-    \#*)
-      continue
-      ;;
-    *)
-      $callback $line
-      ;;
-    esac
-  done 3<$list
-}
-
-NaviInstallRepo() {
-  local url="$1"
-  local name="$2"
-
-  local cheatpath="$(navi info cheats-path)"
-  local dir="$cheatpath/$name"
-
-  git -C "$dir" pull || git clone "$url" "$dir"
-}
-
-EnsureServiceEnabled() {
-  local service="$1"
-
-  if [[ -z "$service" ]]; then
-    echo "Usage: EnsureServiceEnabled <service-name>"
-    return 1
-  fi
-
-  if ! systemctl is-enabled "$service" &>/dev/null; then
-    sudo systemctl enable --now "$service"
-  fi
-}
-
-# Install wslu if WSL2
-if command -v wslpath >/dev/null 2>&1; then
-  if ! pacman -Qi wslu >/dev/null 2>&1; then
-    sudo pacman -S --noconfirm wget
-    wget https://pkg.wslutiliti.es/public.key
-    sudo pacman-key --add public.key
-    sudo pacman-key --lsign-key 2D4C887EB08424F157151C493DD50AA7E055D853
-    grep -qxF 'Server = https://pkg.wslutiliti.es/arch' /etc/pacman.conf || sudo sh -c "printf '\n[wslutilities]\nServer = https://pkg.wslutiliti.es/arch' >>/etc/pacman.conf"
-    rm public.key
-  fi
+if is_wsl2; then
+  # Add the wslu server if WSL2
+  add_wslu_server
 fi
-
-sudo pacman -Syu --noconfirm
 
 # Install packages using pacman
-ExecuteCallbackOnList PacmanInstall "$HOME/.config/chezmoi/install_packages_list.txt"
+install_package_list "$list_dir/install_packages_list.txt"
 
 # Install/Update rust toolchain
-if ! command -v rustc &>/dev/null; then
-  rustup default stable
-  rustup toolchain install --no-self-update stable
-fi
+setup_rustup
 
 # Install packages using cargo install/binstall
-ExecuteCallbackOnList CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
-ExecuteCallbackOnList CargoBInstall "$HOME/.config/chezmoi/cargo_binstall_packages_list.txt"
+install_cargo_package_list "$list_dir/cargo_install_packages_list.txt"
+binstall_cargo_package_list "$list_dir/cargo_binstall_packages_list.txt"
 
 # Add rustup components
-ExecuteCallbackOnList RustupAddComponent "$HOME/.config/chezmoi/rustup_component_list.txt"
+add_rust_component_list "$list_dir/rustup_component_list.txt"
 
-# Bat settings
-bat cache --build
+# CLI configurations
+build_bat_cache
+install_navi_repository "https://github.com/drop-stones/cheats.git" "drop-stones__cheats"
 
-if command -v wslpath >/dev/null 2>&1; then
+if is_wsl2; then
   # WSL only
   ## Install msys2
   if ! cargo install --list | grep --quiet --fixed-strings "msys2"; then
     cargo install --locked --git https://github.com/drop-stones/msys2.git
+  else
+    print_log -y "[skip] " "msys2"
   fi
 
   ## Create symlink to obsidian vaults
-  if [ ! -e "$HOME/.config/obsidian/vaults" ]; then
-    WIN_USER_PROFILE="$(wslpath "$(pwsh.exe -NoProfile -NonInteractive -Command "\$Env:UserProfile")" | tr -d '\r')"
-    ln -s "$WIN_USER_PROFILE/.config/obsidian/vaults" "$HOME/.config/obsidian/"
-  fi
+  WIN_USER_PROFILE="$(wslpath "$(pwsh.exe -NoProfile -NonInteractive -Command "\$Env:UserProfile")" | tr -d '\r')"
+  ensure_symlink "$WIN_USER_PROFILE/.config/obsidian/vaults" "$HOME/.config/obsidian/vaults"
 
   # Create symlink from xdg-open to wslview
-  if [ ! -e "/usr/bin/xdg-open" ]; then
-    if command -v which >/dev/null 2>&1; then
-      wslview=$(which wslview)
-    else
-      wslview=$(type -p wslview)
-    fi
-    sudo ln -s "$wslview" "/usr/bin/xdg-open"
-  fi
+  wslview_path=$(get_command_path wslview)
+  ensure_symlink "$wslview_path" "/usr/bin/xdg-open"
 else
   # Desktop Arch Linux only
   $HOME/.local/share/hyprdots/Scripts/install.zsh
 fi
-
-NaviInstallRepo "https://github.com/drop-stones/cheats.git" "drop-stones__cheats"
 
 {{- end -}}

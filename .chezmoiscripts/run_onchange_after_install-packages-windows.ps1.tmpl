@@ -1,124 +1,39 @@
 {{- if eq .chezmoi.os "windows" -}}
 
-function AssertCommandExists([string] $command)
-{
-  if (!(Get-Command "$command"))
-  {
-    Write-Error "$command not found"
-    Exit 1
-  }
-}
-
-function ScoopAddBucket([string] $bucket, [string] $url)
-{
-  AssertCommandExists "scoop"
-  If (-not (scoop bucket list | Select-String -Quiet $bucket))
-  {
-    scoop bucket add $bucket $url
-  }
-}
-
-function ScoopInstall([string] $package)
-{
-  AssertCommandExists "scoop"
-  If (-not (scoop info $package | Select-String -Quiet "Installed"))
-  {
-    scoop install $package
-  }
-}
-
-function WingetInstall([string] $package)
-{
-  AssertCommandExists "winget"
-  If (-not (winget list | Select-String -Quiet $package))
-  {
-    winget install $package
-  }
-}
-
-function CargoInstall([string] $package)
-{
-  AssertCommandExists "cargo"
-  If (-not (cargo install --list | Select-String -Quiet "$package"))
-  {
-    cargo install --locked $package
-  }
-}
-
-function CargoBInstall([string] $package)
-{
-  AssertCommandExists "cargo"
-  If (-not (cargo install --list | Select-String -Quiet "$package"))
-  {
-    cargo binstall --locked --no-confirm $package
-  }
-}
-
-function RustupAddComponent([string] $component)
-{
-  AssertCommandExists "rustup"
-  If (-not (rustup component list --installed | Select-String "$component"))
-  {
-    rustup component add $component
-  }
-}
-
-function ExecuteCallbackOnList([scriptblock] $callback, [string] $list)
-{
-  foreach($line in (Get-Content $list | Where-Object {$_ -notmatch '^#.*'}))
-  {
-    if (-not ([string]::IsNullOrEmpty($line)))
-    {
-      $callback.Invoke($line)
-    }
-  }
-}
+$ListDir = "$HOME/.config/chezmoi"
+$ScriptDir = "$env:USERPROFILE/.local/share/chezmoi/scripts"
+. "$ScriptDir/utils.ps1"
+. "$ScriptDir/windows_packages.ps1"
+. "$ScriptDir/rust_packages.ps1"
+. "$ScriptDir/configure_cli.ps1"
 
 # Add extras bucket
-AssertCommandExists "scoop"
-ScoopAddBucket extras
-ScoopAddBucket nerd-fonts
-ScoopAddBucket drop-stones-bucket https://github.com/drop-stones/scoop-bucket
+Add-ScoopBucket extras
+Add-ScoopBucket nerd-fonts
+Add-ScoopBucket drop-stones-bucket https://github.com/drop-stones/scoop-bucket
 
 # Install packages using scoop
-ExecuteCallbackOnList $function:ScoopInstall "$HOME/.config/chezmoi/install_packages_list.txt"
+Install-PackageList "$ListDir/install_packages_list.txt"
 
 # Install packages using winget
-WingetInstall Microsoft.DotNet.SDK.9
+Install-WingetPackage Microsoft.DotNet.SDK.9
 
 # Install/Update rust toolchain
-If (!(Get-Command "rustc"))
-{
-  AssertCommandExists "rustup"
-  rustup toolchain install --no-self-update stable
-}
+Install-RustupToolchains
 
 # Install packages using cargo install/binstall
-ExecuteCallbackOnList $function:CargoInstall "$HOME/.config/chezmoi/cargo_install_packages_list.txt"
-ExecuteCallbackOnList $function:CargoBInstall "$HOME/.config/chezmoi/cargo_binstall_packages_list.txt"
+Install-CargoPackageList "$ListDir/cargo_install_packages_list.txt"
+Install-CargoBinaryPackageList "$ListDir/cargo_binstall_packages_list.txt"
 
 # Add rustup components
-ExecuteCallbackOnList $function:RustupAddComponent "$HOME/.config/chezmoi/rustup_component_list.txt"
+Add-RustupComponentList "$ListDir/rustup_component_list.txt"
 
+# CLI configurations
+Build-BatCache
 
-# zsh in msys2
+# Create symlink for msys2
 $Msys2HomePath = "$HOME\scoop\apps\msys2\current\home\$env:username"
-If (Test-Path -Path $Msys2HomePath)
-{
-  $Msys2HomeDir = Get-Item "$Msys2HomePath"
-  If (!([bool]($Msys2HomeDir.Attributes -band [IO.FileAttributes]::ReparsePoint)))
-  {
-    Write-Output "Remove $Msys2HomePath"
-    Remove-Item -LiteralPath "$Msys2HomePath" -Force -Recurse
-  }
-}
-If (!(Test-Path -Path $Msys2HomePath))
-{
-  Write-Output "Create Symlink"
-  New-Item -ItemType SymbolicLink -Path "$Msys2HomePath" -Target "$HOME" # symbolic link ~ -> $HOME
-}
+New-SymlinkIfMissing -TargetPath $HOME -LinkPath $Msys2HomePath
 
-# Bat settings
-bat cache --build
 
 {{- end -}}

@@ -100,17 +100,6 @@ ExecuteCallbackOnList $function:CargoBInstall "$HOME/.config/chezmoi/cargo_binst
 # Add rustup components
 ExecuteCallbackOnList $function:RustupAddComponent "$HOME/.config/chezmoi/rustup_component_list.txt"
 
-# Create a powershell profile
-$PSHomeDir = "$HOME\Documents\PowerShell"
-$ProfileName = "Profile.ps1"
-If (!(Test-Path "$PSHomeDir"))
-{
-  New-Item -Path "$HOME\Documents" -Name "PowerShell" -ItemType "directory"
-}
-If (!(Test-Path "$PSHomeDir\$ProfileName"))
-{
-  New-Item -Path "$PSHomeDir" -Name "$ProfileName" -ItemType SymbolicLink -Target "$HOME\.config\powershell\profile.ps1" -Force
-}
 
 # zsh in msys2
 $Msys2HomePath = "$HOME\scoop\apps\msys2\current\home\$env:username"

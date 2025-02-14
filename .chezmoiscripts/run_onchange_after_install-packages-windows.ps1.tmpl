@@ -16,7 +16,7 @@ Add-ScoopBucket drop-stones-bucket https://github.com/drop-stones/scoop-bucket
 Install-PackageList "$ListDir/install_packages_list.txt"
 
 # Install packages using winget
-Install-WingetPackage Microsoft.DotNet.SDK.9
+Install-WingetPackageList "$ListDir/winget_install_packages_list.txt"
 
 # Install/Update rust toolchain
 Install-RustupToolchains

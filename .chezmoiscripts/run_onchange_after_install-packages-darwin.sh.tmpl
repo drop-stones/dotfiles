@@ -8,19 +8,58 @@ source "$script_dir/darwin_packages.sh"
 source "$script_dir/rust_packages.sh"
 source "$script_dir/configure_cli.sh"
 
+cat <<"EOF"
+
+ _
+| |_ ___ ___ _ __ _
+| . |  _| -_| |  | |
+|___|_| |___|\_/\_/
+
+
+EOF
+
 # Install packages using brew
-# ExecuteCallbackOnList BrewInstall "$HOME/.config/chezmoi/install_packages_list.txt"
 install_package_list "$list_dir/install_packages_list.txt"
+
+cat <<"EOF"
+
+             _
+ ___ ___ ___| |_ ___ ___
+|  _| | |_ -|  _| | | . |
+|_| |___|___|_| |___|  _|
+                    |_|
+
+EOF
 
 # Install rust toolchains
 setup_rustup
+
+# Add rustup components
+add_rust_component_list "$list_dir/rustup_component_list.txt"
+
+cat <<"EOF"
+
+
+ ___ ___ ___ ___ ___
+|  _| .'|  _| . | . |
+|___|__,|_| |_  |___|
+            |___|
+
+EOF
 
 # Install packages using cargo install/binstall
 install_cargo_package_list "$list_dir/cargo_install_packages_list.txt"
 binstall_cargo_package_list "$list_dir/cargo_binstall_packages_list.txt"
 
-# Add rustup components
-add_rust_component_list "$list_dir/rustup_component_list.txt"
+cat <<"EOF"
+
+     _ _                __ _         _     _   _
+ ___| |_|   ___ ___ ___| _|_|___ ___| |___| |_|_|___ ___
+|  _| | |  |  _| . |   | _| | . | | | | .'|  _| | . |   |
+|___|_|_|  |___|___|_|_|_||_|_  |___|_|__,|_| |_|___|_|_|
+                            |___|
+
+EOF
 
 # CLI configurations
 build_bat_cache

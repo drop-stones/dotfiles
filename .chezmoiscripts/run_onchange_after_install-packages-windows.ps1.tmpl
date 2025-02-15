@@ -7,33 +7,102 @@ $ScriptDir = "$env:USERPROFILE/.local/share/chezmoi/scripts"
 . "$ScriptDir/rust_packages.ps1"
 . "$ScriptDir/configure_cli.ps1"
 
+Write-Host @"
+
+                        _           _         _
+ ___ ___ ___ ___ ___   | |_ ___ ___| | _  ___| |_
+|_ -|  _| . | . | . |  | . | | |  _| |/ /| -_|  _|
+|___|___|___|___|  _|  |___|___|___|_|\_\|___|_|
+                |_|
+
+"@
+
 # Add extras bucket
 Add-ScoopBucket extras
 Add-ScoopBucket nerd-fonts
 Add-ScoopBucket drop-stones-bucket https://github.com/drop-stones/scoop-bucket
 
+Write-Host @"
+
+
+ ___ ___ ___ ___ ___
+|_ -|  _| . | . | . |
+|___|___|___|___|  _|
+                |_|
+
+"@
+
 # Install packages using scoop
 Install-PackageList "$ListDir/install_packages_list.txt"
+
+Write-Host @"
+
+        _             _
+ _ __ _|_|___ ___ ___| |_
+| |  | | |   | . | -_|  _|
+ \_/\_/|_|_|_|_  |___|_|
+             |___|
+
+"@
 
 # Install packages using winget
 Install-WingetPackageList "$ListDir/winget_install_packages_list.txt"
 
+Write-Host @"
+
+             _
+ ___ ___ ___| |_ ___ ___
+|  _| | |_ -|  _| | | . |
+|_| |___|___|_| |___|  _|
+                    |_|
+
+"@
+
 # Install/Update rust toolchain
 Install-RustupToolchains
+
+# Add rustup components
+Add-RustupComponentList "$ListDir/rustup_component_list.txt"
+
+Write-Host @"
+
+
+ ___ ___ ___ ___ ___
+|  _| .'|  _| . | . |
+|___|__,|_| |_  |___|
+            |___|
+
+"@
 
 # Install packages using cargo install/binstall
 Install-CargoPackageList "$ListDir/cargo_install_packages_list.txt"
 Install-CargoBinaryPackageList "$ListDir/cargo_binstall_packages_list.txt"
 
-# Add rustup components
-Add-RustupComponentList "$ListDir/rustup_component_list.txt"
+Write-Host @"
+
+     _ _                __ _         _     _   _
+ ___| |_|   ___ ___ ___| _|_|___ ___| |___| |_|_|___ ___
+|  _| | |  |  _| . |   | _| | . | | | | .'|  _| | . |   |
+|___|_|_|  |___|___|_|_|_||_|_  |___|_|__,|_| |_|___|_|_|
+                            |___|
+
+"@
 
 # CLI configurations
 Build-BatCache
 
+Write-Host @"
+
+
+ _____ ___ ___ ___
+|     |_ -| | |_ -|
+|_|_|_|___|_  |___|
+          |___|
+
+"@
+
 # Create symlink for msys2
 $Msys2HomePath = "$HOME\scoop\apps\msys2\current\home\$env:username"
 New-SymlinkIfMissing -TargetPath $HOME -LinkPath $Msys2HomePath
-
 
 {{- end -}}

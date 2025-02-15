@@ -10,29 +10,88 @@ source "$script_dir/configure_cli.sh"
 source "$script_dir/wsl2.sh"
 
 if is_wsl2; then
+  cat <<"EOF"
+
+            _
+ _ __ _ ___| |___
+| |  | |_ -| | | |
+ \_/\_/|___|_|___|
+
+
+EOF
+
   # Add the wslu server if WSL2
   add_wslu_server
 fi
 
+cat <<"EOF"
+
+
+ ___ ___ ___ _____ ___ ___
+| . | .'|  _|     | .'|   |
+|  _|__,|___|_|_|_|__,|_|_|
+|_|
+
+EOF
+
 # Install packages using pacman
 install_package_list "$list_dir/install_packages_list.txt"
 
+cat <<"EOF"
+
+             _
+ ___ ___ ___| |_ ___ ___
+|  _| | |_ -|  _| | | . |
+|_| |___|___|_| |___|  _|
+                    |_|
+
+EOF
+
 # Install/Update rust toolchain
 setup_rustup
+
+# Add rustup components
+add_rust_component_list "$list_dir/rustup_component_list.txt"
+
+cat <<"EOF"
+
+
+ ___ ___ ___ ___ ___
+|  _| .'|  _| . | . |
+|___|__,|_| |_  |___|
+            |___|
+
+EOF
 
 # Install packages using cargo install/binstall
 install_cargo_package_list "$list_dir/cargo_install_packages_list.txt"
 binstall_cargo_package_list "$list_dir/cargo_binstall_packages_list.txt"
 
-# Add rustup components
-add_rust_component_list "$list_dir/rustup_component_list.txt"
+cat <<"EOF"
+
+     _ _                __ _         _     _   _
+ ___| |_|   ___ ___ ___| _|_|___ ___| |___| |_|_|___ ___
+|  _| | |  |  _| . |   | _| | . | | | | .'|  _| | . |   |
+|___|_|_|  |___|___|_|_|_||_|_  |___|_|__,|_| |_|___|_|_|
+                            |___|
+
+EOF
 
 # CLI configurations
 build_bat_cache
 install_navi_repository "https://github.com/drop-stones/cheats.git" "drop-stones__cheats"
 
 if is_wsl2; then
-  # WSL only
+  cat <<"EOF"
+
+            _
+ _ __ _ ___| |
+| |  | |_ -| |
+ \_/\_/|___|_|
+
+
+EOF
+
   ## Install msys2
   if ! cargo install --list | grep --quiet --fixed-strings "msys2"; then
     cargo install --locked --git https://github.com/drop-stones/msys2.git
@@ -48,6 +107,17 @@ if is_wsl2; then
   wslview_path=$(get_command_path wslview)
   ensure_symlink "$wslview_path" "/usr/bin/xdg-open"
 else
+  cat <<"EOF"
+
+ _                 _     _
+| |_ ___ ___ ___ _| |___| |_ ___
+|   | | | . |  _| . | . |  _|_ -|
+|_|_|_  |  _|_| |___|___|_| |___|
+    |___|_|
+
+
+EOF
+
   # Desktop Arch Linux only
   $HOME/.local/share/hyprdots/Scripts/install.zsh
 fi

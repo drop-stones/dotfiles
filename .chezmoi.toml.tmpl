@@ -14,9 +14,19 @@
   {{ $home = output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | trim | output "wslpath" "-u" | trim }}
 {{ end }}
 
+{{ $osid := .chezmoi.os }}
+{{ if eq .chezmoi.os "linux" }}
+{{   if .chezmoi.kernel.osrelease | lower | contains "microsoft" }}
+{{     $osid = printf "%s-%s" "wsl" .chezmoi.osRelease.id }}
+{{   else }}
+{{     $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id }}
+{{   end }}
+{{ end }}
+
 [data]
   email = {{ $email | quote }}
   username = {{ $username | quote }}
+  osid = {{ $osid | quote }}
 
 {{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
   windowsHome = {{ $home | quote }}

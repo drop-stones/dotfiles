@@ -38,6 +38,14 @@ function binstall_cargo_package() {
   cargo binstall --locked --no-confirm "${packages[@]}"
 }
 
+function install_cargo_binstall() {
+  if cargo_package_installed "cargo-binstall"; then
+    print_log -y "[skip] " "cargo-binstall"
+  else
+    install_cargo_package "cargo-binstall"
+  fi
+}
+
 function install_cargo_package_list() {
   local cargo_install_package_list=$1
   install_packages "$cargo_install_package_list" cargo_package_installed cargo_package_available install_cargo_package

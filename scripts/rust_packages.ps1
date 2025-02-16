@@ -33,6 +33,14 @@ function Install-CargoBinaryPackage([string[]] $Packages) {
   cargo binstall --locked --no-confirm $Packages
 }
 
+function Install-CargoBinstall() {
+  if (Test-IsCargoPackageInstalled cargo-binstall) {
+    Write-LogMessage -y "[skip] " "cargo-binstall"
+  } else {
+    Install-CargoPackage cargo-binstall
+  }
+}
+
 function Install-CargoPackageList([string] $PackageList) {
   Install-Packages $PackageList (Get-Command Test-IsCargoPackageInstalled).ScriptBlock (Get-Command Test-IsCargoPackageAvailable).ScriptBlock (Get-Command Install-CargoPackage).ScriptBlock
 }

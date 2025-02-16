@@ -75,7 +75,7 @@ Write-Host @"
 "@
 
 # Install packages using cargo install/binstall
-Install-CargoPackageList "$ListDir/cargo_install_packages_list.txt"
+Install-CargoBinstall
 Install-CargoBinaryPackageList "$ListDir/cargo_binstall_packages_list.txt"
 
 Write-Host @"

@@ -1,2 +1,0 @@
-# Binary installer
-cargo-binstall

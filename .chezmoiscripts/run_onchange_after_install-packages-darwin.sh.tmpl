@@ -48,7 +48,7 @@ cat <<"EOF"
 EOF
 
 # Install packages using cargo install/binstall
-install_cargo_package_list "$list_dir/cargo_install_packages_list.txt"
+install_cargo_binstall
 binstall_cargo_package_list "$list_dir/cargo_binstall_packages_list.txt"
 
 cat <<"EOF"

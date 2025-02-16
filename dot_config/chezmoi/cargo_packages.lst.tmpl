@@ -1,0 +1,11 @@
+# -------------------------------------------------- // Package Updater
+cargo-update                                          # update subcommand
+topgrade                                              # upgrade everything
+
+# -------------------------------------------------- // Development
+cargo-nextest                                         # test runner
+viu                                                   # image previewer
+vivid                                                 # LS_COLORS generator
+{{ if ne .osid "windows" }}
+kalker                                                # arithmetic calculator
+{{ end }}

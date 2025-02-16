@@ -1,2 +1,0 @@
-# .NET Framework
-Microsoft.DotNet.SDK.9

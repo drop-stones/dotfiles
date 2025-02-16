@@ -35,7 +35,7 @@ cat <<"EOF"
 EOF
 
 # Install packages using pacman
-install_package_list "$list_dir/install_packages_list.txt"
+install_package_list "$list_dir/packages.lst"
 
 cat <<"EOF"
 
@@ -51,7 +51,7 @@ EOF
 setup_rustup
 
 # Add rustup components
-add_rust_component_list "$list_dir/rustup_component_list.txt"
+add_rust_component_list "$list_dir/rustup_components.lst"
 
 cat <<"EOF"
 
@@ -65,7 +65,7 @@ EOF
 
 # Install packages using cargo install/binstall
 install_cargo_binstall
-binstall_cargo_package_list "$list_dir/cargo_binstall_packages_list.txt"
+binstall_cargo_package_list "$list_dir/cargo_packages.lst"
 
 cat <<"EOF"
 

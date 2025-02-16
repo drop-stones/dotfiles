@@ -33,7 +33,7 @@ Write-Host @"
 "@
 
 # Install packages using scoop
-Install-PackageList "$ListDir/install_packages_list.txt"
+Install-PackageList "$ListDir/packages.lst"
 
 Write-Host @"
 
@@ -46,7 +46,7 @@ Write-Host @"
 "@
 
 # Install packages using winget
-Install-WingetPackageList "$ListDir/winget_install_packages_list.txt"
+Install-WingetPackageList "$ListDir/winget_packages.lst"
 
 Write-Host @"
 
@@ -62,7 +62,7 @@ Write-Host @"
 Install-RustupToolchains
 
 # Add rustup components
-Add-RustupComponentList "$ListDir/rustup_component_list.txt"
+Add-RustupComponentList "$ListDir/rustup_components.lst"
 
 Write-Host @"
 
@@ -76,7 +76,7 @@ Write-Host @"
 
 # Install packages using cargo install/binstall
 Install-CargoBinstall
-Install-CargoBinaryPackageList "$ListDir/cargo_binstall_packages_list.txt"
+Install-CargoBinaryPackageList "$ListDir/cargo_packages.lst"
 
 Write-Host @"
 

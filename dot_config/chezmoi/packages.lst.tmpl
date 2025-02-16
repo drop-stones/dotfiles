@@ -1,0 +1,113 @@
+# -------------------------------------------------- // Core Utilities
+git                                                   # version control system
+unzip                                                 # extractor
+openssh                                               # secure shell
+wget                                                  # file retriever from the web
+
+# -------------------------------------------------- // Development
+neovim                                                # editor
+tree-sitter                                           # parser generator
+just                                                  # task runner
+sqlite                                                # database
+chafa                                                 # image previewer
+lazygit                                               # terminal ui for git
+{{ if eq .osid "windows" }}
+delta                                                 # git diff pager
+{{ else }}
+git-delta                                             # git diff pager
+{{ end }}
+
+# -------------------------------------------------- // Programming Language
+rustup                                                # rust
+lua                                                   # lua
+lua-language-server                                   # lua lsp
+luarocks                                              # package manager for lua
+go                                                    # go
+python                                                # python
+{{ if eq .osid "windows" }}
+nodejs                                                # Node.js
+{{ else }}
+npm                                                   # package manager for javascript
+{{ end }}
+
+# -------------------------------------------------- // Command-Line Utilities
+bat                                                   # cat(1) clone
+{{ if ne .osid "windows" }}
+bat-extras                                            # bat integration
+{{ end }}
+eza                                                   # ls(1) alternative
+fd                                                    # find(1) alternative
+ripgrep                                               # grep(1) alternative
+sd                                                    # sed(1) alternative
+zoxide                                                # Smater cd(1) command
+procs                                                 # ps(1) alternative
+fzf                                                   # fuzzy finder
+yazi                                                  # file manager
+hexyl                                                 # hex viewer
+tokei                                                 # code statistics
+hyperfine                                             # benchmarking tool
+navi                                                  # cheat sheets
+tealdeer                                              # tldr
+bottom                                                # process/system monitor
+dust                                                  # du(1) alternative
+duf                                                   # disk usage/free utility
+{{ if eq .osid "windows" }}
+dua                                                   # disk usage analyzer
+{{ else }}
+dua-cli                                               # disk usage analyzer
+{{ end }}
+
+# -------------------------------------------------- // Terminal & Shell
+{{ if ne .osid "wsl-arch" }}
+alacritty                                             # opengl terminal emulator
+wezterm                                               # feature rich terminal emulator
+obsidian                                              # note taking
+{{ end }}
+{{ if ne .osid "windows" }}
+zellij                                                # terminal multiplexer
+direnv                                                # unclutter .profile
+thefuck                                               # correct previous console command
+{{ end }}
+
+{{ if eq .osid "windows" }}
+# -------------------------------------------------- // Windows Specific
+0xProto-NF                                            # nerd font
+starship                                              # shell prompt
+7zip                                                  # file archiver
+winget                                                # package manager
+pwsh                                                  # powershell core
+msys2                                                 # gnu for windows
+powertoys                                             # Windows system utilities
+sqlite3dll                                            # database
+win32yank                                             # windows clipboard tool
+archwsl                                               # ArchLinux for wsl2
+dos2unix                                              # text file converter
+kalker                                                # arithmetic calculator
+{{ else }}
+# -------------------------------------------------- // Except for Windows
+man-db                                                # manual page database
+llvm                                                  # llvm compiler Infrastructure project
+{{ end }}
+
+{{ if eq .osid "darwin" }}
+# -------------------------------------------------- // Mac Specific
+font-0xproto-nerd-font                                # nerd font
+{{ end }}
+
+{{ if eq .chezmoi.os "linux" }}
+# -------------------------------------------------- // Linux Specific
+zsh                                                   # shell
+man-pages                                             # manual page
+clang                                                 # c/c++ compiler based on llvm
+{{ end }}
+
+{{ if eq .osid "wsl-arch" }}
+# -------------------------------------------------- // WSL2 Specific
+wslu                                                  # utilities for wsl2
+dos2unix                                              # test file converter
+{{ end }}
+
+{{ if eq .osid "linus-arch" }}
+# -------------------------------------------------- // Linux Desktop Specific
+ttf-0xproto-nerd                                      # nerd font
+{{ end }}

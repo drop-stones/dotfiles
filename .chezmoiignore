@@ -2,12 +2,7 @@ README.md
 TODO.md
 scripts/
 
-{{ if ne .chezmoi.os "windows" }}
-# Windows only
-.config/powershell/
-.config/starship.toml/
-AppData
-{{ else }}
+{{ if eq .osid "windows" }}
 # Hide on windows
 .config/alacritty/
 .config/bat/
@@ -15,20 +10,18 @@ AppData
 .config/navi/
 .config/topgrade/
 .config/zellij/
+{{ else }}
+# Windows only
+.config/starship.toml/
+AppData
 {{ end }}
 
-{{ if and (ne .chezmoi.os "linux") (not (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft"))) }}
-# Linux only
-{{ end }}
-
-{{ if eq .chezmoi.os "linux" }}
-{{   if .chezmoi.kernel.osrelease | lower | contains "microsoft" }}
-# No use in WSL2
+{{ if eq .osid "wsl-arch" }}
+# Hide on WSL2
 .config/alacritty/
 .config/wezterm/
-{{   end }}
 {{ end }}
 
-{{ if or (ne .email "s2h6i8z1u7k8u7@gmail.com") (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
+{{ if or (ne .email "s2h6i8z1u7k8u7@gmail.com") (eq .osid "wsl-arch") }}
 .config/obsidian/vaults
 {{ end }}

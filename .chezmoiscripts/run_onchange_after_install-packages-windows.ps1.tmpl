@@ -6,6 +6,7 @@ $ScriptDir = "$env:USERPROFILE/.local/share/chezmoi/scripts"
 . "$ScriptDir/windows_packages.ps1"
 . "$ScriptDir/rust_packages.ps1"
 . "$ScriptDir/configure_cli.ps1"
+. "$ScriptDir/configure_browser.ps1"
 
 Write-Host @"
 
@@ -90,6 +91,19 @@ Write-Host @"
 
 # CLI configurations
 Build-BatCache
+
+Write-Host @"
+
+ _                                             __ _         _     _   _
+| |_ ___ ___ _ __ _ ___ ___ ___    ___ ___ ___| _|_|___ ___| |___| |_|_|___ ___
+| . |  _| . | |  | |_ -| -_|  _|  |  _| . |   | _| | . | | | | .'|  _| | . |   |
+|___|_| |___|\_/\_/|___|___|_|    |___|___|_|_|_||_|_  |___|_|__,|_| |_|___|_|_|
+                                                   |___|
+
+"@
+
+Install-SurfingKeysConfig
+
 
 Write-Host @"
 

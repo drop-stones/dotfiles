@@ -13,7 +13,14 @@
   url = "https://github.com/mattmc3/antidote.git"
   refreshPeriod = "168h"
 
-{{ if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
+{{ if ne .osid "wsl-arch" }}
+[".local/share/surfingkeys-config"]
+  type = "git-repo"
+  url = "https://github.com/drop-stones/surfingkeys-config.git"
+  refreshPeriod = "168h"
+{{ end }}
+
+{{ if eq .osid "linux-arch" }}
 [".local/share/hyprdots"]
   type = "git-repo"
   clone.args = ["--depth", "1"]

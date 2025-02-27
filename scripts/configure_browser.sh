@@ -20,6 +20,12 @@ function install_surfingkeys_config() {
     print-log -r "[error] " "failed to install surfingkeys.js"
   fi
 
+  if npm run install -- --vivaldi >/dev/null; then
+    print-log -b "[install] " "surfingkeys.vivaldi.js to $HOME/.config/surfingkeys.vivaldi.js"
+  else
+    print-log -r "[error] " "failed to install surfingkeys.vivaldi.js"
+  fi
+
   print-log -b "[setup] " "vivaldi settings"
   npm run setup-vivaldi
 

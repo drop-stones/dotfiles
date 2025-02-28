@@ -11,8 +11,11 @@ fi
 function install_surfingkeys_config() {
   cd "$HOME/.local/share/surfingkeys-config/"
 
-  print-log -b "[install] " "npm packages"
-  npm install
+  if npm install >/dev/null; then
+    print-log -b "[install] " "npm packages"
+  else
+    print-log -r "[error] " "failed to install npm packages"
+  fi
 
   if npm run install >/dev/null; then
     print-log -b "[install] " "surfingkeys.js to $HOME/.config/surfingkeys.js"
@@ -26,8 +29,11 @@ function install_surfingkeys_config() {
     print-log -r "[error] " "failed to install surfingkeys.vivaldi.js"
   fi
 
-  print-log -b "[setup] " "vivaldi settings"
-  npm run setup-vivaldi
+  if npm run configure-vivaldi >/dev/null; then
+    print-log -b "[configure] " "vivaldi preferences"
+  else
+    print-log -r "[error] " "failed to configure vivaldi preferences"
+  fi
 
   cd -
 }

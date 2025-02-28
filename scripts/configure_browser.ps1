@@ -13,8 +13,11 @@ function Install-SurfingKeysConfig {
   Push-Location
   Set-Location "$HOME/.local/share/surfingkeys-config/"
 
-  Write-LogMessage -b "[install] " "npm packages"
-  npm install
+  if (npm install) {
+    Write-LogMessage -b "[install] " "npm packages"
+  } else {
+    Write-LogMessage -r "[error] " "failed to install npm packages"
+  }
 
   if (npm run install) {
     Write-LogMessage -b "[install] " "surfingkeys.js to $HOME\.config\surfingkeys.js"
@@ -28,7 +31,11 @@ function Install-SurfingKeysConfig {
     Write-LogMessage -r "[error] " "failed to install surfingkeys.vivaldi.js"
   }
 
-  Write-LogMessage -b "[setup] " "vivaldi settings"
-  npm run setup-vivaldi
+  if (npm run configure-vivaldi) {
+    Write-LogMessage -b "[configure] " "vivaldi preferences"
+  } else {
+    Write-LogMessage -r "[error] " "failed to configure vivaldi preferences"
+  }
+  
   Pop-Location
 }

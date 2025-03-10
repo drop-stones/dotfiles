@@ -9,31 +9,31 @@ fi
 ##############################################
 
 function install_surfingkeys_config() {
-  cd "$HOME/.local/share/surfingkeys-config/"
+  cd "$HOME/.local/share/surfingkeys-config/" || exit
 
   if npm install >/dev/null; then
-    print-log -b "[install] " "npm packages"
+    print_log -b "[install] " "npm packages"
   else
-    print-log -r "[error] " "failed to install npm packages"
+    print_log -r "[error] " "failed to install npm packages"
   fi
 
   if npm run install >/dev/null; then
-    print-log -b "[install] " "surfingkeys.js to $HOME/.config/surfingkeys.js"
+    print_log -b "[install] " "surfingkeys.js to $HOME/.config/surfingkeys.js"
   else
-    print-log -r "[error] " "failed to install surfingkeys.js"
+    print_log -r "[error] " "failed to install surfingkeys.js"
   fi
 
   if npm run install -- --vivaldi >/dev/null; then
-    print-log -b "[install] " "surfingkeys.vivaldi.js to $HOME/.config/surfingkeys.vivaldi.js"
+    print_log -b "[install] " "surfingkeys.vivaldi.js to $HOME/.config/surfingkeys.vivaldi.js"
   else
-    print-log -r "[error] " "failed to install surfingkeys.vivaldi.js"
+    print_log -r "[error] " "failed to install surfingkeys.vivaldi.js"
   fi
 
   if npm run configure-vivaldi >/dev/null; then
-    print-log -b "[configure] " "vivaldi preferences"
+    print_log -b "[configure] " "vivaldi preferences"
   else
-    print-log -r "[error] " "failed to configure vivaldi preferences"
+    print_log -r "[error] " "failed to configure vivaldi preferences"
   fi
 
-  cd -
+  cd - >/dev/null || exit
 }

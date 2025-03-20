@@ -8,18 +8,27 @@ scripts/
 .config/bat/
 .config/direnv/
 .config/navi/
+.config/rustfmt/
 .config/topgrade/
 .config/zellij/
 {{ else }}
 # Windows only
 .config/starship.toml/
-AppData
+AppData/
 {{ end }}
 
 {{ if eq .osid "wsl-arch" }}
 # Hide on WSL2
 .config/alacritty/
 .config/wezterm/
+{{ end }}
+
+{{ if eq .osid "darwin" }}
+# Hide on macOS
+.config/rustfmt/
+{{ else }}
+# MacOS only
+Library/
 {{ end }}
 
 {{ if or (ne .email "s2h6i8z1u7k8u7@gmail.com") (eq .osid "wsl-arch") }}

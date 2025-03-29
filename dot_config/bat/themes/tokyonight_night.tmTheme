@@ -1369,6 +1369,17 @@
 				<string>#7aa2f7</string>
 			</dict>
 		</dict>
+    <dict>
+      <key>name</key>
+      <string>Manual - Command Line Option</string>
+      <key>scope</key>
+      <string>entity.name.command-line-option.man</string>
+      <key>settings</key>
+      <dict>
+        <key>foreground</key>
+        <string>#7aa2f7</string>
+      </dict>
+    </dict>
 	</array>
 	<key>uuid</key>
 	<string>06f855e3-9fb7-4fb1-b790-aef06065f34e</string>

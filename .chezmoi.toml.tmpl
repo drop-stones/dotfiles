@@ -8,8 +8,14 @@
 {{ end }}
 
 {{ $home := "" }}
+{{ $interpreter := "" }}
 {{ if eq .chezmoi.os "windows" }}
   {{ $home = output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | replace "\\" "/" | trim }}
+  {{ if eq "yes" (output "powershell.exe" "-Command" "if (Get-Command pwsh -ErrorAction SilentlyContinue) { 'yes' } else { 'no' }" | trim) }}
+    {{ $interpreter = "pwsh" }}
+  {{ else }}
+    {{ $interpreter = "powershell" }}
+  {{ end }}
 {{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
   {{ $home = output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | trim | output "wslpath" "-u" | trim }}
 {{ end }}
@@ -61,6 +67,6 @@
 
 {{ if eq .chezmoi.os "windows" }}
 [interpreters.ps1]
-  command = "powershell"
+  command = {{ $interpreter | quote }}
   args = ["-NoLogo"]
 {{ end }}

@@ -22,6 +22,7 @@ rustup                                                # rust
 lua                                                   # lua
 lua-language-server                                   # lua lsp
 luarocks                                              # package manager for lua
+llvm                                                  # llvm compiler Infrastructure project
 go                                                    # go
 python                                                # python
 {{ if eq .osid "windows" }}
@@ -86,7 +87,6 @@ kalker                                                # arithmetic calculator
 {{ else }}
 # -------------------------------------------------- // Except for Windows
 man-db                                                # manual page database
-llvm                                                  # llvm compiler Infrastructure project
 {{ end }}
 
 {{ if eq .osid "darwin" }}

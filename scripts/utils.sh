@@ -69,9 +69,9 @@ function install_packages() {
 
 function get_command_path() {
   if command -v which >/dev/null 2>&1; then
-    which wslview
+    which "$1"
   else
-    type -p wslview
+    type -p "$1"
   fi
 }
 

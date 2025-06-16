@@ -6,7 +6,7 @@ edit = [
 start = [
   { run = 'zsh -c "start $@" "" "%*"', desc = "Open in default program", orphan = true, block = false, for = "windows" },
 {{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-  { run = 'wslview "$@"', desc = "Open in default program", orphan = true, block = false, for = "linux" },
+  { run = 'pwsh.exe -Command start $(wslpath -w "$@")', desc = "Open in default program", orphan = true, block = false, for = "linux" },
 {{ end }}
 ]
 

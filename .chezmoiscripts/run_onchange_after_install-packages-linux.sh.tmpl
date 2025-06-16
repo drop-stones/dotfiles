@@ -10,21 +10,6 @@ source "$script_dir/configure_cli.sh"
 source "$script_dir/configure_browser.sh"
 source "$script_dir/wsl2.sh"
 
-if is_wsl2; then
-  cat <<"EOF"
-
-            _
- _ __ _ ___| |___
-| |  | |_ -| | | |
- \_/\_/|___|_|___|
-
-
-EOF
-
-  # Add the wslu server if WSL2
-  add_wslu_server
-fi
-
 cat <<"EOF"
 
 
@@ -103,10 +88,6 @@ EOF
   ## Create symlink to obsidian vaults
   WIN_USER_PROFILE="$(wslpath "$(pwsh.exe -NoProfile -NonInteractive -Command "\$Env:UserProfile")" | tr -d '\r')"
   ensure_symlink "$WIN_USER_PROFILE/.config/obsidian/vaults" "$HOME/.config/obsidian/vaults"
-
-  # Create symlink from xdg-open to wslview
-  wslview_path=$(get_command_path wslview)
-  ensure_symlink "$wslview_path" "/usr/bin/xdg-open"
 else
   cat <<"EOF"
 

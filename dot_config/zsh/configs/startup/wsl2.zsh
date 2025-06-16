@@ -12,6 +12,7 @@ typeset -A exclude_set=(
   ["vivid"]=
   ["yazi"]= # ANSI escape sequences by mouse events
   ["direnv"]=
+  ["mise"]=
   ["fd"]= # Change path separator
 )
 

@@ -15,6 +15,7 @@ scripts/
 # Windows only
 .config/starship.toml/
 AppData/
+Documents/
 {{ end }}
 
 {{ if eq .osid "wsl-arch" }}

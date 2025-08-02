@@ -1,4 +1,4 @@
-if [[ "$OSTYPE" == "msys" ]]; then
+if [[ -n "$MSYSTEM" ]]; then
   FZF_PATH_SEPARATOR='//'
 else
   FZF_PATH_SEPARATOR='/'

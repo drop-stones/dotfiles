@@ -1,5 +1,5 @@
 # Do not use `direnv` in msys due to path problem
-if [[ "$OSTYPE" == "msys" ]]; then
+if [[ -n "$MSYSTEM" ]]; then
   return
 fi
 

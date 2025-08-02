@@ -1,4 +1,4 @@
-if [[ "$OSTYPE" == "msys" ]]; then
+if [[ -n "$MSYSTEM" ]]; then
   return
 fi
 

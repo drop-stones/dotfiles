@@ -2,7 +2,7 @@
 if command -v win32yank.exe &>/dev/null; then
   # WSL2: Use win32yank
   win32yank.exe -o 2>/dev/null
-elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+elif [[ -n "$MSYSTEM" ]]; then
   # Windows: Use PowerShell Get-Clipboard
   powershell.exe -Command "Get-Clipboard" 2>/dev/null | tr -d '\r'
 elif command -v pbpaste &>/dev/null; then

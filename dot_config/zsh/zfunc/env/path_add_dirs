@@ -1,0 +1,43 @@
+#!/usr/bin/env zsh
+
+# Add the given depth directories to PATH
+# e.g., path_add_dirs path/to/dirs <depth> <depth> ...
+
+function path_add_dirs() {
+  local target_dir="$1"
+  shift
+  local depths=("$@")
+
+  # If no depth is provided, default to depth 0
+  if [[ ${#depths[@]} -eq 0 ]]; then
+    depths=(0)
+  fi
+
+  # Recursive function to handle directory traversal
+  function _add_dirs() {
+    local dir="$1"
+    local current_depth="$2"
+    local target_depth="$3"
+
+    # If the current depth matches the target depth, add the directory
+    if [[ $current_depth -eq $target_depth ]]; then
+      local absolute_path
+      absolute_path=$(realpath "$dir" 2>/dev/null || readlink -f "$dir")
+      [[ -n "$absolute_path" ]] && PATH="$absolute_path:$PATH"
+      return
+    fi
+
+    # If current depth is less than the target depth, recurse into subdirectories
+    if [[ $current_depth -lt $target_depth ]]; then
+      for sub_dir in "$dir"/*/; do
+        [[ -d "$sub_dir" ]] && _add_dirs "$sub_dir" $((current_depth + 1)) "$target_depth"
+      done
+    fi
+  }
+
+  # Iterate over all specified depths
+  for depth in "${depths[@]}"; do
+    # Add the given directories to PATH while traversing subdirectory
+    _add_dirs "$target_dir" 0 "$depth"
+  done
+}

@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+# $1: path to a package directory
+# $2: package name
+# $3: subdirectory
+
+function path_add_latest_package() {
+  latest_package=$(command ls "$1" | command grep -F "$2" | command sort | command tail --lines=1)
+  if [ -n "$latest_package" ]; then
+    package_path=$(realpath "${1}/${latest_package}/${3}")
+    export PATH="$package_path:$PATH"
+  fi
+}

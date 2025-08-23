@@ -23,7 +23,7 @@ function path_add_dirs() {
     if [[ $current_depth -eq $target_depth ]]; then
       local absolute_path
       absolute_path=$(realpath "$dir" 2>/dev/null || readlink -f "$dir")
-      [[ -n "$absolute_path" ]] && PATH="$absolute_path:$PATH"
+      [[ -n "$absolute_path" ]] && path-add "$absolute_path"
       return
     fi
 

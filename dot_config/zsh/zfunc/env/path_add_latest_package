@@ -8,6 +8,6 @@ function path_add_latest_package() {
   latest_package=$(command ls "$1" | command grep -F "$2" | command sort | command tail --lines=1)
   if [ -n "$latest_package" ]; then
     package_path=$(realpath "${1}/${latest_package}/${3}")
-    export PATH="$package_path:$PATH"
+    path-add "$package_path"
   fi
 }

@@ -1,4 +1,4 @@
 export TEALDEER_CONFIG_DIR=~/.config/tealdeer/
 
 # For WSL2
-WSLENV=$WSLENV\:TEALDEER_CONFIG_DIR/wp
+list-add WSLENV "TEALDEER_CONFIG_DIR/wp"

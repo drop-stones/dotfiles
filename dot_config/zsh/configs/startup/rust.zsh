@@ -5,7 +5,7 @@ if [[ "$OSTYPE" == "linux-gnu"* || "$OSTYPE" == "darwin"* ]]; then
   *:"$HOME/.cargo/bin":*) ;;
   *)
     # Prepending path in case a system-installed rustc needs to be overridden
-    export PATH="$HOME/.cargo/bin:$PATH"
+    path-add --prepend "$HOME/.cargo/bin"
     ;;
   esac
 fi

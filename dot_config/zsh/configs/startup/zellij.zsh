@@ -4,4 +4,4 @@ if [[ $kernel_release != *"WSL2"* ]]; then
   return
 fi
 
-WSLENV=$WSLENV\:ZELLIJ/w\:ZELLIJ_SESSION_NAME/w\:ZELLIJ_PANE_ID/w
+list-add WSLENV -- "ZELLIJ/w" "ZELLIJ_SESSION_NAME/w" "ZELLIJ_PANE_ID/w"

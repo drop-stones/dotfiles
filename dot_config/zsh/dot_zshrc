@@ -1,70 +1,88 @@
 # ~/.zshrc
+# shellcheck shell=zsh
 
 ##################################################
 # initialize
 ##################################################
 
-source "${ZDOTDIR:-~}/.initialize.zsh"
+source "${ZDOTDIR:-$HOME}/.initialize.zsh"
 
 ##################################################
-# plugins
+# plugins manager
 ##################################################
 
-# Set the name of the static .zsh plugins file antidote will generate.
-zsh_plugins=${ZDOTDIR:-~}/plugins/.zsh_plugins.zsh
+# Ensure no duplicates in fpath
+typeset -U fpath
 
-# Ensure you have a .zsh_plugins.txt file where you can add plugins.
-[[ -f ${zsh_plugins:r}.txt ]] || touch "${zsh_plugins:r}.txt"
+# Config paths
+ANTIDOTE_DIR="${ZDOTDIR:-$HOME}/.antidote"
+ZSH_PLUGINS="${ZDOTDIR:-$HOME}/plugins/.zsh_plugins.zsh"
 
-# Lazy-load antidote.
-fpath+=("${ZDOTDIR:-~}/.antidote")
-autoload -Uz "${fpath[-1]}/antidote"
+setup_antidote() {
+  emulate -L zsh
 
-# Generate static file in a subshell when .zsh_plugins.txt is updated.
-if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
-  (antidote bundle <"${zsh_plugins:r}.txt" >|"$zsh_plugins")
+  local antidote_dir=$1
+  local zsh_plugins=$2
+
+  # Ensure files/dirs
+  mkdir -p "${zsh_plugins:h}"
+  [[ -f ${zsh_plugins:r}.txt ]] || : >|"${zsh_plugins:r}.txt"
+
+  # Make antidote available
+  fpath+=("$antidote_dir")
+  autoload -Uz antidote
+
+  # Rebuild when needed
+  if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
+    antidote bundle <"${zsh_plugins:r}.txt" >|"$zsh_plugins" || true
+  fi
+}
+
+# 1) Only generate the bundle (do not source here)
+setup_antidote "$ANTIDOTE_DIR" "$ZSH_PLUGINS"
+
+# 2) Source the bundle at top level (safe even if plugins use `return`)
+if [[ -f $ZSH_PLUGINS ]]; then
+  source "$ZSH_PLUGINS" || print -u2 "warn: sourcing plugins returned non-zero; continuing"
 fi
 
-# Source your static plugins file.
-# shellcheck source=plugins/.zsh_plugins.zsh
-source "$zsh_plugins"
+# Remove the function to avoid polluting the namespace.
+unfunction setup_antidote
 
 ##################################################
 # Load functions
 ##################################################
 
-fpath+=("${ZDOTDIR:-~}/functions")
-for file in "${ZDOTDIR:-~}/functions"/**; do
-  [ -r "$file" ] && autoload -Uz "$file"
-done
+# Setup fpath recursively and autoload all function files.
+# - Each function must live in a file whose name equals the function name (no extension).
+# - Subdirectories under zfuncdir are supported.
+function setup_fpath {
+  emulate -L zsh -o extended_glob
+
+  local zfuncdir=$1
+  [[ -n $zfuncdir && -d $zfuncdir && -r $zfuncdir && -x $zfuncdir ]] || return 0
+
+  # Add root and all subdirectories to fpath so autoload can find files anywhere.
+  local -a dirs
+  dirs=("$zfuncdir" "$zfuncdir"/**/*(N/))
+  fpath+=("${dirs[@]}")
+
+  # Collect function names (basename, no dots) and mark for autoload.
+  # Exclude internal files that start with "__".
+  local -a names
+  names=("$zfuncdir"/**/([^.]##~__*)(.N:t))  # regular files only, no dot, not starting with "__"
+  (( ${#names} )) && autoload -Uz -- "${names[@]}"
+}
+
+setup_fpath "${ZDOTDIR:-$HOME}/zfunc"
+
+# Remove the function to avoid polluting the namespace.
+unfunction setup_fpath
 
 ##################################################
 # Load configs
 ##################################################
 
-# Execute the command for files in the directory
-ExecuteCommandForFiles() {
-  configs_dir=$1
-  command=$2
-  setopt extended_glob
-  if [ -d "$configs_dir" ] && [ -r "$configs_dir" ] && [ -x "$configs_dir" ]; then
-    for file in "${configs_dir}"/**; do
-      [ -r "$file" ] && eval "$command" "$file"
-    done
-  fi
-}
-
-# Load configs at startup time
-LoadConfigs() {
-  ExecuteCommandForFiles "$1" "source"
-}
-
-# Lazy load configs
-LazyLoadConfigs() {
-  ExecuteCommandForFiles "$1" "zsh-defer source"
-}
-
-LoadConfigs "${ZDOTDIR:-~}/configs/startup"
-LoadConfigs "${ZDOTDIR:-~}/plugins/configs/startup"
-
-LazyLoadConfigs "${ZDOTDIR:-~}/plugins/configs/lazy"
+for-each-file "${ZDOTDIR:-$HOME}/configs/startup" source
+for-each-file "${ZDOTDIR:-$HOME}/plugins/configs/startup" source
+for-each-file "${ZDOTDIR:-$HOME}/plugins/configs/lazy" zsh-defer source

@@ -1,8 +1,5 @@
-# Do noghing if not WSL2
-kernel_release=$(uname -r 2>/dev/null)
-if [[ $kernel_release != *"WSL2"* ]]; then
-  return
-fi
+# Do nothing if not WSL2
+is-wsl2 || return 0
 
 list-add WSLENV -- "WSL_DISTRO_NAME/w" "LS_COLORS/w"
 

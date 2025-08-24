@@ -14,4 +14,6 @@ else
 fi"
 
 # For WSL2
-list-add WSLENV -- "FZF_DEFAULT_OPTS_FILE/wp" "FZF_DEFAULT_COMMAND/w"
+if is-wsl2; then
+  list-add WSLENV -- "FZF_DEFAULT_OPTS_FILE/wp" "FZF_DEFAULT_COMMAND/w"
+fi

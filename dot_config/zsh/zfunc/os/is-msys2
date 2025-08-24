@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+# is-msys2
+# Purpose: Return 0 if running under MSYS2 (including MSYS/MINGW shells).
+# Heuristics:
+# - OSTYPE is "msys".
+# - MSYSTEM is set (MSYS, MINGW32, MINGW64, UCRT64, CLANG64, etc.).
+# Notes: No external processes spawned; avoids uname.
+
+function is-msys2 {
+  emulate -L zsh
+
+  [[ -n $MSYSTEM ]] && return 0
+
+  return 1
+}

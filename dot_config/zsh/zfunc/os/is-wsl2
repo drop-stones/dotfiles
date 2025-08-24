@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+# is-wsl2
+# Purpose: Return 0 if running under WSL2.
+# Heuristics:
+# - WSL_INTEROP is set on WSL2.
+# - Kernel release contains "WSL2" or "microsoft-standard-WSL2".
+# Notes: Independent of is-wsl; no external processes spawned.
+
+function is-wsl2 {
+  emulate -L zsh
+
+  # Definitive env hint for WSL2
+  [[ -n $WSL_INTEROP ]] && return 0
+
+  # Kernel string checks
+  local krel
+  kernel_release=$(uname -r 2>/dev/null)
+  [[ $kernel_release == *microsoft-standard-WSL2* ]] && return 0
+
+  return 1
+}

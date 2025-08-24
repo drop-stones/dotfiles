@@ -4,8 +4,7 @@
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # preview directory's content with eza when completing cd
-kernel_release=$(uname -r 2>/dev/null)
-if [[ $kernel_release != *"WSL2"* ]]; then
+if ! is-wsl2; then
   zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
   zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --color=always $realpath'
 else

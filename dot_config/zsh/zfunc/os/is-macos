@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+function is-macos() {
+  emulate -L zsh
+
+  [[ $OSTYPE == darwin* ]] && return 0
+
+  return 1
+}

@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+# Return success if running on Linux (incl. WSL).
+function is-linux {
+  emulate -L zsh
+
+  [[ $OSTYPE == linux* ]] && return 0
+
+  return 1
+}

@@ -1,0 +1,37 @@
+#!/usr/bin/env zsh
+
+#autoload
+# for_each_file: Run a command for each regular file under a directory (recursively).
+# Usage:
+#   for_each_file DIR CMD [ARGS...]
+# Examples:
+#   for_each_file "${ZDOTDIR:-$HOME}/configs/startup" source
+#   for_each_file "${ZDOTDIR:-$HOME}/plugins/configs/lazy" zsh-defer source
+#
+# WARNING (future self):
+# - This function may call `source`. Sourced files run in the current scope and can overwrite local variables.
+# - Use unique, prefixed local names (e.g., __fe_*) to avoid collisions; avoid generic names like cmd/file/args.
+
+function for-each-file {
+  emulate -L zsh -o extended_glob
+
+  local __fe_dir=$1 # root directory to scan
+  shift || true
+
+  # Validate args
+  [[ -n $__fe_dir && -d $__fe_dir && -r $__fe_dir && -x $__fe_dir ]] || return 0
+  [[ $# -ge 1 ]] || {
+    print -u2 "for_each_file: command is required"
+    return 2
+  }
+
+  local -a __fe_cmd=("$@") # command (and its args) to execute
+  local -a __fe_files
+  __fe_files=("$__fe_dir"/**/*(.N)) # regular files only: ignore no-match
+
+  local __fe_file # current file in the loop
+  for __fe_file in "${__fe_files[@]}"; do
+    [[ -r $__fe_file ]] || continue
+    "${__fe_cmd[@]}" "$__fe_file" || return $?
+  done
+}

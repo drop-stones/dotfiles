@@ -1,11 +1,8 @@
-if [[ "$OSTYPE" == "linux-gnu"* || "$OSTYPE" == "darwin"* ]]; then
-  # rustup shell setup
-  # affix colons on either side of $PATH to simplify matching
-  case ":${PATH}:" in
-  *:"$HOME/.cargo/bin":*) ;;
-  *)
-    # Prepending path in case a system-installed rustc needs to be overridden
-    path-add --prepend "$HOME/.cargo/bin"
-    ;;
-  esac
+# Add Cargo bin to PATH only on Linux and macOS.
+# Windows installers typically add it already.
+# Respect CARGO_HOME if set; fallback to ~/.cargo
+
+if is-linux || is-macos; then
+  local cargo_bin="${CARGO_HOME:-$HOME/.cargo}/bin"
+  [[ -d $cargo_bin ]] && path-add --prepend "$cargo_bin"
 fi

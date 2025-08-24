@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+# path-add
+# Purpose:
+# - Append (default) or prepend directories to PATH while skipping duplicates.
+# - Delegates to lib/__env_list_add and inherits its CLI and semantics.
+#
+# Usage:
+#   path-add [-p|--prepend] [-a|--append] [--] DIR [DIR ...]
+#
+# Behavior:
+# - Defaults to append; use -p/--prepend to add to the front.
+# - Uniqueness via array -U (first occurrence wins); original order preserved.
+# - Lazy tie: the array tied to PATH is ${PATH:l} => "path".
+#
+# Notes:
+# - Options are passed through to __env_list_add unchanged.
+# - self_dir resolves to this file's directory, independent of the caller.
+# - __env_list_add is autoloaded on demand and performs the actual updates.
+#
+# Examples:
+#   path-add /opt/bin /usr/local/bin
+#   path-add --prepend -- ~/bin
+
+function path-add {
+  emulate -L zsh
+
+  local -r self_dir=${${functions_source[${funcstack[1]}]}:A:h}
+  autoload -Uz "$self_dir/lib/__env_list_add" || return 1
+  __env_list_add "PATH" --sep ":" "$@"
+}

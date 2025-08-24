@@ -1,0 +1,65 @@
+#!/usr/bin/env zsh
+
+# __env_list_add VAR [-p|--prepend] [-a|--append] [--sep SEP] [--] VALUE...
+# - Lazily ensure the tie (ARRAY is ${VAR:l}), then append (default) or prepend values.
+# - Uniqueness via array -U (first occurrence wins).
+
+function __env_list_add {
+  emulate -L zsh
+
+  {
+    local var=$1
+    shift || true
+    [[ -n $var ]] || {
+      print -u2 "__env_list_add: VAR is required"
+      return 2
+    }
+
+    local mode=append
+    local sep=":"
+
+    while (($#)); do
+      case "$1" in
+        -p|--prepend) mode=prepend; shift ;;
+        -a|--append)  mode=append; shift ;;
+        --sep)        sep=$2; shift 2 ;;
+        --)           shift; break ;;
+        *)            break ;;
+      esac
+    done
+
+    (($# > 0)) || {
+      print -u2 "__env_list_add: VALUE(s) required"
+      return 2
+    }
+
+    local arrname=${var:l}
+
+    # Ensure tie and -U on the array.
+    local -r self_dir=${${functions_source[${funcstack[1]}]}:A:h}
+    autoload -Uz "$self_dir/__env_list_enable" || return 1
+    __env_list_enable "$var" "$arrname" "$sep"
+
+    # Snapshot -> modify -> assign back (triggers -U on assignment)
+    local -a arr
+    arr=( ${(P)arrname} )
+
+    local v
+    for v in "$@"; do
+      [[ -n $v ]] || continue
+      if [[ $mode == append ]]; then
+        arr+=("$v")
+      else
+        arr=("$v" "${arr[@]}")
+      fi
+    done
+
+    # Safe assignment back; ${(q)...} quotes each element.
+    eval "$arrname=(${(q)arr[@]})"
+  } always {
+    # Self-unload: this function is autoloaded ad-hoc by the caller.
+    # Removing the definition here does NOT affect this ongoing invocation,
+    # but keeps the functions table clean; the next call will autoload again.
+    unfunction __env_list_add
+  }
+}

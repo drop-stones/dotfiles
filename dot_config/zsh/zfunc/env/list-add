@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+
+# list-add
+# Purpose:
+# - Append (default) or prepend values to a separator-delimited environment variable.
+# - Delegates to lib/__env_list_add and inherits its CLI and semantics.
+#
+# Usage:
+#   list-add VAR [-p|--prepend] [-a|--append] [--sep SEP] [--] VALUE [VALUE ...]
+#
+# Behavior:
+# - Defaults to append; use -p/--prepend to add to the front.
+# - Uniqueness via array -U (first occurrence wins); original order preserved.
+# - Lazy tie: the array tied to VAR is ${VAR:l} (lowercased name).
+# - Separator defaults to ":" unless overridden by --sep SEP.
+#
+# Notes:
+# - Options and values are passed through to __env_list_add unchanged.
+# - self_dir resolves to this file's directory, independent of the caller.
+# - __env_list_add is autoloaded on demand and performs the actual updates.
+# - Values containing the separator must be handled with care (quote properly).
+#
+# Examples:
+#   list-add PATH -- /opt/bin /usr/local/bin
+#   list-add FPATH --sep ":" -- ~/.zfunc
+#   list-add MANPATH -p -- /opt/share/man
+
+function list-add {
+  emulate -L zsh
+
+  local -r self_dir=${${functions_source[${funcstack[1]}]}:A:h}
+  autoload -Uz "$self_dir/lib/__env_list_add" || return 1
+  __env_list_add "$@"
+}

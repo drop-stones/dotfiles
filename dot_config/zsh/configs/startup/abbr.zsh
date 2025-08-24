@@ -27,7 +27,7 @@ abbr -S lt="$eza_command --tree"
 
 # bat
 abbr -S --quieter -f cat="bat"
-if [[ -z "$MSYSTEM" ]]; then
+if ! is-msys2; then
   abbr -S --quieter -f man="batman"
 fi
 

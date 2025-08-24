@@ -1,4 +1,4 @@
-if [[ -n "$MSYSTEM" ]]; then
+if is-msys2; then
   FZF_PATH_SEPARATOR='//'
 else
   FZF_PATH_SEPARATOR='/'

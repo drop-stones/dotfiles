@@ -70,3 +70,26 @@ function Install-WingetPackage([string[]] $Packages) {
 function Install-WingetPackageList([string] $PackageList) {
   Install-Packages $PackageList (Get-Command Test-IsWingetPackageInstalled).ScriptBlock (Get-Command Test-IsWingetPackageAvailable).ScriptBlock (Get-Command Install-WingetPackage).ScriptBlock
 }
+
+##############################################
+# msys2
+##############################################
+
+function Test-IsMsys2PackageInstalled([string] $Package) {
+  msys2 -lc "pacman -Qi $Package &>/dev/null"
+  return $LASTEXITCODE -eq 0
+}
+
+function Test-IsMsys2PackageAvailable([string] $Package) {
+  msys2 -lc "pacman -Si $Package &>/dev/null"
+  return $LASTEXITCODE -eq 0
+}
+
+function Install-Msys2Package([string] $Package) {
+  msys2 -lc "pacman -S --noconfirm $Package"
+}
+
+function Install-Msys2PackageList([string] $PackageList) {
+  msys2 -lc "pacman -Sy" # Update package databases information
+  Install-Packages $PackageList (Get-Command Test-IsMsys2PackageInstalled).ScriptBlock (Get-Command Test-IsMsys2PackageAvailable).ScriptBlock (Get-Command Install-Msys2Package).ScriptBlock
+}

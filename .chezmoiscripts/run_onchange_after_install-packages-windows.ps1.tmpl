@@ -115,6 +115,9 @@ Write-Host @"
 
 "@
 
+# Install packages using msys2
+Install-Msys2PackageList "$ListDir/msys2_packages.lst"
+
 # Create symlink for msys2
 $Msys2HomePath = "$HOME\scoop\apps\msys2\current\home\$env:username"
 New-SymlinkIfMissing -TargetPath $HOME -LinkPath $Msys2HomePath

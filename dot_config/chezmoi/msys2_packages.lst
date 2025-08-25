@@ -1,4 +1,5 @@
 # -------------------------------------------------- // Shell
+fish                                                  # friendly interactive shell
 zsh                                                   # z shell
 # -------------------------------------------------- // Development
 man-db                                                # manual page database

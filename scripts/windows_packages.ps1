@@ -20,19 +20,11 @@ function Add-ScoopBucket([string] $Bucket, [string] $Url) {
 
 function Test-IsPackageInstalled([string] $Package) {
   # skip header by `Select-Object -Skip 1`
-  if (scoop list $Package 6>&1 | Select-Object -Skip 1 | Select-String -Quiet $Package) {
-    return $true
-  } else {
-    return $false
-  }
+  scoop list $Package 6>&1 | Select-Object -Skip 1 | Select-String -Quiet $Package
 }
 
 function Test-IsPackageAvailable([string] $Package) {
-  if (scoop search $Package 6>&1 | Select-Object -Skip 1 | Select-String -Quiet $Package) {
-    return $true
-  } else {
-    return $false
-  }
+  scoop search $Package 6>&1 | Select-Object -Skip 1 | Select-String -Quiet $Package
 }
 
 function Install-Package([string[]] $Packages) {
@@ -48,19 +40,12 @@ function Install-PackageList([string] $PackageList) {
 ##############################################
 
 function Test-IsWingetPackageInstalled([string] $Package) {
-  if ((winget list) -match 'winget$' | Select-String -Quiet $Package) {
-    return $true
-  } else {
-    return $false
-  }
+  (winget list) -match 'winget$' | Select-String -Quiet $Package
 }
 
 function Test-IsWingetPackageAvailable([string] $Package) {
-  if (winget search $Package | Out-Null) {
-    return $true
-  } else {
-    return $false
-  }
+  winget search $Package | Out-Null
+  $LASTEXITCODE -eq 0
 }
 
 function Install-WingetPackage([string[]] $Packages) {

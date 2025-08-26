@@ -14,5 +14,8 @@ $ProfileDir = "$env:USERPROFILE/Documents/PowerShellProfile/"
 # Load profile-specific scripts (general environment setup, config, etc.)
 Import-Profiles (Join-Path $ProfileDir "profiles")
 
+# Load custom functions from separate directory
+Import-Profiles (Join-Path $ProfileDir "functions")
+
 # Remove the temporary Import-Profiles helper to avoid polluting global function scope
 Remove-Item -Path function:\Import-Profiles -ErrorAction SilentlyContinue

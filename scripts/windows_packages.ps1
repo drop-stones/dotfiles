@@ -20,11 +20,13 @@ function Add-ScoopBucket([string] $Bucket, [string] $Url) {
 
 function Test-IsPackageInstalled([string] $Package) {
   # skip header by `Select-Object -Skip 1`
-  scoop list $Package 6>&1 | Select-Object -Skip 1 | Select-String -Quiet $Package
+  scoop list $Package 6>&1 | Select-Object -Skip 1 | Where-Object { $_.Name -eq $Package } | ForEach-Object { return $True }
+  return $False
 }
 
 function Test-IsPackageAvailable([string] $Package) {
-  scoop search $Package 6>&1 | Select-Object -Skip 1 | Select-String -Quiet $Package
+  scoop search $Package 6>&1 | Select-Object -Skip 1 | Where-Object { $_.Name -eq $Package } | ForEach-Object { return $True }
+  return $False
 }
 
 function Install-Package([string[]] $Packages) {

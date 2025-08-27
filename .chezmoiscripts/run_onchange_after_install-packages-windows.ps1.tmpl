@@ -7,6 +7,7 @@ $ScriptDir = "$env:USERPROFILE/.local/share/chezmoi/scripts"
 . "$ScriptDir/rust_packages.ps1"
 . "$ScriptDir/configure_cli.ps1"
 . "$ScriptDir/configure_browser.ps1"
+. "$ScriptDir/fish.ps1"
 
 Write-Host @"
 
@@ -121,5 +122,17 @@ Install-Msys2PackageList "$ListDir/msys2_packages.lst"
 # Create symlink for msys2
 $Msys2HomePath = "$HOME\scoop\apps\msys2\current\home\$env:username"
 New-SymlinkIfMissing -TargetPath $HOME -LinkPath $Msys2HomePath
+
+Write-Host @"
+
+ __ _     _
+| _|_|___| |_
+| _| |_ -|   |
+|_||_|___|_|_|
+
+
+"@
+
+Update-Fish
 
 {{- end -}}

@@ -8,6 +8,7 @@ source "$script_dir/linux_packages.sh"
 source "$script_dir/rust_packages.sh"
 source "$script_dir/configure_cli.sh"
 source "$script_dir/configure_browser.sh"
+source "$script_dir/fish.sh"
 source "$script_dir/wsl2.sh"
 
 cat <<"EOF"
@@ -66,6 +67,18 @@ EOF
 # CLI configurations
 build_bat_cache
 install_navi_repository "https://github.com/drop-stones/cheats.git" "drop-stones__cheats"
+
+cat <<"EOF"
+
+ __ _     _
+| _|_|___| |_
+| _| |_ -|   |
+|_||_|___|_|_|
+
+
+EOF
+
+update_fish
 
 if is_wsl2; then
   cat <<"EOF"

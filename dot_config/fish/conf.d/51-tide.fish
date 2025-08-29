@@ -1,11 +1,6 @@
-# exit if not interactive
-if not status is-interactive
-    exit
-end
-
 # exit if already initialized
 if set -q __tide_user_initialized
-    exit
+    return
 end
 
 # initialization

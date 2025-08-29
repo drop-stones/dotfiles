@@ -1,0 +1,1 @@
+# Local Settings for Fish

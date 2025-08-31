@@ -9,3 +9,9 @@ add_wslenv LS_COLORS/w
 
 # zellij
 add_wslenv ZELLIJ/w ZELLIJ_SESSION_NAME/w ZELLIJ_PANE_ID/w
+
+# fish-wsl-wrapper
+wsl_wrapper_register git
+wsl_wrapper_register rg
+wsl_wrapper_register fd --win_extra="--path-separator=/"
+wsl_wrapper_register eza

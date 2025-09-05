@@ -8,3 +8,9 @@ end
 ##############################################
 
 fish_vi_key_bindings
+
+##############################################
+# zoxide: A smarter cd command
+##############################################
+
+initcache source zoxide init fish

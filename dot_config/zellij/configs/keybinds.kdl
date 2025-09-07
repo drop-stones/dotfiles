@@ -1,0 +1,167 @@
+keybinds clear-defaults=true {
+  normal {
+    // switch to other modes
+    bind "r" { SwitchToMode "Resize"; }
+    bind "p" { SwitchToMode "Pane"; }
+    bind "m" { SwitchToMode "Move"; }
+    bind "t" { SwitchToMode "Tab"; }
+    bind "s" { SwitchToMode "Scroll"; }
+    bind "o" { SwitchToMode "Session"; }
+    // focus pane
+    bind "h" { MoveFocus "Left"; }
+    bind "j" { MoveFocus "Down"; }
+    bind "k" { MoveFocus "Up"; }
+    bind "l" { MoveFocus "Right"; }
+    // focus tab
+    bind "H" { GoToPreviousTab; }
+    bind "L" { GoToNextTab; }
+  }
+  locked {
+    bind "Ctrl g" { SwitchToMode "Normal"; }
+  }
+  resize {
+    // resize pane by direction
+    bind "h" { Resize "Increase Left"; }
+    bind "j" { Resize "Increase Down"; }
+    bind "k" { Resize "Increase Up"; }
+    bind "l" { Resize "Increase Right"; }
+    // resize pane by amount
+    bind "+" "=" { Resize "Increase"; }
+    bind "-" { Resize "Decrease"; }
+  }
+  pane {
+    // focus pane
+    bind "h" { MoveFocus "Left"; }
+    bind "j" { MoveFocus "Down"; }
+    bind "k" { MoveFocus "Up"; }
+    bind "l" { MoveFocus "Right"; }
+    // new pane
+    bind "n" { NewPane; SwitchToMode "Locked"; }
+    bind "s" { NewPane "Down"; SwitchToMode "Locked"; }
+    bind "v" { NewPane "Right"; SwitchToMode "Locked"; }
+    bind "t" { NewPane "stacked"; SwitchToMode "Locked"; }
+    // close pane
+    bind "d" { CloseFocus; SwitchToMode "Locked"; }
+    // rename pane
+    bind "r" { SwitchToMode "RenamePane"; PaneNameInput 0; }
+    // fullscreen, embed, floating frames
+    bind "f" { ToggleFocusFullscreen; SwitchToMode "Locked"; }
+    bind "w" { ToggleFloatingPanes; SwitchToMode "Locked"; }
+    bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Locked"; }
+  }
+  move {
+    // move pane by direction
+    bind "h" { MovePane "Left"; }
+    bind "j" { MovePane "Down"; }
+    bind "k" { MovePane "Up"; }
+    bind "l" { MovePane "Right"; }
+    // move tab
+    bind "H" { MoveTab "Left"; }
+    bind "L" { MoveTab "Right"; }
+  }
+  tab {
+    // new tab
+    bind "n" { NewTab; SwitchToMode "Locked"; }
+    // close tab
+    bind "d" { CloseTab; SwitchToMode "Locked"; }
+    // focus tab by direction
+    bind "h" { GoToPreviousTab; }
+    bind "l" { GoToNextTab; }
+    // rename tab
+    bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
+    // sync input between all panes in tab
+    bind "s" { ToggleActiveSyncTab; SwitchToMode "Locked"; }
+    // break pane to new tab
+    bind "b" { BreakPane; SwitchToMode "Locked"; }
+  }
+  scroll {
+    // open in editor
+    bind "e" { EditScrollback; SwitchToMode "Locked"; }
+    // entersearch
+    bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
+  }
+  search {
+    // switch to other modes
+    bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
+    bind "Esc" { SwitchToMode "Scroll"; }
+    // next/previous search result
+    bind "n" { Search "Down"; }
+    bind "N" { Search "Up"; }
+    // search options
+    bind "c" { SearchToggleOption "CaseSensitivity"; }
+    bind "w" { SearchToggleOption "Wrap"; }
+    bind "o" { SearchToggleOption "WholeWord"; }
+  }
+  entersearch {
+    bind "Esc" { SwitchToMode "Scroll"; }
+    bind "Enter" { SwitchToMode "Search"; }
+  }
+  renametab {
+    bind "Esc" { UndoRenameTab; SwitchToMode "Tab"; }
+  }
+  renamepane {
+    bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
+  }
+  session {
+    // detach
+    bind "d" { Detach; }
+    // session manager
+    bind "w" {
+      LaunchOrFocusPlugin "session-manager" {
+        floating true
+        move_to_focused_tab true
+      }
+      SwitchToMode "Locked"
+    }
+    // configuration
+    bind "c" {
+      LaunchOrFocusPlugin "configuration" {
+        floating true
+        move_to_focused_tab true
+      }
+      SwitchToMode "Locked"
+    }
+    // plugin manager
+    bind "p" {
+      LaunchOrFocusPlugin "plugin-manager" {
+        floating true
+        move_to_focused_tab true
+      }
+      SwitchToMode "Locked"
+    }
+    // about
+    bind "a" {
+      LaunchOrFocusPlugin "zellij:about" {
+        floating true
+        move_to_focused_tab true
+      };
+      SwitchToMode "Locked"
+    }
+    // share
+    bind "s" {
+      LaunchOrFocusPlugin "zellij:share" {
+        floating true
+        move_to_focused_tab true
+      };
+      SwitchToMode "Locked"
+    }
+  }
+  shared {
+    bind "Ctrl q" { Quit; }
+  }
+  shared_except "locked" {
+    bind "Enter" "Esc" { SwitchToMode "Locked"; }
+  }
+  shared_among "scroll" "search" {
+    // scroll
+    bind "j" { ScrollDown; }
+    bind "k" { ScrollUp; }
+    // scroll by larger amounts
+    bind "Ctrl d" { HalfPageScrollDown; }
+    bind "Ctrl u" { HalfPageScrollUp; }
+    // scroll to top/bottom
+    bind "G" { ScrollToBottom; }
+    bind "g" { ScrollToTop; }
+    bind "Esc" { ScrollToBottom; SwitchToMode "Locked"; }
+  }
+}

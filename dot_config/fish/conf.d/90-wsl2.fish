@@ -15,3 +15,6 @@ wsl_wrapper_register git
 wsl_wrapper_register rg
 wsl_wrapper_register fd --win_extra="--path-separator=/"
 wsl_wrapper_register eza
+
+# alias
+alias msys2 "cmd.exe /c msys2.cmd -use-full-path -shell fish"

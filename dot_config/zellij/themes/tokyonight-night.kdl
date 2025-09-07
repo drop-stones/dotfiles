@@ -1,0 +1,133 @@
+themes {
+  tokyonight-night {
+    // General text colors
+    text_unselected {
+      base 192 202 245            // #c0caf5
+      background 26 27 38         // #1a1b26 (used as text color in search highlight)
+      emphasis_0 255 158 100      // active search bg = #ff9e64 (orange)
+      emphasis_1 42 195 222       // cyan accent
+      emphasis_2 140 165 240      // inactive search bg ≈ #8ca5f0 (light‑medium blue)
+      emphasis_3 187 154 247      // magenta accent
+    }
+
+    // Selected text block (eg. visual selection within Zellij UI)
+    text_selected {
+      base 192 202 245
+      background 56 62 90         // calm blue-gray #383e5a
+      emphasis_0 255 158 100
+      emphasis_1 42 195 222
+      emphasis_2 110 138 207
+      emphasis_3 187 154 247
+    }
+
+    // Tabs / status segments
+    ribbon_unselected {
+      base 56 62 90
+      background 169 177 214
+      emphasis_0 249 51 87
+      emphasis_1 192 202 245
+      emphasis_2 122 162 247
+      emphasis_3 187 154 247
+    }
+    ribbon_selected {
+      base 192 202 245
+      background 56 62 90
+      emphasis_0 249 51 87
+      emphasis_1 255 158 100
+      emphasis_2 187 154 247
+      emphasis_3 122 162 247
+    }
+
+    // Tables / lists
+    table_title {
+      base 158 206 106
+      background 0
+      emphasis_0 255 158 100
+      emphasis_1 42 195 222
+      emphasis_2 158 206 106
+      emphasis_3 187 154 247
+    }
+    table_cell_unselected {
+      base 192 202 245
+      background 26 27 38
+      emphasis_0 255 158 100
+      emphasis_1 42 195 222
+      emphasis_2 110 138 207
+      emphasis_3 187 154 247
+    }
+    table_cell_selected {
+      base 192 202 245
+      background 56 62 90
+      emphasis_0 255 158 100
+      emphasis_1 42 195 222
+      emphasis_2 110 138 207
+      emphasis_3 187 154 247
+    }
+    list_unselected {
+      base 192 202 245
+      background 26 27 38
+      emphasis_0 255 158 100
+      emphasis_1 42 195 222
+      emphasis_2 110 138 207
+      emphasis_3 187 154 247
+    }
+    list_selected {
+      base 192 202 245
+      background 56 62 90
+      emphasis_0 255 158 100
+      emphasis_1 42 195 222
+      emphasis_2 110 138 207
+      emphasis_3 187 154 247
+    }
+
+    // Pane frames
+    frame_selected {
+      base 122 162 247             // blue frame
+      background 0
+      emphasis_0 255 158 100
+      emphasis_1 42 195 222
+      emphasis_2 187 154 247
+      emphasis_3 0
+    }
+    frame_highlight {
+      base 255 158 100             // keep orange highlight
+      background 0
+      emphasis_0 187 154 247
+      emphasis_1 255 158 100
+      emphasis_2 255 158 100
+      emphasis_3 255 158 100
+    }
+
+    // Exit codes
+    exit_code_success {
+      base 158 206 106
+      background 0
+      emphasis_0 42 195 222
+      emphasis_1 56 62 90
+      emphasis_2 187 154 247
+      emphasis_3 122 162 247
+    }
+    exit_code_error {
+      base 249 51 87
+      background 0
+      emphasis_0 224 175 104
+      emphasis_1 0
+      emphasis_2 0
+      emphasis_3 0
+    }
+
+    // Multiplayer user colors
+    multiplayer_user_colors {
+      player_1 187 154 247
+      player_2 122 162 247
+      player_3 0
+      player_4 224 175 104
+      player_5 42 195 222
+      player_6 0
+      player_7 249 51 87
+      player_8 0
+      player_9 0
+      player_10 0
+    }
+  }
+}

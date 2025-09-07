@@ -1,14 +1,13 @@
-{{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ if eq .osid "wsl-arch" }}
 layout {
-  pane size=1 borderless=true {
-    plugin location="tab-bar"
-  }
-  pane
-  pane size=1 borderless=true {
-    plugin location="status-bar"
+  tab name="pwsh" {
+    pane {
+      name "pwsh"
+      command "pwsh.exe"
+    }
+    pane size=1 borderless=true {
+      plugin location="compact-bar"
+    }
   }
 }
-
-default_shell "pwsh.exe"
-default_cwd {{ .windowsHome | quote }}
 {{ end }}

@@ -21,3 +21,6 @@ wslwrap register cargo
 wslwrap register lazygit
 ## windows
 wslwrap register wsl --mode windows
+
+# alias
+alias msys2 "cmd.exe /c msys2.cmd -use-full-path -shell fish"

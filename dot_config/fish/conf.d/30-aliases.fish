@@ -18,3 +18,6 @@ abbr --add lt eza --icons --group-directories-first --tree
 
 # bat
 abbr --add cat bat
+
+# zoxide
+abbr --add cd z

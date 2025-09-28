@@ -16,11 +16,20 @@ wslwrap register git
 wslwrap register rg
 wslwrap register fd --path-separator=/
 wslwrap register eza
+wslwrap register bat
 wslwrap register nvim
 wslwrap register cargo
+wslwrap register rustup
 wslwrap register lazygit
+wslwrap register dust
+wslwrap register duf
+wslwrap register dua
 ## windows
+wslwrap register explorer --mode windows
 wslwrap register wsl --mode windows
+## symlink
+wslwrap link win32yank.exe
+wslwrap link cmd.exe
 
 # alias
 alias msys2 "cmd.exe /c msys2.cmd -use-full-path -shell fish"

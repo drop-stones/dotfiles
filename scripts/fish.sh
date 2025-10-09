@@ -8,6 +8,27 @@ fi
 # fish
 ##############################################
 
+function change_shell_to_fish() {
+  local current_shell
+  current_shell=$(basename "$SHELL")
+
+  # Skip if already using fish
+  if [[ "$current_shell" == "fish" ]]; then
+    print_log -y "[skip] " "default shell is already fish"
+    return 0
+  fi
+
+  local fish_path
+  fish_path=$(command -v fish)
+
+  print_log -b "[shell] " "change default shell to fish..."
+  if chsh -s "$fish_path"; then
+    print_log -g "[shell] " "default shell changed to fish successfully"
+  else
+    print_log -r "[error] " "failed to change default shell"
+  fi
+}
+
 function update_fish() {
   print_log -b "[symlink] " "fisher update"
   fish -lc "fisher update"

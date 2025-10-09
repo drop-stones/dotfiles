@@ -17,7 +17,7 @@
 # Disable specific steps - same options as the command line flag
 {{ if eq .chezmoi.os "windows" }}
 disable = ["microsoft_store"]
-{{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ else if eq .osid "wsl-arch" }}
 disable = ["containers"]
 {{ end }}
 

@@ -7,13 +7,6 @@
   {{ $signingkey = promptStringOnce . "signingkey" "Please input the signingkey for 1password" }}
 {{ end }}
 
-{{ $home := "" }}
-{{ if eq .chezmoi.os "windows" }}
-  {{ $home = output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | replace "\\" "/" | trim }}
-{{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
-  {{ $home = output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | trim | output "wslpath" "-u" | trim }}
-{{ end }}
-
 {{ $osid := .chezmoi.os }}
 {{ if eq .chezmoi.os "linux" }}
 {{   if .chezmoi.kernel.osrelease | lower | contains "microsoft" }}
@@ -23,12 +16,19 @@
 {{   end }}
 {{ end }}
 
+{{ $home := "" }}
+{{ if eq .chezmoi.os "windows" }}
+  {{ $home = output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | replace "\\" "/" | trim }}
+{{ else if eq $osid "wsl-arch" }}
+  {{ $home = output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | trim | output "wslpath" "-u" | trim }}
+{{ end }}
+
 [data]
   email = {{ $email | quote }}
   username = {{ $username | quote }}
   osid = {{ $osid | quote }}
 
-{{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ if eq .osid "wsl-arch" }}
   windowsHome = {{ $home | quote }}
 {{ end }}
 
@@ -39,7 +39,7 @@
 {{   if eq .chezmoi.os "windows" }}
   {{ $gpg_ssh_program := print $home "/AppData/Local/1Password/app/8/op-ssh-sign.exe" }}
   gpg_ssh_program = {{ $gpg_ssh_program | quote }}
-{{   else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{   else if eq .osid "wsl-arch" }}
   {{ $gpg_ssh_program := print $home "/AppData/Local/1Password/app/8/op-ssh-sign-wsl" }}
   gpg_ssh_program = {{ $gpg_ssh_program | quote }}
 {{   else if eq .chezmoi.os "darwin" }}
@@ -51,7 +51,7 @@
 
 {{ if eq .chezmoi.os "windows" }}
   pasteCommand = "win32yank.exe -o"
-{{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ else if eq .osid "wsl-arch" }}
   pasteCommand = "win32yank.exe -o --lf"
 {{ else if eq .chezmoi.os "darwin" }}
   pasteCommand = "pbpaste"

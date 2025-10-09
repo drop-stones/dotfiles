@@ -1,0 +1,22 @@
+[opener]
+edit = [
+  { run = 'fish -c "nvim (wslpath -w \"$1\")"', desc = "Edit", block = true, for = "linux" },
+  { run = 'nvim %*', desc = "Edit", block = true, for = "windows" },
+]
+open = [
+  { run = 'fish -c "explorer (wslpath -w \"$1\")"', desc = "Open in default program", orphan = true, for = "linux" },
+  { run = 'explorer "%1"', desc = "Open in default program", orphan = true, for = "windows" },
+]
+reveal = [
+  { run = 'fish -c "explorer /select,(wslpath -w \"$1\")"', desc = "Reveal", orphan = true, for = "linux" },
+  { run = 'explorer /select,"%1"', desc = "Reveal", orphan = true, for = "windows" },
+]
+
+[open]
+prepend_rules = [
+  # Visual Studio
+  { name = "*.sln", use = ["open", "edit"] },
+  { name = "*.csproj", use = ["open", "edit"] },
+  # Batch file
+  { name = "*.bat", use = ["open", "edit"] },
+]

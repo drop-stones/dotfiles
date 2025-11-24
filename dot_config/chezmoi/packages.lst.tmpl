@@ -28,6 +28,11 @@ python                                                # python
 nodejs                                                # Node.js
 {{ else }}
 npm                                                   # package manager for javascript
+{{ if eq .chezmoi.os "linux" }}
+dotnet-sdk                                            # .NET SDK
+{{ else if eq .osid "darwin" }}
+dotnet                                                # .NET SDK
+{{ end }}
 {{ end }}
 
 # -------------------------------------------------- // Command-Line Utilities

@@ -30,10 +30,14 @@ function os_name
             case 'linux*'
                 echo linux
                 return
-            case 'darwin*'
-                echo darwin
-                return
         end
+    end
+
+    set -l kernel (uname -s)
+    switch $kernel
+        case Darwin
+            echo macos
+            return
     end
 
     echo unknown

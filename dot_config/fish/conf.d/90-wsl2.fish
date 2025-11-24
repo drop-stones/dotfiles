@@ -25,11 +25,16 @@ wslwrap register dust
 wslwrap register duf
 wslwrap register dua
 ## windows
+wslwrap register powershell --mode windows
+wslwrap register pwsh --mode windows
+wslwrap register cmd --mode windows
 wslwrap register explorer --mode windows
 wslwrap register wsl --mode windows
 ## symlink
 wslwrap link win32yank.exe
 wslwrap link cmd.exe
+wslwrap link powershell.exe
+wslwrap link pwsh.exe
 
 # alias
 alias msys2 "cmd.exe /c msys2.cmd -use-full-path -shell fish"

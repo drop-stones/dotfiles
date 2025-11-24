@@ -37,10 +37,10 @@
 {{ if eq $use_1password true }}
   signingkey = {{ $signingkey | quote }}
 {{   if eq .chezmoi.os "windows" }}
-  {{ $gpg_ssh_program := print $home "/AppData/Local/1Password/app/8/op-ssh-sign.exe" }}
+  {{ $gpg_ssh_program := print $home "/AppData/Local/Microsoft/WindowsApps/op-ssh-sign.exe" }}
   gpg_ssh_program = {{ $gpg_ssh_program | quote }}
-  {{ $gpg_ssh_program := print $home "/AppData/Local/1Password/app/8/op-ssh-sign-wsl" }}
 {{   else if eq $osid "wsl-arch" }}
+  {{ $gpg_ssh_program := print $home "/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe" }}
   gpg_ssh_program = {{ $gpg_ssh_program | quote }}
 {{   else if eq .chezmoi.os "darwin" }}
   gpg_ssh_program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"

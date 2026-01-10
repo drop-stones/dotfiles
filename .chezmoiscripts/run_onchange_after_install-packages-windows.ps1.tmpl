@@ -8,6 +8,7 @@ $ScriptDir = "$env:USERPROFILE/.local/share/chezmoi/scripts"
 . "$ScriptDir/configure_cli.ps1"
 . "$ScriptDir/configure_browser.ps1"
 . "$ScriptDir/fish.ps1"
+. "$ScriptDir/wsl.ps1"
 
 Write-Host @"
 
@@ -134,5 +135,16 @@ Write-Host @"
 "@
 
 Update-Fish
+
+Write-Host @"
+            _   ___
+ _ __ _ ___| | '__ |
+| |  | |_ -| | | __'
+ \_/\_/|___|_| |___|
+
+
+"@
+
+Install-NixOSDistro
 
 {{- end -}}

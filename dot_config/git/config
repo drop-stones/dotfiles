@@ -1,0 +1,21 @@
+[user]
+    email = "s2h6i8z1u7k8u7@gmail.com"
+    name = "drop-stones"
+
+[credential]
+        helper = manager
+
+[user]
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOlftWsuO8svvievtqfCj6civRTSU+DCqThc23AGbWtp
+
+[gpg]
+  format = ssh
+
+[gpg "ssh"]
+  program = "op-ssh-sign.exe"
+
+[commit]
+  gpgsign = true
+
+[core]
+  sshCommand = "C:/Windows/System32/OpenSSH/ssh.exe"

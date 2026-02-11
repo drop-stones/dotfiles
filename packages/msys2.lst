@@ -1,6 +1,6 @@
 # -------------------------------------------------- // Shell
 fish                                                  # friendly interactive shell
 fisher                                                # a plugin manager for fish
-zsh                                                   # z shell
+
 # -------------------------------------------------- // Development
 man-db                                                # manual page database

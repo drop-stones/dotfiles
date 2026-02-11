@@ -1,2 +1,5 @@
 # -------------------------------------------------- // Development
 Microsoft.DotNet.SDK.9                                # .NET Framework
+
+# -------------------------------------------------- // Apps
+AgileBits.1Password                                   # Password Manager

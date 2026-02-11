@@ -24,14 +24,6 @@ Documents/
 .config/wezterm/
 {{ end }}
 
-{{ if eq .osid "darwin" }}
-# Hide on macOS
-.config/rustfmt/
-{{ else }}
-# MacOS only
-Library/
-{{ end }}
-
 {{ if or (ne .email "s2h6i8z1u7k8u7@gmail.com") (eq .osid "wsl-arch") }}
 .config/obsidian/vaults
 {{ end }}

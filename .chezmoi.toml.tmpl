@@ -42,8 +42,6 @@
 {{   else if eq $osid "wsl-arch" }}
   {{ $gpg_ssh_program := print $home "/AppData/Local/Microsoft/WindowsApps/op-ssh-sign-wsl.exe" }}
   gpg_ssh_program = {{ $gpg_ssh_program | quote }}
-{{   else if eq .chezmoi.os "darwin" }}
-  gpg_ssh_program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 {{   else if eq .chezmoi.os "linux" }}
   gpg_ssh_program = "/opt/1Password/op-ssh-sign"
 {{   end }}
@@ -53,8 +51,6 @@
   pasteCommand = "win32yank.exe -o"
 {{ else if eq $osid "wsl-arch" }}
   pasteCommand = "win32yank.exe -o --lf"
-{{ else if eq .chezmoi.os "darwin" }}
-  pasteCommand = "pbpaste"
 {{ else if eq .chezmoi.os "linux" }}
   pasteCommand = "wl-paste -n"
 {{ end }}

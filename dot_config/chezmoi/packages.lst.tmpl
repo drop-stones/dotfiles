@@ -30,8 +30,6 @@ nodejs                                                # Node.js
 npm                                                   # package manager for javascript
 {{ if eq .chezmoi.os "linux" }}
 dotnet-sdk                                            # .NET SDK
-{{ else if eq .osid "darwin" }}
-dotnet                                                # .NET SDK
 {{ end }}
 {{ end }}
 
@@ -90,11 +88,6 @@ fish                                                  # friendly interactive she
 fisher                                                # a plugin manager for fish
 man-db                                                # manual page database
 llvm                                                  # llvm compiler Infrastructure project
-{{ end }}
-
-{{ if eq .osid "darwin" }}
-# -------------------------------------------------- // Mac Specific
-font-0xproto-nerd-font                                # nerd font
 {{ end }}
 
 {{ if eq .chezmoi.os "linux" }}

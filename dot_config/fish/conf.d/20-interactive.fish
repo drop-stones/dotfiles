@@ -17,9 +17,3 @@ initcache source zoxide init fish
 
 # except msys2
 string match -q msys2 (os_name); and return
-
-##############################################
-# mise: The front-end to your dev env
-##############################################
-
-initcache source mise activate fish

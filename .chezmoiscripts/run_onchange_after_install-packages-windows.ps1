@@ -21,7 +21,6 @@ Write-Host @"
 # Add extras bucket
 Add-ScoopBucket extras
 Add-ScoopBucket nerd-fonts
-Add-ScoopBucket drop-stones-bucket https://github.com/drop-stones/scoop-bucket
 
 Write-Host @"
 

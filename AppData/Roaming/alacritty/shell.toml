@@ -1,7 +1,5 @@
 [terminal]
 shell = { program = "wsl.exe", args = [
-  "--distribution",
-  "NixOS",
   "--cd",
   "~",
   "--exec",

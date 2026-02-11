@@ -63,4 +63,7 @@ function Install-NixOSDistro {
 
   Write-LogMessage -b "[cleanup] " "removing temporary files..."
   Remove-Item -Force $assetName
+
+  Write-LogMessage -b "[set] " "setting defalt WSL distro to $distroName"
+  wsl.exe --set-default $distroName
 }

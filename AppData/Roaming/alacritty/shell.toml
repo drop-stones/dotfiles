@@ -1,0 +1,9 @@
+[terminal]
+shell = { program = "wsl.exe", args = [
+  "--distribution",
+  "NixOS",
+  "--cd",
+  "~",
+  "--exec",
+  "/etc/profiles/per-user/drop-stones/bin/zellij",
+] }

@@ -95,20 +95,6 @@ EOF
   WIN_USER_PROFILE="$(wslpath "$(pwsh.exe -NoProfile -NonInteractive -Command "\$Env:UserProfile")" | tr -d '\r')"
   ensure_symlink "$WIN_USER_PROFILE/.config/obsidian/vaults" "$HOME/.config/obsidian/vaults"
 
-else
-  cat <<"EOF"
-
- _                 _     _
-| |_ ___ ___ ___ _| |___| |_ ___
-|   | | | . |  _| . | . |  _|_ -|
-|_|_|_  |  _|_| |___|___|_| |___|
-    |___|_|
-
-
-EOF
-
-  # Desktop Arch Linux only
-  $HOME/.local/share/hyprdots/Scripts/install.zsh
 fi
 
 {{- end -}}

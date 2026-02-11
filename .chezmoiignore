@@ -2,28 +2,6 @@ README.md
 TODO.md
 scripts/
 
-{{ if eq .osid "windows" }}
-# Hide on windows
-.config/alacritty/
-.config/bat/
-.config/direnv/
-.config/navi/
-.config/rustfmt/
-.config/topgrade/
-.config/zellij/
-{{ else }}
-# Windows only
-.config/starship.toml/
-AppData/
-Documents/
-{{ end }}
-
-{{ if eq .osid "wsl-arch" }}
-# Hide on WSL2
-.config/alacritty/
-.config/wezterm/
-{{ end }}
-
 {{ if or (ne .email "s2h6i8z1u7k8u7@gmail.com") (eq .osid "wsl-arch") }}
 .config/obsidian/vaults
 {{ end }}

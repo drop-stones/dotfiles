@@ -11,11 +11,7 @@ just                                                  # task runner
 sqlite                                                # database
 chafa                                                 # image previewer
 lazygit                                               # terminal ui for git
-{{ if eq .osid "windows" }}
 delta                                                 # git diff pager
-{{ else }}
-git-delta                                             # git diff pager
-{{ end }}
 
 # -------------------------------------------------- // Programming Language
 rustup                                                # rust
@@ -24,20 +20,10 @@ lua-language-server                                   # lua lsp
 luarocks                                              # package manager for lua
 go                                                    # go
 python                                                # python
-{{ if eq .osid "windows" }}
 nodejs                                                # Node.js
-{{ else }}
-npm                                                   # package manager for javascript
-{{ if eq .chezmoi.os "linux" }}
-dotnet-sdk                                            # .NET SDK
-{{ end }}
-{{ end }}
 
 # -------------------------------------------------- // Command-Line Utilities
 bat                                                   # cat(1) clone
-{{ if ne .osid "windows" }}
-bat-extras                                            # bat integration
-{{ end }}
 eza                                                   # ls(1) alternative
 fd                                                    # find(1) alternative
 ripgrep                                               # grep(1) alternative
@@ -52,23 +38,12 @@ hyperfine                                             # benchmarking tool
 bottom                                                # process/system monitor
 dust                                                  # du(1) alternative
 duf                                                   # disk usage/free utility
-{{ if eq .osid "windows" }}
 dua                                                   # disk usage analyzer
-{{ else }}
-dua-cli                                               # disk usage analyzer
-{{ end }}
 
 # -------------------------------------------------- // Terminal & Shell
-{{ if ne .osid "wsl-arch" }}
 alacritty                                             # opengl terminal emulator
 obsidian                                              # note taking
-{{ end }}
-{{ if ne .osid "windows" }}
-zellij                                                # terminal multiplexer
-thefuck                                               # correct previous console command
-{{ end }}
 
-{{ if eq .osid "windows" }}
 # -------------------------------------------------- // Windows Specific
 0xProto-NF                                            # nerd font
 starship                                              # shell prompt
@@ -79,29 +54,5 @@ msys2                                                 # gnu for windows
 powertoys                                             # Windows system utilities
 sqlite3dll                                            # database
 win32yank                                             # windows clipboard tool
-archwsl                                               # ArchLinux for wsl2
 dos2unix                                              # text file converter
 kalker                                                # arithmetic calculator
-{{ else }}
-# -------------------------------------------------- // Except for Windows
-fish                                                  # friendly interactive shell
-fisher                                                # a plugin manager for fish
-man-db                                                # manual page database
-llvm                                                  # llvm compiler Infrastructure project
-{{ end }}
-
-{{ if eq .chezmoi.os "linux" }}
-# -------------------------------------------------- // Linux Specific
-man-pages                                             # manual page
-clang                                                 # c/c++ compiler based on llvm
-{{ end }}
-
-{{ if eq .osid "wsl-arch" }}
-# -------------------------------------------------- // WSL2 Specific
-dos2unix                                              # test file converter
-{{ end }}
-
-{{ if eq .osid "linus-arch" }}
-# -------------------------------------------------- // Linux Desktop Specific
-ttf-0xproto-nerd                                      # nerd font
-{{ end }}

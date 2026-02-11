@@ -1,9 +1,0 @@
-#!/usr/bin/env zsh
-
-function is-wayland() {
-  emulate -L zsh
-
-  [[ -n $WAYLAND_DISPLAY ]] && return 0
-
-  return 1
-}

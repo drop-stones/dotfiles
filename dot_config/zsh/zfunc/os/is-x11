@@ -1,9 +1,0 @@
-#!/usr/bin/env zsh
-
-function is-x11 {
-  emulate -L zsh
-
-  [[ -n ${DISPLAY} || ${XDG_SESSION_TYPE} == x11 ]] && return 0
-
-  return 1
-}

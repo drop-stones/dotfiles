@@ -14,6 +14,3 @@ fish_vi_key_bindings
 ##############################################
 
 initcache source zoxide init fish
-
-# except msys2
-string match -q msys2 (os_name); and return

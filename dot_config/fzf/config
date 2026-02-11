@@ -28,4 +28,4 @@
 --color=spinner:#ff007c
 
 # Keybinds
---bind 'ctrl-v:transform:echo "put($({{ .pasteCommand }}))"'
+--bind 'ctrl-v:transform:echo "put(win32yank.exe -o)"'

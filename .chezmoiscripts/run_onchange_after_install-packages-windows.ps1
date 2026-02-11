@@ -1,5 +1,3 @@
-{{- if eq .chezmoi.os "windows" -}}
-
 $ListDir = "$HOME/.config/chezmoi"
 $ScriptDir = "$env:USERPROFILE/.local/share/chezmoi/scripts"
 . "$ScriptDir/utils.ps1"
@@ -132,5 +130,3 @@ Write-Host @"
 "@
 
 Install-NixOSDistro
-
-{{- end -}}

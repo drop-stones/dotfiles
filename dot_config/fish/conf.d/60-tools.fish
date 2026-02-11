@@ -15,9 +15,3 @@ set -x FZF_DEFAULT_OPTS_FILE $HOME/.config/fzf/config
 ##############################################
 
 set -x YAZI_CONFIG_HOME $HOME/.config/yazi
-
-##############################################
-# tealdeer
-##############################################
-
-set -x TEALDEER_CONFIG_DIR $HOME/.config/tealdeer/

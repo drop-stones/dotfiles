@@ -44,4 +44,5 @@ zoxide                                                # Smater cd(1) command
 
 # -------------------------------------------------- // Apps
 alacritty                                             # opengl terminal emulator
+firefox                                               # web browser
 powertoys                                             # Windows system utilities

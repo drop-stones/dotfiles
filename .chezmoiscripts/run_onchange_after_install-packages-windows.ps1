@@ -1,5 +1,6 @@
-$ListDir = "$HOME/.config/chezmoi"
-$ScriptDir = "$env:USERPROFILE/.local/share/chezmoi/scripts"
+$ChezmoiDir = "$env:USERPROFILE/.local/share/chezmoi"
+$PackagesDir = "$ChezmoiDir/packages"
+$ScriptDir = "$ChezmoiDir/scripts"
 . "$ScriptDir/utils.ps1"
 . "$ScriptDir/windows_packages.ps1"
 . "$ScriptDir/rust_packages.ps1"
@@ -33,7 +34,7 @@ Write-Host @"
 "@
 
 # Install packages using scoop
-Install-PackageList "$ListDir/packages.lst"
+Install-PackageList "$PackagesDir/scoop.lst"
 
 Write-Host @"
 
@@ -46,7 +47,7 @@ Write-Host @"
 "@
 
 # Install packages using winget
-Install-WingetPackageList "$ListDir/winget_packages.lst"
+Install-WingetPackageList "$PackagesDir/winget.lst"
 
 Write-Host @"
 
@@ -62,7 +63,7 @@ Write-Host @"
 Install-RustupToolchains
 
 # Add rustup components
-Add-RustupComponentList "$ListDir/rustup_components.lst"
+Add-RustupComponentList "$PackagesDir/rustup.lst"
 
 Write-Host @"
 
@@ -76,7 +77,7 @@ Write-Host @"
 
 # Install packages using cargo install/binstall
 Install-CargoBinstall
-Install-CargoBinaryPackageList "$ListDir/cargo_packages.lst"
+Install-CargoBinaryPackageList "$PackagesDir/cargo.lst"
 
 Write-Host @"
 
@@ -102,7 +103,7 @@ Write-Host @"
 "@
 
 # Install packages using msys2
-Install-Msys2PackageList "$ListDir/msys2_packages.lst"
+Install-Msys2PackageList "$PackagesDir/msys2.lst"
 
 # Create symlink for msys2
 $Msys2HomePath = "$HOME\scoop\apps\msys2\current\home\$env:username"

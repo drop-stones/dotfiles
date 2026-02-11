@@ -15,24 +15,3 @@ function build_bat_cache() {
     print_log -r "[error] " "failed to build bat cache"
   fi
 }
-
-##############################################
-# navi
-##############################################
-
-function install_navi_repository() {
-  local url=$1
-  local name=$2
-
-  local cheatpath install_dir
-  cheatpath=$(navi info cheats-path)
-  install_dir="$cheatpath/$name"
-
-  if [[ -e "$install_dir" ]]; then
-    print_log -b "[pull] " "$name..."
-    git -C "$install_dir" pull >/dev/null
-  else
-    print_log -b "[clone] " "$name..."
-    git clone "$url" "$install_dir"
-  fi
-}

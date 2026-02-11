@@ -7,7 +7,6 @@ source "$script_dir/utils.sh"
 source "$script_dir/linux_packages.sh"
 source "$script_dir/rust_packages.sh"
 source "$script_dir/configure_cli.sh"
-source "$script_dir/configure_browser.sh"
 source "$script_dir/fish.sh"
 source "$script_dir/wsl2.sh"
 
@@ -97,18 +96,6 @@ EOF
   ensure_symlink "$WIN_USER_PROFILE/.config/obsidian/vaults" "$HOME/.config/obsidian/vaults"
 
 else
-  cat <<"EOF"
-
- _                                             __ _         _     _   _
-| |_ ___ ___ _ __ _ ___ ___ ___    ___ ___ ___| _|_|___ ___| |___| |_|_|___ ___
-| . |  _| . | |  | |_ -| -_|  _|  |  _| . |   | _| | . | | | | .'|  _| | . |   |
-|___|_| |___|\_/\_/|___|___|_|    |___|___|_|_|_||_|_  |___|_|__,|_| |_|___|_|_|
-                                                   |___|
-
-EOF
-
-  install_surfingkeys_config
-
   cat <<"EOF"
 
  _                 _     _

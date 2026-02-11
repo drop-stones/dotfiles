@@ -7,13 +7,6 @@
   url = "https://github.com/drop-stones/LazyVimConfig.git"
   refreshPeriod = "168h"
 
-{{ if ne .osid "wsl-arch" }}
-[".local/share/surfingkeys-config"]
-  type = "git-repo"
-  url = "https://github.com/drop-stones/surfingkeys-config.git"
-  refreshPeriod = "168h"
-{{ end }}
-
 {{ if eq .osid "linux-arch" }}
 [".local/share/hyprdots"]
   type = "git-repo"

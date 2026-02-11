@@ -44,5 +44,4 @@ zoxide                                                # Smater cd(1) command
 
 # -------------------------------------------------- // Apps
 alacritty                                             # opengl terminal emulator
-obsidian                                              # note taking
 powertoys                                             # Windows system utilities

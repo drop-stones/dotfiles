@@ -3,8 +3,8 @@
 
 # -------------------------------------------------- // Shell / Environment
 msys2                                                 # gnu for windows
+oh-my-posh                                            # prompt engine
 pwsh                                                  # powershell core
-starship                                              # shell prompt
 winget                                                # package manager
 
 # -------------------------------------------------- // Development

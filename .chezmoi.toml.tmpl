@@ -1,30 +1,3 @@
-{{ $email := promptStringOnce . "email" "What is your git email address" }}
-{{ $username := promptStringOnce . "username" "What is your git username" }}
-
-{{ $use_1password := promptBoolOnce . "use_1password" "Do you use 1password for ssh" false }}
-{{ $signingkey := "" }}
-{{ if eq $use_1password true }}
-  {{ $signingkey = promptStringOnce . "signingkey" "Please input the signingkey for 1password" }}
-{{ end }}
-
-{{ $osid := .chezmoi.os }}
-{{ $home := output "powershell.exe" "-Command" "[System.Environment]::GetEnvironmentVariable('USERPROFILE')" | replace "\\" "/" | trim }}
-
-[data]
-  email = {{ $email | quote }}
-  username = {{ $username | quote }}
-  osid = {{ $osid | quote }}
-
-  use_1password = {{ $use_1password }}
-
-{{ if eq $use_1password true }}
-  signingkey = {{ $signingkey | quote }}
-  {{ $gpg_ssh_program := print $home "/AppData/Local/Microsoft/WindowsApps/op-ssh-sign.exe" }}
-  gpg_ssh_program = {{ $gpg_ssh_program | quote }}
-{{ end }}
-
-  pasteCommand = "win32yank.exe -o"
-
 [interpreters.ps1]
   command = "powershell"
   args = ["-NoLogo"]

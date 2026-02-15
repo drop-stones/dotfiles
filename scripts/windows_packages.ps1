@@ -1,9 +1,4 @@
-$ScriptDir = "$env:USERPROFILE/.local/share/chezmoi/scripts"
-if (-not (Test-Path "$ScriptDir/utils.ps1")) {
-  Write-Host "Error: unable to source utils.ps1..." -ForegroundColor Red
-  return 1
-}
-. "$ScriptDir/utils.ps1"
+. "$PSScriptRoot/utils.ps1"
 
 ##############################################
 # scoop

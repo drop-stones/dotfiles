@@ -1,4 +1,4 @@
-$ChezmoiDir = "$env:USERPROFILE/.local/share/chezmoi"
+$ChezmoiDir = "{{ .chezmoi.sourceDir }}"
 $PackagesDir = "$ChezmoiDir/packages"
 $ScriptDir = "$ChezmoiDir/scripts"
 . "$ScriptDir/utils.ps1"

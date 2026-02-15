@@ -3,5 +3,9 @@ shell = { program = "wsl.exe", args = [
   "--cd",
   "~",
   "--exec",
+{{ if eq .secrets true }}
+  "/etc/profiles/per-user/work/bin/zellij",
+{{ else }}
   "/etc/profiles/per-user/drop-stones/bin/zellij",
+{{ end }}
 ] }

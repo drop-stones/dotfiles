@@ -17,7 +17,6 @@ tree-sitter                                           # parser generator
 win32yank                                             # windows clipboard tool
 
 # -------------------------------------------------- // Programming Language
-go                                                    # go
 nodejs                                                # Node.js
 python                                                # python
 rustup                                                # rust

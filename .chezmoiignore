@@ -4,7 +4,6 @@ packages/
 scripts/
 
 {{ if eq .work true }}
-.config/git/
 .config/lazygit/
 .config/tridactyl/
 {{ end }}

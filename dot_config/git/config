@@ -14,3 +14,8 @@
 
 [core]
   sshCommand = "C:/Windows/System32/OpenSSH/ssh.exe"
+
+# Machine-local overrides (e.g. the work identity). Silently ignored when the
+# file does not exist, so this stays a no-op on personal machines.
+[include]
+  path = ~/.config/git/config.local

@@ -9,11 +9,69 @@
 [gpg "ssh"]
   program = "op-ssh-sign.exe"
 
-[commit]
-  gpgsign = true
-
 [core]
   sshCommand = "C:/Windows/System32/OpenSSH/ssh.exe"
+  pager = delta --side-by-side --line-numbers
+
+# Push / pull / fetch
+[push]
+  autoSetupRemote = true
+[pull]
+  rebase = true
+[fetch]
+  prune = true
+
+# Rebase ergonomics
+[rebase]
+  autostash = true
+  autosquash = true
+  updateRefs = true
+
+# Diff / merge
+[diff]
+  algorithm = histogram
+  colorMoved = default
+[merge]
+  conflictStyle = zdiff3
+[rerere]
+  enabled = true
+
+# Listing / output
+[branch]
+  sort = -committerdate
+[tag]
+  sort = version:refname
+[column]
+  ui = auto
+
+# Commit / misc
+[commit]
+  gpgsign = true
+  verbose = true
+[init]
+  defaultBranch = main
+[help]
+  autocorrect = prompt
+
+# delta pager (matches nix-config: CLI view has line-numbers via the flag, while
+# the [delta] block stays line-number-free so lazygit's unified view is clean)
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  line-numbers = false
+  dark = true
+  syntax-theme = tokyonight_night
+  minus-emph-style = syntax bold "#5c1217"
+  plus-emph-style = syntax bold "#0c4612"
+  map-styles = bold purple => syntax "#3d2c52", bold cyan => syntax "#203a4d"
+  hunk-header-style = syntax
+  hunk-header-decoration-style = blue box
+  file-modified-label = 
+  file-added-label = 
+  file-removed-label = 
+  file-renamed-label = 
+  hunk-label =
 
 # Machine-local overrides (e.g. the work identity). Silently ignored when the
 # file does not exist, so this stays a no-op on personal machines.

@@ -2,3 +2,11 @@
   type = "git-repo"
   url = "https://github.com/drop-stones/nvim-config.git"
   refreshPeriod = "24h"
+
+# Files shared with nix-config, which is the single source of truth.
+# Edit them there; they are pulled from the main branch on refresh.
+
+[".config/ripgrep/config"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/drop-stones/nix-config/main/modules/home/shell/ripgrep/config/config.conf"
+  refreshPeriod = "24h"

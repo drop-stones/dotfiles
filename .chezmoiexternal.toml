@@ -10,3 +10,8 @@
   type = "file"
   url = "https://raw.githubusercontent.com/drop-stones/nix-config/main/modules/home/shell/ripgrep/config/config.conf"
   refreshPeriod = "24h"
+
+["AppData/Roaming/bat/themes/tokyonight_night.tmTheme"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/drop-stones/nix-config/main/modules/home/shell/bat/themes/tokyonight_night.tmTheme"
+  refreshPeriod = "24h"

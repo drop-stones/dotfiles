@@ -5,7 +5,7 @@ Windows dotfiles managed with [chezmoi](https://www.chezmoi.io).
 ## Features
 
 - Configuration for daily tools: fish, PowerShell, git (+ delta, lazygit),
-  alacritty, zellij, yazi, bat, fzf, ripgrep, direnv, tridactyl, and more
+  alacritty, yazi, bat, fzf, ripgrep, direnv, tridactyl, and more
 - Consistent [Tokyo Night](https://github.com/folke/tokyonight.nvim) theme
   across terminal tools
 - Automated package installation via scoop, winget, rustup, cargo, and msys2
@@ -47,7 +47,7 @@ content changes. To force a re-run, use the `chezmoi-rerun` function
 
 | Path               | Description                                                        |
 | ------------------ | ------------------------------------------------------------------ |
-| `dot_config/`      | `~/.config` — fish, git, lazygit, zellij, yazi, fzf, ripgrep, etc. |
+| `dot_config/`      | `~/.config` — fish, git, lazygit, yazi, fzf, ripgrep, etc.        |
 | `AppData/`         | Windows `AppData` — alacritty, bat                                 |
 | `Documents/`       | PowerShell profiles                                                |
 | `dot_wslconfig`    | `~/.wslconfig` — WSL2 settings                                     |

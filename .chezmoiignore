@@ -5,5 +5,7 @@ scripts/
 
 {{ if eq .work true }}
 .config/lazygit/
-.config/tridactyl/
+# only tridactylrc is owned by the work overlay; the theme.vim/bind.vim
+# externals are still deployed on work machines
+.config/tridactyl/tridactylrc
 {{ end }}

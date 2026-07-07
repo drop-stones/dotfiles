@@ -14,6 +14,9 @@ Windows dotfiles managed with [chezmoi](https://www.chezmoi.io).
 - Neovim configuration pulled from
   [nvim-config](https://github.com/drop-stones/nvim-config) as a chezmoi
   external
+- Configs shared with other platforms (ripgrep, bat theme, tridactyl) pulled
+  from [nix-config](https://github.com/drop-stones/nix-config) as chezmoi
+  externals, keeping it the single source of truth
 
 ## Requirements
 

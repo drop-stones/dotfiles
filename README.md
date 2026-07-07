@@ -1,54 +1,70 @@
-# dotfiles
+# chezmoi-config
+
+Windows dotfiles managed with [chezmoi](https://www.chezmoi.io).
+
+## Features
+
+- Configuration for daily tools: fish, PowerShell, git (+ delta, lazygit),
+  alacritty, zellij, yazi, bat, fzf, ripgrep, direnv, tridactyl, and more
+- Consistent [Tokyo Night](https://github.com/folke/tokyonight.nvim) theme
+  across terminal tools
+- Automated package installation via scoop, winget, rustup, cargo, and msys2
+- WSL2 setup: `.wslconfig` (mirrored networking) and automatic
+  [NixOS-WSL](https://github.com/nix-community/NixOS-WSL) installation
+- Neovim configuration pulled from
+  [nvim-config](https://github.com/drop-stones/nvim-config) as a chezmoi
+  external
 
 ## Requirements
 
-Package Manager:
-
-- [`scoop`](https://scoop.sh) in Windows
-- [`brew`](https://brew.sh) in Mac
-- [`pacman`](https://wiki.archlinux.org/title/Pacman) in Arch Linux
-
-dotfiles Tools: [`chezmoi`](https://www.chezmoi.io)
+- Windows
+- [scoop](https://scoop.sh)
+- [chezmoi](https://www.chezmoi.io) (`scoop install chezmoi`)
 
 ## Installation
 
-At initialization, some configuration questions are asked.
-
 ```console
-$ chezmoi init https://github.com/drop-stones/dotfiles.git
-What is your git email address? <your email>
-What is your git username? <your username>
-Do you enable core.autocrlf of git? <true or false>
-Do you use 1password for ssh? <true or false>
-...
+chezmoi init --apply git@github.com:drop-stones/chezmoi-config.git
 ```
 
-After initialization, you can install the dotfiles by the following command.
+`chezmoi apply` deploys the dotfiles and runs the scripts in
+`.chezmoiscripts/`:
 
-```console
-chezmoi apply
-```
+- **install-packages**: adds scoop buckets (`extras`, `nerd-fonts`), installs
+  all packages listed in `packages/*.lst` (scoop, winget, rustup, cargo,
+  msys2), builds the bat cache, installs tridactyl-native, updates fish
+  plugins via fisher, and installs the NixOS-WSL distro
+- **set-env**: persists environment variables (XDG base directories, editor
+  settings, etc.) to the Windows user environment
+- **patch-msys2-shell**: patches `msys2_shell.cmd` so that msys2 shells work
+  as expected
 
-## Setup
+The scripts are `run_onchange`, so they re-run automatically when their
+content changes. To force a re-run, use the `chezmoi-rerun` function
+(available in both fish and PowerShell).
 
-### WSL2
+## Repository Structure
 
-[ArchWSL](https://github.com/yuk7/ArchWSL) is installed by `scoop` at installation.
-Setup instructions are written [here](https://github.com/wsldl-pg/ArchW-docs/blob/main/How-to-Setup.md).
+| Path               | Description                                                        |
+| ------------------ | ------------------------------------------------------------------ |
+| `dot_config/`      | `~/.config` — fish, git, lazygit, zellij, yazi, fzf, ripgrep, etc. |
+| `AppData/`         | Windows `AppData` — alacritty, bat                                 |
+| `Documents/`       | PowerShell profiles                                                |
+| `dot_wslconfig`    | `~/.wslconfig` — WSL2 settings                                     |
+| `packages/`        | Package lists for scoop, winget, rustup, cargo, and msys2          |
+| `scripts/`         | PowerShell helper functions used by `.chezmoiscripts/`             |
+| `.chezmoiscripts/` | Scripts executed on `chezmoi apply`                                |
 
-### `ssh-agent` systemd
+## Machine-Specific Configuration
 
-`ssh-agent.service` is installed to `~/.config/systemd/user/`.
+### `work` flag
 
-To activate this service, the systemd user instance must be enabled by the following command:
+`.chezmoi.toml.tmpl` defines a `work` data variable (default: `false`).
+Setting it to `true` on work machines excludes personal configurations
+(lazygit, tridactyl) from being applied.
 
-```console
-sudo systemctl enable "user@$UID"
-sudo systemctl start "user@$UID"
-```
+### Local overrides
 
-or automatic start-up by the following command:
-
-```console
-sudo loginctl enable-linger $UID
-```
+Machine-local git settings that should not be tracked by chezmoi can be
+placed in `~/.config/git/config.local`, which is included from the git
+config.

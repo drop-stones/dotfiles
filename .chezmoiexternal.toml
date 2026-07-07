@@ -15,3 +15,13 @@
   type = "file"
   url = "https://raw.githubusercontent.com/drop-stones/nix-config/main/modules/home/shell/bat/themes/tokyonight_night.tmTheme"
   refreshPeriod = "24h"
+
+[".config/tridactyl/theme.vim"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/drop-stones/nix-config/main/modules/home/apps/firefox/tridactyl/config/theme.vim"
+  refreshPeriod = "24h"
+
+[".config/tridactyl/bind.vim"]
+  type = "file"
+  url = "https://raw.githubusercontent.com/drop-stones/nix-config/main/modules/home/apps/firefox/tridactyl/config/bind.vim"
+  refreshPeriod = "24h"

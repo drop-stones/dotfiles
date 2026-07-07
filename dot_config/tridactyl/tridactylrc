@@ -1,5 +1,4 @@
-set theme midnight
-
-" Tab
-bind J tabnext
-bind K tabprev
+" The actual settings live in nix-config and are pulled in as chezmoi
+" externals; this file only stitches them together.
+source ~/.config/tridactyl/theme.vim
+source ~/.config/tridactyl/bind.vim

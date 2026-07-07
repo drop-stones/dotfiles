@@ -1,4 +1,4 @@
 [".config/nvim"]
   type = "git-repo"
   url = "https://github.com/drop-stones/nvim-config.git"
-  refreshPeriod = "168h"
+  refreshPeriod = "24h"

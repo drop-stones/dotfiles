@@ -34,17 +34,12 @@ bat                                                   # cat(1) clone
 bottom                                                # process/system monitor
 delta                                                 # git diff pager
 dos2unix                                              # text file converter
-dua                                                   # disk usage analyzer
-duf                                                   # disk usage/free utility
 eza                                                   # ls(1) alternative
 fd                                                    # find(1) alternative
 fzf                                                   # fuzzy finder
-hexyl                                                 # hex viewer
 hyperfine                                             # benchmarking tool
 just                                                  # task runner
-procs                                                 # ps(1) alternative
 ripgrep                                               # grep(1) alternative
-tokei                                                 # code statistics
 unzip                                                 # extractor
 yazi                                                  # file manager
 zoxide                                                # Smater cd(1) command

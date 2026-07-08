@@ -3,4 +3,3 @@ cargo-update                                          # update subcommand
 
 # -------------------------------------------------- // Development
 cargo-nextest                                         # test runner
-vivid                                                 # LS_COLORS generator

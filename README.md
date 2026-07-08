@@ -8,7 +8,7 @@ Windows dotfiles managed with [chezmoi](https://www.chezmoi.io).
   alacritty, yazi, bat, fzf, ripgrep, direnv, tridactyl, and more
 - Consistent [Tokyo Night](https://github.com/folke/tokyonight.nvim) theme
   across terminal tools
-- Automated package installation via scoop, winget, rustup, cargo, and msys2
+- Automated package installation via scoop, winget, rustup, and msys2
 - WSL2 setup: `.wslconfig` (mirrored networking) and automatic
   [NixOS-WSL](https://github.com/nix-community/NixOS-WSL) installation
 - Neovim configuration pulled from
@@ -34,8 +34,8 @@ chezmoi init --apply git@github.com:drop-stones/chezmoi-config.git
 `.chezmoiscripts/`:
 
 - **install-packages**: adds scoop buckets (`extras`, `nerd-fonts`), installs
-  all packages listed in `packages/*.lst` (scoop, winget, rustup, cargo,
-  msys2), builds the bat cache, installs tridactyl-native, updates fish
+  all packages listed in `packages/*.lst` (scoop, winget, rustup, msys2),
+  builds the bat cache, installs tridactyl-native, updates fish
   plugins via fisher, and installs the NixOS-WSL distro
 - **set-env**: persists environment variables (XDG base directories, editor
   settings, etc.) to the Windows user environment
@@ -54,7 +54,7 @@ content changes. To force a re-run, use the `chezmoi-rerun` function
 | `AppData/`         | Windows `AppData` — alacritty, bat                                 |
 | `Documents/`       | PowerShell profiles                                                |
 | `dot_wslconfig`    | `~/.wslconfig` — WSL2 settings                                     |
-| `packages/`        | Package lists for scoop, winget, rustup, cargo, and msys2          |
+| `packages/`        | Package lists for scoop, winget, rustup, and msys2                 |
 | `scripts/`         | PowerShell helper functions used by `.chezmoiscripts/`             |
 | `.chezmoiscripts/` | Scripts executed on `chezmoi apply`                                |
 

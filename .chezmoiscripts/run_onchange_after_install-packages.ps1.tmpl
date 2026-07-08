@@ -67,20 +67,6 @@ Add-RustupComponentList "$PackagesDir/rustup.lst"
 
 Write-Host @"
 
-
- ___ ___ ___ ___ ___
-|  _| .'|  _| . | . |
-|___|__,|_| |_  |___|
-            |___|
-
-"@
-
-# Install packages using cargo install/binstall
-Install-CargoBinstall
-Install-CargoBinaryPackageList "$PackagesDir/cargo.lst"
-
-Write-Host @"
-
      _ _                __ _         _     _   _
  ___| |_|   ___ ___ ___| _|_|___ ___| |___| |_|_|___ ___
 |  _| | |  |  _| . |   | _| | . | | | | .'|  _| | . |   |

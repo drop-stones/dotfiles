@@ -1,50 +1,6 @@
 . "$PSScriptRoot/utils.ps1"
 
 ##############################################
-# cargo
-##############################################
-
-function Test-IsCargoPackageInstalled([string] $Package) {
-  if (cargo install --list --quiet | Select-String -Quiet $Package) {
-    return $true
-  } else {
-    return $false
-  }
-}
-
-function Test-IsCargoPackageAvailable([string] $Package) {
-  if (cargo search --quiet $Package | Select-String -Quiet $Package) {
-    return $true
-  } else {
-    return $false
-  }
-}
-
-function Install-CargoPackage([string[]] $Packages) {
-  cargo install --locked $Packages
-}
-
-function Install-CargoBinaryPackage([string[]] $Packages) {
-  cargo binstall --locked --no-confirm $Packages
-}
-
-function Install-CargoBinstall() {
-  if (Test-IsCargoPackageInstalled cargo-binstall) {
-    Write-LogMessage -y "[skip] " "cargo-binstall"
-  } else {
-    Install-CargoPackage cargo-binstall
-  }
-}
-
-function Install-CargoPackageList([string] $PackageList) {
-  Install-Packages $PackageList (Get-Command Test-IsCargoPackageInstalled).ScriptBlock (Get-Command Test-IsCargoPackageAvailable).ScriptBlock (Get-Command Install-CargoPackage).ScriptBlock
-}
-
-function Install-CargoBinaryPackageList([string] $PackageList) {
-  Install-Packages $PackageList (Get-Command Test-IsCargoPackageInstalled).ScriptBlock (Get-Command Test-IsCargoPackageAvailable).ScriptBlock (Get-Command Install-CargoBinaryPackage).ScriptBlock
-}
-
-##############################################
 # rustup
 ##############################################
 

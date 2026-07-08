@@ -1,5 +1,0 @@
-# -------------------------------------------------- // Package Updater
-cargo-update                                          # update subcommand
-
-# -------------------------------------------------- // Development
-cargo-nextest                                         # test runner

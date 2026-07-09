@@ -35,16 +35,20 @@ chezmoi init --apply git@github.com:drop-stones/chezmoi-config.git
 
 - **install-packages**: adds scoop buckets (`extras`, `nerd-fonts`), installs
   all packages listed in `packages/*.lst` (scoop, winget, rustup, msys2),
-  builds the bat cache, installs tridactyl-native, updates fish
-  plugins via fisher, and installs the NixOS-WSL distro
+  installs tridactyl-native, updates fish plugins via fisher, and installs
+  the NixOS-WSL distro
+- **build-bat-cache**: rebuilds the bat theme cache on every apply, since the
+  theme is pulled in as a chezmoi external (which never triggers `run_onchange`
+  scripts)
 - **set-env**: persists environment variables (XDG base directories, editor
   settings, etc.) to the Windows user environment
 - **patch-msys2-shell**: patches `msys2_shell.cmd` so that msys2 shells work
   as expected
 
-The scripts are `run_onchange`, so they re-run automatically when their
-content changes. To force a re-run, use the `chezmoi-rerun` function
-(available in both fish and PowerShell).
+Except for `build-bat-cache` (which runs on every apply), the scripts are
+`run_onchange`, so they re-run automatically when their content changes. To
+force a re-run, use the `chezmoi-rerun` function (available in both fish and
+PowerShell).
 
 ## Repository Structure
 

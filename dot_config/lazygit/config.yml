@@ -1,2 +1,17 @@
 gui:
   language: "en"
+  # Render Nerd Font icons (0xProto Nerd Font is installed)
+  nerdFontsVersion: "3"
+
+git:
+  # Use delta as the diff pager so lazygit matches git's diff output.
+  # delta inherits the [delta] options from gitconfig.
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never
+
+# lazygit is managed by scoop; disable self-update checks
+update:
+  method: never
+
+disableStartupPopups: true
